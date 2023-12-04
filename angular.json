@@ -87,8 +87,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
-            ],
+              "src/styles.css",
+              "src/assets/css/vendor/plugins.min.css",
+              "src/assets/css/style.min.css"
+                        ],
             "scripts": []
           }
         }
