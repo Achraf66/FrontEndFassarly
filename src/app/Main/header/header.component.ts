@@ -7,9 +7,5 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-constructor(private title:Title){
 
-  title.setTitle(" فسرلي | المواد")
-
-}
 }

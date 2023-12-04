@@ -7,6 +7,10 @@ const routes: Routes = [
     path: 'matieres',
     loadChildren: () => import('./modules/matieres/matieres.module').then(m => m.MatieresModule)
   },
+  {
+    path: 'themes',
+    loadChildren: () => import('./modules/matieres/matieres.module').then(m => m.MatieresModule)
+  },
   { path: '**', component: Page404Component }
 
 ];
