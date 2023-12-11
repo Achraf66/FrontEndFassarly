@@ -8,6 +8,7 @@ import { Page404Component } from './ExtraPages/page404/page404.component';
 import { HeaderComponent } from './Main/header/header.component';
 import { FooterComponent } from './Main/footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    BrowserAnimationsModule
     ],
   providers: [],
   bootstrap: [AppComponent]
