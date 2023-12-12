@@ -1,7 +1,7 @@
-import { Component, OnInit, Sanitizer, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { CalendarEvent } from 'angular-calendar';
+import { CalendarEvent, CalendarView } from 'angular-calendar';
 
 @Component({
   selector: 'app-lesson',
@@ -12,6 +12,8 @@ import { CalendarEvent } from 'angular-calendar';
 
 
 export class LessonComponent implements OnInit{
+
+  view: CalendarView = CalendarView.Month;
 
   videoUrl:any
   videoid :any ;
