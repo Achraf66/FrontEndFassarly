@@ -6,8 +6,7 @@ import { CalendarEvent, CalendarView } from 'angular-calendar';
 @Component({
   selector: 'app-lesson',
   templateUrl: './lesson.component.html',
-  styleUrls: ['./lesson.component.css'],
-  encapsulation:ViewEncapsulation.None,
+  styleUrls: ['./lesson.component.css']
 })
 
 

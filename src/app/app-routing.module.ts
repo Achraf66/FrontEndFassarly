@@ -11,6 +11,10 @@ const routes: Routes = [
     path: 'themes',
     loadChildren: () => import('./modules/matieres/matieres.module').then(m => m.MatieresModule)
   },
+  {
+    path: 'auth',
+    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+  },
   { path: '**', component: Page404Component }
 
 ];

@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -13,7 +16,10 @@ import { RegisterComponent } from './register/register.component';
   ],
   imports: [
     CommonModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    FormsModule,
+    HttpClientModule,ReactiveFormsModule,DropdownModule
   ]
+
 })
 export class AuthModule { }
