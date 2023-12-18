@@ -8,6 +8,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DropdownModule } from 'primeng/dropdown';
 
+import {  InputGroupModule } from 'primeng/inputgroup';
+import {  InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { PasswordModule } from 'primeng/password';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,7 @@ import { DropdownModule } from 'primeng/dropdown';
     CommonModule,
     AuthRoutingModule,
     FormsModule,
-    HttpClientModule,ReactiveFormsModule,DropdownModule
+    HttpClientModule,ReactiveFormsModule,DropdownModule,InputGroupAddonModule,InputGroupModule,PasswordModule,InputTextModule
   ]
 
 })

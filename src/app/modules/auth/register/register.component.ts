@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { RegisterRequest } from '../models/RegisterRequest';
 import { RoleService } from '../services/role.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -44,25 +44,20 @@ export class RegisterComponent implements OnInit{
     data=>this.roles = data
 
    )
-    const passwordRegexPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
 
     
     this.signupForm = this.formBuilder.group({
       numtel: ['', [Validators.required, Validators.maxLength(8),Validators.minLength(8)]],
-      password: ['', [Validators.required,Validators.minLength(8),Validators.pattern(passwordRegexPattern)]],
+      password: ['', [Validators.required,Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required],
       firstname : ['', Validators.required],
       lastname : ['', Validators.required],
-      roles: [[] ,Validators.required ]
-    }, { validators: this.passwordsMatch });
+      roles: [[] ,Validators.required ]}
+    ,      {validators: this.passwordMatchValidator});
 
-
-    // this.signupForm = this.formBuilder.group({
-    //   numtel: new FormControl('', Validators.required),
-    //   password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    //   firstname : new FormControl('', Validators.required),
-    //   lastname : new FormControl('', Validators.required),
-    //   roles: [[] ,new FormControl('', Validators.required) ]
-    // }, { validators: this.passwordsMatch });
+    
+        this.passwordControl = this.signupForm.get('password');
+    this.confirmPasswordControl = this.signupForm.get('confirmPassword');
 
 
   }
@@ -70,7 +65,13 @@ export class RegisterComponent implements OnInit{
   get f() { return this.signupForm.controls; }
 
 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
 
 
 
@@ -89,10 +90,34 @@ export class RegisterComponent implements OnInit{
     };
   
   
-      console.log(formData)
       this.authenticationService.register(formData).subscribe(
 
-        (data)=>console.log(data)
+        data=>{
+          if (data.errormessage === 'Some roles are not valid.') {
+            Swal.fire({
+              icon: 'error',
+              title: 'خطأ',
+              text: 'خطأ في اختيار المستوى الأكاديمي باللغة العربية',
+            });
+          }
+          if (data.successmessage === 'User Already Exisits') {
+            Swal.fire({
+              icon: 'warning',
+              title: 'تحذير',
+              text: 'الرقم الذي تم إدخاله مستخدم بالفعل. يرجى استخدام رقم هاتف آخر.'
+            });            
+          }
+
+          if(data.successmessage === 'Register Success'){
+            Swal.fire({
+              icon: 'success',
+              title: 'نجاح',
+              text: 'تم تسجيل المستخدم بنجاح',
+            });
+          }
+
+        }
+        
 
       )
     
@@ -103,16 +128,11 @@ export class RegisterComponent implements OnInit{
 
 
 
-  passwordsMatch(control: AbstractControl): { [key: string]: any } | null {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirmPassword');
+    passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
   
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      return { 'passwordsNotMatch': true };
-    }
-  
-    return null;
-  }
-  
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  };
 
 }

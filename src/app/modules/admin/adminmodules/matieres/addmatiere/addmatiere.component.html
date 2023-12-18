@@ -1,0 +1,37 @@
+
+  <div class="form-wrapper">
+    <form  [formGroup]="MatiereForm" (ngSubmit)="OnSubmit()" >
+        <!-- Single Form Start -->
+        <div class="single-form">
+            <div class="p-field">
+                <label for="inputField">إسم المادة</label>
+                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="إسم المادة" formControlName="nomMatiere" />
+              </div>
+        </div>
+
+        <!-- Single Form Start -->
+        <div class="single-form">
+            <label for="demo">صورة الخلفية</label>
+            <!-- <p-fileUpload
+            type="file"
+            formControlName="file"
+            mode="basic"
+            name="demo[]"
+            url="https://www.primefaces.org/cdn/api/upload.php"
+            accept="image/*"
+            (onUpload)="onUpload($event)"
+            [auto]="true"
+            chooseLabel="إختيار الصورة"
+            ng-deep
+            [style]="{ 'background-color': 'green' }"
+            ></p-fileUpload> -->
+            <input  formControlName="file" type="file">File
+                  </div>
+        
+        <div class="single-form" style="padding: 20px; border-radius: 5px; text-align: center;">
+            <button class="btn btn-success btn-hover-dark w-100"
+            type="submit"
+            >إضافة</button>
+        </div>
+    </form>
+</div>

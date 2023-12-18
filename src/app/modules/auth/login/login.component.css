@@ -1,0 +1,46 @@
+.rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+
+.ltr {
+ float:right;
+}
+
+
+
+label {
+    color: green;
+    font-weight: 100;
+}
+
+.phone-input {
+    display: flex;
+    align-items: center;
+}
+
+.country-code {
+    padding-right: 5px;
+}
+
+
+.single-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px; /* Adjust as needed for spacing between forms */
+  }
+  
+  .password-input {
+    width: 100%; /* Ensure the password input takes the full width */
+  }
+  
+  .full-width {
+    width: 100%; /* Ensure both input fields take the full width */
+  }
+  
+  .single-form label {
+    margin-bottom: 5px;
+  }
+  
+  

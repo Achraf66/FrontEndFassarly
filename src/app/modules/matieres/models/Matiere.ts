@@ -1,5 +1,5 @@
 export class Matiere{
-    id: number
-    nomMatiere: string 
-    photo: string
+    id: number;
+    nomMatiere:string; 
+    photo: string;
 }

@@ -1,1 +1,89 @@
-<p>login works!</p>
+<body>
+
+    <div class="main-wrapper">
+
+
+        <!-- Register & Login Start -->
+        <div class="section section-padding">
+            <div class="container">
+
+                <!-- Register & Login Wrapper Start -->
+                <div class="register-login-wrapper">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+
+                            <!-- Register & Login Images Start -->
+                            <div class="register-login-images">
+                                <div class="animation-up shape-3">
+                                    <img src="assets/images/logo.png" alt="Shape">
+                                </div>
+
+
+                                <div class="images">
+                                    <img src="assets/images/teacher2.png" alt="Register Login">
+                                </div>
+                            </div>
+                            <!-- Register & Login Images End -->
+
+                        </div>
+                        <div class="col-lg-6 rtl">
+
+                            <!-- Register & Login Form Start -->
+                            <div class="register-login-form">
+                                <h3 class="title">تسجيل  <span>الدخول</span></h3>
+
+                                <div class="form-wrapper">
+                                    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" >
+                                    <!-- Single Form Start -->
+                                    <div class="single-form">
+                                        <label for="numtel">رقم الهاتف</label>
+                                        <input pInputText pKeyFilter="int" name="numtel" 
+                                         placeholder="+216" formControlName="numtel" 
+                                        />
+                                    
+                                    </div>
+                                    <!-- Single Form End -->
+                                    
+                                    <!-- Single Form Start -->
+                                    <div class="single-form">
+                                        <label for="password">كلمة المرور</label>
+                                        <div class="password-input">
+                                        <p-password
+                                            promptLabel="كلمة المرور"
+                                            formControlName="password"
+                                            [toggleMask]="true"
+                                            [style]="{'width':'100%'}"
+                                            [feedback]="false"
+                                            ></p-password>
+                                        </div>
+                                    </div>
+                                    <!-- Single Form End -->
+                                          <!-- Single Form Start -->
+                                        <div class="single-form">
+                                            <button  type="submit" class="btn btn-primary btn-hover-dark w-100">تسجيل الدخول</button>
+                                            <h3 style="margin-top: 10px;">هل ليس لديك حساب؟ <a href="/auth/register" style="color: #28a745; border-color: #28a745;">تسجيل حساب جديد</a></h3>
+                                        </div>
+                                        <!-- Single Form End -->
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Register & Login Form End -->
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Register & Login Wrapper End -->
+
+            </div>
+        </div>
+        <!-- Register & Login End -->
+
+
+
+    </div>
+
+
+
+ 
+
+</body>
