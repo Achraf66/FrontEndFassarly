@@ -1,6 +1,5 @@
-
-  <div class="form-wrapper">
-    <form  [formGroup]="MatiereForm" (ngSubmit)="OnSubmit()" >
+<div class="form-wrapper">
+    <form  [formGroup]="matiereForm" (ngSubmit)="saveChanges()" >
         <!-- Single Form Start -->
         <div class="single-form">
             <div class="p-field">
@@ -12,22 +11,12 @@
         <!-- Single Form Start -->
         <div class="single-form">
             <label for="demo">صورة الخلفية</label>
-            <!-- <p-fileUpload
-            type="file"
-            formControlName="file"
-            mode="basic"
-            name="demo[]"
-            url="https://www.primefaces.org/cdn/api/upload.php"
-            accept="image/*"
-            (onUpload)="onUpload($event)"
-            [auto]="true"
-            chooseLabel="إختيار الصورة"
-            ng-deep
-            [style]="{ 'background-color': 'green' }"
-            ></p-fileUpload> -->
-            <input  formControlName="file" type="file">File
-                  </div>
-        
+            <input (change)="onFileSelected($event)"  accept="image/*" type="file">صورة الخلفية    
+        </div>
+        <img [src]="imagePreview" alt="Preview" *ngIf="imagePreview" />
+        <img *ngIf="!imagePreview" [src]="baseImageUrl+'/'+matiere.nomMatiere+'/'+ matiere.photo" alt="{{ matiere.nomMatiere }} Photo">
+
+
         <div class="single-form" style="padding: 20px; border-radius: 5px; text-align: center;">
             <button class="btn btn-success btn-hover-dark w-100"
             type="submit"

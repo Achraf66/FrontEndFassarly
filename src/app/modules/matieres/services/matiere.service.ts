@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Matiere } from '../models/Matiere';
 import { Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

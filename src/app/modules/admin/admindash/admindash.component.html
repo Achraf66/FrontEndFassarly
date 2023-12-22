@@ -4,6 +4,7 @@
 <div class="col-lg-2">
 </div>
 <div class="col-lg-8">
-<app-users></app-users>
+<app-users *ngIf="selectedItem === 'allUsers'"></app-users>
+<app-getallmatieres *ngIf="selectedItem === 'allMatiere'"></app-getallmatieres>
 </div>
 </div>

@@ -13,7 +13,7 @@
             <th>الاسم واللقب</th>
             <th>رقم الهاتف</th>
             <th>المستوى</th>
-            <th>Reviews</th>
+            <th>المحاسبات</th>
             <th>Status</th>
         </tr>
     </ng-template>
@@ -28,7 +28,7 @@
                   <span *ngIf="!last">| </span>
                 </span>
               </td>
-             <td></td>
+             <td><a (click)="openModalComptabilite(student.id,student.nomPrenom,student.numeroTel)" style="background-color: transparent; border: 0cap;"><i class="pi pi-calculator"></i></a></td>
             <td></td>      
             <!-- <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
             <td>{{product.price | currency:'USD'}}</td>

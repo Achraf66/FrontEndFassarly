@@ -1,0 +1,31 @@
+<p-table [value]="matieres"  [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [tableStyle]="{'min-width': '60rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>إسم المادة</th>
+            <th>صورة الخلفية</th>
+            <th colspan="2" >أجراءات</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-matiere>
+        <tr>
+            <td>{{matiere.nomMatiere}}</td>
+            <td>
+                <img height="100px" [src]="baseImageUrl + '/' + matiere.nomMatiere + '/' + matiere.photo" alt="{{ matiere.nomMatiere }} Photo">
+            </td>
+            <td>
+                <a  (click)="deleteMatiere(matiere.id)">
+                    <i class="pi pi-trash" style="color:red"></i> 
+                </a>
+            </td>
+            <td>
+                <a  (click)="modifyMatiere(matiere.id)">
+                    <i class="pi pi-pencil" style="color:green"></i> 
+                </a>
+            </td>        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            إجمالي عدد المواد {{ matieres ? matieres.length : 0 }}
+        </div>
+    </ng-template>
+</p-table>

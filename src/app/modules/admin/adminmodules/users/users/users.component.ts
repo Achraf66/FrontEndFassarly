@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/User';
 import { UsersService } from '../services/users.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ComptabiliteuserComponent } from '../comptabiliteuser/comptabiliteuser.component';
 
 @Component({
   selector: 'app-users',
@@ -9,9 +11,9 @@ import { UsersService } from '../services/users.service';
 })
 export class UsersComponent implements OnInit{
 
-  
+ 
   Students:User[];
-  constructor(private userService:UsersService){
+  constructor(private userService:UsersService,private dialogService:DialogService){
 
     
   }
@@ -33,4 +35,34 @@ export class UsersComponent implements OnInit{
       }
     );
   }
+
+
+   openModalComptabilite(idUser:number,nomPrenom:string,numtel:string): void {
+    const ref = this.dialogService.open(ComptabiliteuserComponent, {
+      header: 'المحاسبات',
+      width: '70%',
+      height: '70%',
+      data: {
+        idUser: idUser,
+        nomPrenom:nomPrenom,
+        numtel:numtel
+            },
+    });
+  
+    ref.onClose.subscribe((idUser:number) => {
+
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 }

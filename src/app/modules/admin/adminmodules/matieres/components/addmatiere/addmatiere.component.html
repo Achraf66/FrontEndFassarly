@@ -1,0 +1,25 @@
+
+  <div class="form-wrapper">
+    <form  [formGroup]="MatiereForm" (ngSubmit)="OnSubmit()" >
+        <!-- Single Form Start -->
+        <div class="single-form">
+            <div class="p-field">
+                <label for="inputField">إسم المادة</label>
+                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="إسم المادة" formControlName="nomMatiere" />
+              </div>
+        </div>
+
+        <!-- Single Form Start -->
+        <div class="single-form">
+            <label for="demo">صورة الخلفية</label>
+            <input (change)="onFileSelected($event)"  accept="image/*" type="file">صورة الخلفية    
+        </div>
+        <img [src]="imagePreview" alt="Preview" *ngIf="imagePreview" />
+
+        <div class="single-form" style="padding: 20px; border-radius: 5px; text-align: center;">
+            <button class="btn btn-success btn-hover-dark w-100"
+            type="submit"
+            >إضافة</button>
+        </div>
+    </form>
+</div>
