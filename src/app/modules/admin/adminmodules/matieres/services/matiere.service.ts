@@ -67,5 +67,12 @@ DeleteMatiereById(matiereId:number)
 
 }
 
+getMatiereBynom(nomMatiere: string):Observable<Matiere[]>
+{
+  return this.http.get<Matiere[]>(`${this.BASEURL}/api/matiere/getMatiereByNom/${nomMatiere}`)
+}
+
+
+
 
 }

@@ -1,0 +1,25 @@
+<!-- <p>edit-theme works!</p>
+{{idTheme}}
+
+{{Theme?.nomTheme}} -->
+
+<form (ngSubmit)="updateNameTheme(nameTheme)">
+    <div class="single-form">
+      <label for="inputField">إسم المحور</label>
+      <div class="p-field">
+        <input pInputText
+               type="text"
+               id="inputField"
+               name="nameTheme" 
+               [(ngModel)]="nameTheme"
+               class="p-inputtext-lg"
+               placeholder="إسم المحور" />
+      </div>
+    </div>
+  
+    <div class="single-form" style="padding: 10px; border-radius: 5px; text-align: center;">
+      <button class="btn btn-success btn-hover-dark w-50" type="submit">تغيير</button>
+    </div>
+  </form>
+  
+  

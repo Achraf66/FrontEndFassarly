@@ -1,0 +1,32 @@
+<!-- add-theme-to-matiere.component.html -->
+
+<form [formGroup]="ThemeForm" (ngSubmit)="onSubmit()">
+    <div class="single-form">
+      <label for="nomTheme">إسم المحور</label>
+      <div class="p-field">
+        <input
+          pInputText
+          formControlName="nomTheme"
+          type="text"
+          id="nomTheme"
+          class="p-inputtext-lg"
+          placeholder="إسم المحور"
+        />
+        <div
+        *ngIf="ThemeForm.get('nomTheme')?.hasError('required') && ThemeForm.get('nomTheme')?.touched"
+        class="text-danger"
+        >
+          إسم المحور مطلوب.
+        </div>
+      </div>
+    </div>
+  
+    <!-- Add more form controls as needed -->
+  
+    <div class="single-form" style="padding: 10px; border-radius: 5px; text-align: center;">
+      <button class="btn btn-success btn-hover-dark w-50" type="submit" [disabled]="ThemeForm.invalid">
+        إضافة
+      </button>
+    </div>
+  </form>
+  

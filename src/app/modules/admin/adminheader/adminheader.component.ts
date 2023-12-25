@@ -3,7 +3,6 @@ import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddmatiereComponent } from '../adminmodules/matieres/components/addmatiere/addmatiere.component';
 import { MenuService } from '../adminmodules/users/services/MenuService';
-import { AddcomptabiliteComponent } from '../adminmodules/comptabilites/components/addcomptabilite/addcomptabilite.component';
 
 @Component({
   selector: 'app-adminheader',
@@ -64,24 +63,7 @@ export class AdminheaderComponent  implements OnInit{
           ]
       }
       ,
-        {
 
-          
-            label: 'محاسبة',
-            icon: 'pi pi-fw pi-file',
-            items: [
-                {
-                    label: 'إضافة محاسبة',
-                    icon: 'pi pi-fw pi-plus',
-                    command:(event)=>{
-
-                        this.openModalAddComptabilite()
-                      }
-                }
-      
-            ]
-        
-        },
         
 
         {
@@ -98,6 +80,9 @@ export class AdminheaderComponent  implements OnInit{
                 {
                     label: 'جميع المحاور',
                     icon: 'pi pi-list',
+                    command: (event) => {
+                      this.menuService.setSelectedItem('allThemes');
+                    }
   
                 }, 
 
@@ -128,6 +113,32 @@ export class AdminheaderComponent  implements OnInit{
             ]
         
         },
+
+        {
+
+          
+          label: 'الرسائل',
+          icon: 'pi pi-comments',
+          items: [
+              {
+                  // label: 'إضافة محاسبة',
+                  // icon: 'pi pi-fw pi-plus',
+                  // command:(event)=>{
+
+                  //     this.openModalAddComptabilite()
+                  //   }
+              }
+    
+          ]
+      
+      },
+      {
+
+          
+        label: 'خروج',
+        icon: 'pi pi-fw pi-power-off'
+    
+    }
      
     ];
 
@@ -150,15 +161,15 @@ openModalAddMatiere(): void {
 
 
 /************************Add Comptabiltie Component Modal******* */
-openModalAddComptabilite(): void {
-    const ref= this.dialogService.open(AddcomptabiliteComponent, {
-       header: 'إضافة إشتراك في مادة', 
-       width: '40%',
-       height:'60%',
-       dismissableMask: true  
-     });
+// openModalAddComptabilite(): void {
+//     const ref= this.dialogService.open(AddcomptabiliteComponent, {
+//        header: 'إضافة إشتراك في مادة', 
+//        width: '40%',
+//        height:'60%',
+//        dismissableMask: true  
+//      });
    
-   }
+//    }
 /************************************************************** */
 
 

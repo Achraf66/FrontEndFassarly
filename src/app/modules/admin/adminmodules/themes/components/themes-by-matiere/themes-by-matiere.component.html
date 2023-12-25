@@ -1,0 +1,91 @@
+<!-- <p>themes-by-matiere works!</p>
+{{matiereId}}
+{{matierenom}} -->
+
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+
+<p-table [value]="themes" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}" [paginator]="true"  [rowHover]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [tableStyle]="{ 'min-width': '50rem' }">
+    [scrollable]="true" scrollHeight="500px" 
+[rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]" 
+
+
+    <ng-template pTemplate="caption">
+        <div class="text-center">
+          <h2> محاور مادة </h2>
+          <h2 style="color: green;">{{ title }}</h2>
+          <div class="flex">
+            <button
+              (click)="fetchThemes(matiereId)"
+              style="border-radius: 80%;"
+              pButton
+              label="إلغاء البحث"
+              class="p-button-outlined"
+              icon="pi pi-filter-slash"
+            ></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      
+            <span class="p-input-icon-left ml-auto">
+              <i></i>
+              <input [(ngModel)]="searchTerm" type="text" required />
+              <button
+                (click)="findThemesSearch(searchTerm)"
+                [disabled]="!searchTerm"
+                style="border-radius: 80%;"
+              >
+                <i class="icofont-search"></i>
+              </button>
+            </span>
+
+          </div>
+        </div>
+      </ng-template>
+      
+    
+    <ng-template pTemplate="header">
+        <tr>
+        <th pSortableColumn="nomTheme">
+        <p-sortIcon></p-sortIcon>
+        إسم المحور    
+
+        </th>
+         <th colspan="2" >أجراءات</th>
+
+        </tr>
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-theme>
+        <tr>
+            <td>{{ theme.nomTheme }}</td>
+            
+                <td>
+                    <a  (click)="openModifyThemeDialog(theme.id)">
+                        <i class="pi pi-pencil" style="color:green"></i> 
+                    </a>
+                </td>
+
+            <td>
+                    <a  (click)="deletetheme($event,theme.id)">
+                        <i class="pi pi-trash" style="color:red"></i> 
+                    </a>
+            </td>
+
+        </tr>
+    </ng-template>
+
+      <ng-template pTemplate="footer">
+            <tr>
+                <td colspan="3" style="text-align: center;">
+                    <button
+                    pButton
+                    type="button"
+                    label="إضافة محور جديد"
+                    class="p-button-success"
+                    (click)="openNewAddNewThemeModal()"
+                    ></button>
+                </td>
+            </tr>
+  </ng-template>
+
+</p-table>

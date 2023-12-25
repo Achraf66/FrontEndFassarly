@@ -1,18 +1,41 @@
-<p-table [value]="matieres"  [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [tableStyle]="{'min-width': '60rem'}">
+<p-table [value]="matieres" [rowHover]="true" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="header">
         <tr>
-            <th>إسم المادة</th>
+            <th pSortableColumn="nomMatiere" >
+                <p-sortIcon ></p-sortIcon>
+                إسم المادة</th>
             <th>صورة الخلفية</th>
+            <th>فروض المادة</th>
             <th colspan="2" >أجراءات</th>
+
         </tr>
     </ng-template>
+
+    <ng-template pTemplate="caption">
+        <div class="flex">
+            <button style="border-radius: 80%;" (click)="loadMatieres()" pButton label="إلغاء البحث" class="p-button-outlined" icon="pi pi-filter-slash"></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <span class="p-input-icon-left ml-auto">
+                <i ></i>
+                <input [(ngModel)]="searchTerm" type="text" required>
+                <button style="border-radius: 80%; " (click)="SearchMatiereByNom(searchTerm)" [disabled]="!searchTerm"><i class="icofont-search"></i></button>
+            </span>
+        </div>
+    </ng-template>
+    
     <ng-template pTemplate="body" let-matiere>
         <tr>
-            <td>{{matiere.nomMatiere}}</td>
-            <td>
-
-                <p-image [preview]="true" height="100px" [src]="baseImageUrl + '/' + matiere.nomMatiere + '/' + matiere.photo" alt="{{ matiere.nomMatiere }} Photo"></p-image>
+            <td (click)="openThemesByMatiereComponenet(matiere.id,matiere.nomMatiere)">
+                    {{matiere.nomMatiere}}
             </td>
+            <td>
+                    <p-image [preview]="true" height="100px" [src]="baseImageUrl + '/' + matiere.nomMatiere + '/' + matiere.photo" alt="{{ matiere.nomMatiere }} Photo"></p-image>
+            </td>
+            <td>
+                <a (click)="openExamenByMatiere(matiere.id)">
+                    <i class="pi pi-copy"></i> فروض المادة
+                </a>    
             <td>
                 <a  (click)="deleteMatiere(matiere.id)">
                     <i class="pi pi-trash" style="color:red"></i> 

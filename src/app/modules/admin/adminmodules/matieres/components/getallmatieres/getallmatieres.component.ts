@@ -6,6 +6,9 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ModifyMatiereComponent } from '../modify-matiere/modify-matiere.component';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { ThemesByMatiereComponent } from '../../../themes/components/themes-by-matiere/themes-by-matiere.component';
+import { ExamenMatiereComponent } from '../../../exams/components/examen-matiere/examen-matiere.component';
 
 @Component({
   selector: 'app-getallmatieres',
@@ -23,6 +26,7 @@ export class GetallmatieresComponent implements OnInit, OnDestroy{
   constructor(private matiereservice:MatiereService ,
      private dialogService:DialogService,
      private cdr: ChangeDetectorRef,
+     private router:Router
      
      ){
 
@@ -119,4 +123,57 @@ export class GetallmatieresComponent implements OnInit, OnDestroy{
       }
     });
   }
+
+
+  SearchMatiereByNom(nomMatiere:string){
+
+
+    this.matiereservice.getMatiereBynom(nomMatiere).subscribe(
+
+      (data)=> {
+
+        this.matieres = data
+
+      },(error)=> {
+
+        console.log("Matiere not found")
+      }
+
+
+
+    )
+
+  }
+
+
+
+  public openThemesByMatiereComponenet(matiereid:number,matierenom:string): void {
+     this.dialogService.open(ThemesByMatiereComponent, {
+      header: 'محاور المادة',
+      width: '70%',
+      height: '100%',
+      dismissableMask:true,
+      data: {
+        matiereid:matiereid,
+        matierenom:matierenom
+      },
+    });
+
+
+}
+
+
+public openExamenByMatiere(matiereid:number): void {
+  this.dialogService.open(ExamenMatiereComponent, {
+   header: 'فروض المادة',
+   width: '85%',
+   height: '100%',
+   dismissableMask:true,
+   data: {
+     matiereid:matiereid,
+   },
+ });
+
+}
+
 }

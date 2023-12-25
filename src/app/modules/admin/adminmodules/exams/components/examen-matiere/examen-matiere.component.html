@@ -1,0 +1,38 @@
+
+<p-table [value]="ExamenList" [rowHover]="true" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [tableStyle]="{'min-width': '60rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="nomExamen" >
+                <p-sortIcon ></p-sortIcon>
+                إسم المادة</th>
+
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="caption">
+        <div class="flex">
+            <button style="border-radius: 80%;" (click)="GetExamensMatiere(matiereId)" pButton label="إلغاء البحث" class="p-button-outlined" icon="pi pi-filter-slash"></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <span class="p-input-icon-left ml-auto">
+                <!-- <i ></i>
+                <input [(ngModel)]="searchTerm" type="text" required>
+                <button style="border-radius: 80%; " (click)="SearchMatiereByNom(searchTerm)" [disabled]="!searchTerm"><i class="icofont-search"></i></button> -->
+            </span>
+        </div>
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-examen>
+        <tr>
+            <td>
+                    {{examen.nomExamen}}
+            </td>
+              
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            إجمالي عدد الفروض {{ ExamenList ? ExamenList.length : 0 }}
+        </div>
+    </ng-template>
+</p-table>
