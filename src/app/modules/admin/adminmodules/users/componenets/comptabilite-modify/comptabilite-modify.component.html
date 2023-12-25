@@ -1,0 +1,43 @@
+
+
+
+<div class="form-wrapper">
+    <form  [formGroup]="ComptabliteForm"  (ngSubmit)="OnSubmit()" >
+        <!-- Single Form Start -->
+        <div class="single-form">
+            <div class="p-field">
+                <label for="inputField">المدفوع</label>
+                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="المدفوع" formControlName="paye"/>
+              </div>
+        </div>
+
+        <!-- Single Form Start -->
+        <div class="single-form">
+            <div class="p-field">
+                <label for="inputField">الغير مدفوع</label>
+                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="الغير مدفوع" formControlName="nonPaye"/>
+              </div>
+        </div>
+
+       <!-- Single Form Start -->
+       <div class="single-form">
+        <label for="matiereDropdown">إسم المادة</label>
+        <div class="p-field">
+          <select class="form-control" formControlName="idMatiere">
+            <option *ngFor="let matiere of MatiereList" [value]="matiere.id">{{ matiere.nomMatiere }}</option>
+          </select>
+        </div>
+      </div>
+      
+  
+           
+        <div class="single-form" style="padding: 20px; border-radius: 5px; text-align: center; margin-top: 100px;">
+            <button class="btn btn-success btn-hover-dark w-100"
+            type="submit"
+            [disabled]="ComptabliteForm.invalid"
+            >إضافة</button>
+        </div>
+    </form>
+    <p-toast></p-toast>
+
+</div>

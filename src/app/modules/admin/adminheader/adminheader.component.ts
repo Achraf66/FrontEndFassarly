@@ -137,29 +137,29 @@ export class AdminheaderComponent  implements OnInit{
 }
 
 
-
+/************************Add Matiere Component Modal*************/
 openModalAddMatiere(): void {
  const ref= this.dialogService.open(AddmatiereComponent, {
     header: 'إضافة مادة جديدة', 
     width: '40%',
-    height:'60%'
+    height:'60%',
+    dismissableMask: true
   });
-
-
 }
+/****************************************************************/
 
 
-
+/************************Add Comptabiltie Component Modal******* */
 openModalAddComptabilite(): void {
     const ref= this.dialogService.open(AddcomptabiliteComponent, {
        header: 'إضافة إشتراك في مادة', 
        width: '40%',
-       height:'60%'
+       height:'60%',
+       dismissableMask: true  
      });
    
-   
    }
-
+/************************************************************** */
 
 
 

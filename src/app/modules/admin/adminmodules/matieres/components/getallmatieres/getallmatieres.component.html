@@ -10,7 +10,8 @@
         <tr>
             <td>{{matiere.nomMatiere}}</td>
             <td>
-                <img height="100px" [src]="baseImageUrl + '/' + matiere.nomMatiere + '/' + matiere.photo" alt="{{ matiere.nomMatiere }} Photo">
+
+                <p-image [preview]="true" height="100px" [src]="baseImageUrl + '/' + matiere.nomMatiere + '/' + matiere.photo" alt="{{ matiere.nomMatiere }} Photo"></p-image>
             </td>
             <td>
                 <a  (click)="deleteMatiere(matiere.id)">

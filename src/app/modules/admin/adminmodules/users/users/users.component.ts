@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../models/User';
 import { UsersService } from '../services/users.service';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ComptabiliteuserComponent } from '../comptabiliteuser/comptabiliteuser.component';
+import { ComptabiliteuserComponent } from '../componenets/comptabiliteuser/comptabiliteuser.component';
 
 @Component({
   selector: 'app-users',
@@ -40,8 +40,9 @@ export class UsersComponent implements OnInit{
    openModalComptabilite(idUser:number,nomPrenom:string,numtel:string): void {
     const ref = this.dialogService.open(ComptabiliteuserComponent, {
       header: 'المحاسبات',
-      width: '70%',
-      height: '70%',
+      width: '90%',
+      height: '90%',
+      dismissableMask:true,
       data: {
         idUser: idUser,
         nomPrenom:nomPrenom,

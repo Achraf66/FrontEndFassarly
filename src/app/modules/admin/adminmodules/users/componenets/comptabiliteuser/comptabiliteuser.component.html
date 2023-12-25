@@ -1,0 +1,47 @@
+<p-toast></p-toast>
+<div style="display: flex; justify-content: center; font-size: larger;">
+    <div>{{ nomPrenom }} : إسم التلميذ</div>
+    &nbsp;
+    &nbsp;
+    &nbsp;
+
+    <div >{{ numtel }} : رقم الهاتف</div> 
+
+</div>
+
+<div style="display: flex; justify-content: right;">
+    <p-button (onClick)="openModalAddComptabilite(idUser)" icon="pi pi-plus"  severity="success" title="إضافة إشتراك في مادة" [style]="{'border-radius': '85%'}"></p-button>
+</div>
+&nbsp;  
+<p-table #comtablite
+[scrollable]="true" scrollHeight="500px" 
+[rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]" 
+[paginator]="true"
+[columns]="cols" [value]="comptabilites" styleClass="p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }"
+>
+<ng-template pTemplate="header" let-columns>
+    <tr>
+        <th pSortableColumn="{{col.title}}" *ngFor="let col of columns">
+            {{ col.header }}
+            <p-sortIcon [field]="col.title"></p-sortIcon>
+        </th>
+    </tr>
+</ng-template>
+
+
+
+    <ng-template pTemplate="body" let-comptabilite>
+        <tr>
+            <td>{{ comptabilite.matieres?.nomMatiere }}</td>
+            <td>{{ comptabilite?.paye }}</td>
+            <td>{{ comptabilite?.nonPaye }}</td>
+            <td>
+                <p-button    (onClick)="openModalModifyComponent(comptabilite.id)" icon="pi pi-pencil" [rounded]="true" severity="info" [outlined]="true" [style]="{'border-radius': '85%'}"></p-button>
+            </td>
+            <td><p-button  (onClick)="deleteComptabiliteById(comptabilite.id)" icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true" [style]="{'border-radius': '85%'}"></p-button>
+            </td>
+     
+              
+        </tr>
+    </ng-template>
+</p-table>
