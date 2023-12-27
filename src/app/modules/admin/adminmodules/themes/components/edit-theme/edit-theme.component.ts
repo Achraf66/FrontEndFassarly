@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ThemeService } from '../../services/theme.service';
 import { Theme } from '../../models/Theme';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import {  MessageService } from 'primeng/api';
 import { MenuService } from '../../../users/services/MenuService';
 @Component({
   selector: 'app-edit-theme',

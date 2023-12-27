@@ -166,7 +166,7 @@ export class GetallmatieresComponent implements OnInit, OnDestroy{
 public openExamenByMatiere(matiereid:number): void {
   this.dialogService.open(ExamenMatiereComponent, {
    header: 'فروض المادة',
-   width: '85%',
+   width: '100%',
    height: '100%',
    dismissableMask:true,
    data: {

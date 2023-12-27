@@ -1,0 +1,10 @@
+.card-row {
+    margin-bottom: 2rem; /* Adjust this value based on your preference */
+  }
+  
+  .pdf-link {
+    font-size: 1em; /* Set the desired font size */
+    text-decoration: underline; /* Add underline for a typical link style */
+    cursor: pointer; /* Add pointer cursor to indicate clickability */
+    color: blue; /* Set the link color */
+}

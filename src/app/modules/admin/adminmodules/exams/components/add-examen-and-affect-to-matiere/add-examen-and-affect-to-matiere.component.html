@@ -1,0 +1,39 @@
+
+
+<div class="form-wrapper">
+    <form  [formGroup]="ExamenForm" (ngSubmit)="OnSubmit()" >
+        <!-- Single Form Start -->
+        <div class="single-form">
+            <div class="p-field">
+                <label for="inputField">عنوان الفرض</label>
+                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="عنوان الفرض" formControlName="nomExamen" />
+              </div>
+        </div>
+        <div class="single-form">
+            <div class="p-field">
+                <label for="inputField">رابط فيديو الإصلاح</label>
+                <textarea pInputTextarea id="inputField" class="p-inputtext-lg" placeholder="رابط فيديو الإصلاح" formControlName="videoLien"></textarea>
+            </div>
+        </div>
+        
+        
+
+        <div class="single-form">
+            <label for="demo">مرفق الإصلاح</label>
+            <input (change)="onFileSelectedCorrectionFile($event)" [multiple]="false" accept="application/pdf" type="file">
+        </div>
+        
+        <div class="single-form">
+            <label for="demo">المرفقات</label>
+            <input (change)="onFilesSelectedPieceJointes($event)"  [multiple]="true" accept="application/pdf" type="file">
+        </div>
+        
+
+
+        <div class="single-form" style="padding: 20px; border-radius: 5px; text-align: center;">
+            <button class="btn btn-success btn-hover-dark w-100"
+            type="submit"
+            >إضافة</button>
+        </div>
+    </form>
+</div>

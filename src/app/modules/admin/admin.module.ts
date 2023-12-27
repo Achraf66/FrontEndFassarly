@@ -27,13 +27,14 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { EditThemeComponent } from './adminmodules/themes/components/edit-theme/edit-theme.component';
 import { AddThemeToMatiereComponent } from './adminmodules/themes/components/add-theme-to-matiere/add-theme-to-matiere.component';
 import { ExamenMatiereComponent } from './adminmodules/exams/components/examen-matiere/examen-matiere.component';
+import { AddExamenAndAffectToMatiereComponent } from './adminmodules/exams/components/add-examen-and-affect-to-matiere/add-examen-and-affect-to-matiere.component';
 
 @NgModule({
   declarations: [
     UsersComponent,
     AdmindashComponent,
     AdminheaderComponent,GetallmatieresComponent, ComptabiliteuserComponent, CreateComptabiliteUserMatiereComponent, ComptabiliteModifyComponent,
-    AllthemesComponent,ThemesByMatiereComponent, EditThemeComponent, AddThemeToMatiereComponent, ExamenMatiereComponent
+    AllthemesComponent,ThemesByMatiereComponent, EditThemeComponent, AddThemeToMatiereComponent, ExamenMatiereComponent, AddExamenAndAffectToMatiereComponent
   ],
   imports: [
     CommonModule,
