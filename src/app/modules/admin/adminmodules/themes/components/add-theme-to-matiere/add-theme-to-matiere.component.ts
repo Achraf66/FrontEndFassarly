@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import {  DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ThemeService } from '../../services/theme.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import {  MessageService } from 'primeng/api';
 import { MenuService } from '../../../users/services/MenuService';
 import { Theme } from '../../models/Theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,11 +18,9 @@ export class AddThemeToMatiereComponent implements OnInit {
   ThemeForm:FormGroup
   matiereId:number
   constructor(
-    private dialogService:DialogService,
     private ref:DynamicDialogRef,
     public config: DynamicDialogConfig,
     private themeservice:ThemeService,
-    private confirmationService: ConfirmationService,
     private messageService:MessageService,
     private menu:MenuService,
     private fb:FormBuilder

@@ -1,3 +1,7 @@
+
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
 <div class="container-lg">
     <div class="action-bar" style="justify-content: right;">
         <p-button 
@@ -8,7 +12,8 @@
             [style]="{ 'font-size': '12px' }">
         </p-button>
     </div>
- &nbsp; &nbsp;
+ &nbsp; 
+ &nbsp;
  &nbsp;
 
     <p-table [value]="ExamenList" [paginator]="true" [rows]="5" [responsive]="true">
@@ -37,16 +42,16 @@
                 </td>
                 <td >
                     <div *ngFor="let picejointe of examen.pieceJointes">
-                        <a (click)="downloadpdf()" class="pdf-link" target="_blank">
+                        <a (click)="downloadPiecesJointes(matiereId,examen.id)" class="pdf-link" target="_blank">
                             <i class="pi pi-file-pdf" style="font-size: 1.5rem"></i>
                         </a>
                     </div>
                 </td>
                 <td>
-                    <p-button label="تعديل" icon="pi pi-pencil" [style]="{ 'font-size': '12px' }"></p-button>
+                    <p-button (onClick)="OpenEditExamenMatiereComponent(examen.id,examen.nomExamen)"  label="تعديل" icon="pi pi-pencil" [style]="{ 'font-size': '12px' }"></p-button>
                 </td>
                 <td>
-                    <p-button label="حذف الفرض" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'font-size': '12px', 'margin-left': '.5em', 'margin-top': '.10em' }"></p-button>
+                    <p-button (onClick)="deleteExam($event,examen.id)" label="حذف الفرض" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'font-size': '12px', 'margin-left': '.5em', 'margin-top': '.10em' }"></p-button>
                 </td>
             </tr>
         </ng-template>

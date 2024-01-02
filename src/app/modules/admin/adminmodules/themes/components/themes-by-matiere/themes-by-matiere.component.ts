@@ -6,6 +6,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { EditThemeComponent } from '../edit-theme/edit-theme.component';
 import { MenuService } from '../../../users/services/MenuService';
 import { AddThemeToMatiereComponent } from '../add-theme-to-matiere/add-theme-to-matiere.component';
+import { LessonsByThemeComponent } from '../../../lessons/componenets/lessons-by-theme/lessons-by-theme.component';
 
 @Component({
   selector: 'app-themes-by-matiere',
@@ -18,6 +19,9 @@ export class ThemesByMatiereComponent implements OnInit{
   themes: Theme[] = []
   title:string  ;
   searchTerm:string=''
+
+  showConfirmationDialogTheme:Boolean = false;
+
   constructor(
     private dialogService:DialogService,
     public config: DynamicDialogConfig,
@@ -34,9 +38,7 @@ export class ThemesByMatiereComponent implements OnInit{
     this.matierenom = this.config.data.matierenom
 
     this.fetchThemes(this.matiereId);
-    
     this.title = this.matierenom
-
     
 this.menu.newItemAdded$.subscribe(() => {
   this.fetchThemes(this.matiereId)
@@ -52,7 +54,6 @@ this.menu.newItemAdded$.subscribe(() => {
       (data:Theme[])=>{
 
           this.themes = data
-          console.log(this.themes)
 
 
 
@@ -68,7 +69,6 @@ this.menu.newItemAdded$.subscribe(() => {
     this.themeservice.deleteTheme(themeId).subscribe(
       (data)=>{
         this.fetchThemes(this.matiereId);
-        console.log(data)
       },(error)=>{
         console.log(error)
       }
@@ -93,6 +93,7 @@ this.menu.newItemAdded$.subscribe(() => {
 
 
   deletetheme(event: Event,idTheme:number) {
+    this.showConfirmationDialogTheme = true;
     this.confirmationService.confirm({
         target: event.target as EventTarget,
         message: 'هل تريد فعلاً حذف هذا المحور؟',
@@ -104,11 +105,15 @@ this.menu.newItemAdded$.subscribe(() => {
         rejectLabel: 'لا',
         rejectButtonStyleClass:"p-button-text",
         accept: () => {
+          this.showConfirmationDialogTheme = false;
+
             this.messageService.add({ severity: 'info', summary: 'تم الحذف بنجاح', detail: 'تم الحذف بنجاح' });
           this.deleteTheme(idTheme);
 
         },
         reject: () => {
+          this.showConfirmationDialogTheme = false;
+
             this.messageService.add({ severity: 'error', summary: 'لم يتم حذف هذا المحور', detail: 'لم يتم حذف هذا المحور', life: 3000 });
         }
     });
@@ -144,6 +149,19 @@ public openNewAddNewThemeModal(): void {
 
 
 
+public OpenLessonsByThemes(idTheme:number,nomTheme:string): void {
+  this.dialogService.open(LessonsByThemeComponent, {
+   header: 'دروس محور :'+nomTheme,
+   width: '100%',
+   height: '125%',
+   dismissableMask:false,
+   data: {
+    matiereId:this.matiereId,
+    idTheme:idTheme,
+    nomTheme:nomTheme
+   }
+ });
 
+}
 
 }

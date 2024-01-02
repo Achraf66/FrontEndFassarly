@@ -37,9 +37,6 @@
                 <div class="row gx-10">
                     <div class="col-lg-8">
 
-
-
-
                         <!-- Menu Bar Course Exam video -->
                         <div class="courses-details-tab">
 
@@ -56,150 +53,21 @@
                             <!-- Video course -->
                             <div class="details-tab-content">
                                 <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="course">
 
-                                        <!-- Tab Description Start -->
-                                        <div class="tab-description">
-                                            <!-- <div class="description-wrapper">
-                                                <h3 class="tab-title">Description:</h3>
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularsed in the 1960 with release containing Lorem Ipsum passages desktop publishing software.</p>
-                                            </div>
-                              
-
-
-
-                        <!-- Courses Details Start -->
-                        <div class="courses-details">
-
-                            <div class="courses-details-images">
-                                <iframe [src]="safeVideoUrl" width="800" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-
-                           </div>
-
-                            <h1 class="title rtl">الدرس عدد 01 : التناظر </h1>
-
-                            <div class="courses-details-admin rtl">
-                                <div class="admin-author">
-                                    <div class="author-thumb">
-                                        <img src="assets/images/author/author-13.jpg" alt="Author">
+<!------------------------------------------------------------Lessons------------------------------------------------------------------>
+                                    <div class="tab-pane fade show active" id="course">                            
+                                        <app-lessons *ngIf="matiereId && themeId && lessonId" [lessonId]="lessonId" [matiereId]="matiereId" [themeId]="themeId"></app-lessons>
                                     </div>
-                                    <div class="author-content">
-                                        &nbsp; &nbsp;
-                                        <a class="title">Ilyes </a>
-                                        <!-- <span class="Enroll">286 Enrolled Students</span> -->
-                                    </div>
-                                </div>
-                                <!-- <div class="admin-rating">
-                                    <span class="rating-count">4.9</span>
-                                    <span class="rating-star">
-											<span class="rating-bar" style="width: 80%;"></span>
-                                    </span>
-                                    <span class="rating-text">(5,764 Rating)</span>
-                                </div> -->
+<!------------------------------------------------------------Lessons------------------------------------------------------------------>
 
-                                
-                            </div>
-
-                            <div class="description-wrapper rtl">
-                                <h3 class="tab-title">محتوى الدرس:</h3>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularsed in the 1960 with release containing Lorem Ipsum passages desktop publishing software.</p>
-                            </div>
-                            <div class="description-wrapper rtl">
-                            <div class="col-lg-5">
-                            <div class="sidebar-widget rtl">
-                                <h4 class="widget-title">المرفقات:</h4>
-
-                                <ul class="social">
-                                    <li title="File1"><a href="#"><i class="fas fa-file-pdf"></i></a></li>
-                                    <li title="File1"><a href="#"><i class="fas fa-file-pdf"></i></a></li>
-                                    <li title="File1"><a href="#"><i class="fas fa-file-pdf"></i></a></li>
-                                    <li title="File1"><a href="#"><i class="fas fa-file-pdf"></i></a></li>
-                                    <li title="File1"><a href="#"><i class="fas fa-file-pdf"></i></a></li>
-
-                                </ul>
-                            </div>
-                            </div>
-                            </div>
-                            <!-- <div class="description-wrapper">
-                                <h3 class="tab-title">Certification:</h3>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularsed in the 1960 with release containing Lorem Ipsum passages desktop publishing software.</p>
-                            </div>  -->
-
-                        </div>
-                        <!-- Courses Details End -->
-
-
-                                </div>
-                                        <!-- Tab Description End -->
-
-                                    </div>
+<!-----------------------------------------------------------Examen----------------------------------------------------------->
                                     <div class="tab-pane fade" id="exams">
-
-                                        <!-- Tab Instructors Start -->
-                                        <div class="tab-instructors">
-                                            <div class="engagement-courses table">
-
-                                                <div class="courses-top">
-                                                    <ul>
-                                                        <li>الإصلاح</li>
-                                                        <li>الفرض</li>
-                                                        <li>الفروض</li>
-                                                   
-                                                    </ul>
-                                                </div>
-                    
-                                                <div class="courses-list">
-                                                    <ul>
-                                                        <li>
-                                                            <div class="courses">
-                                                                <div class="thumb">
-                                                                </div>
-                                                                <div class="content" style="margin-left: 50px;">
-                                                                    <h1 class="taught"><a> 
-                                                                    <span><a title="File1" href="#"><i class="fas fa-file-pdf"></i></a></span>
-                                                                    </a></h1>
-                                                                </div>
-                                                            </div>
-                                                            <div class="taught">
-                                                                <span><a title="File1" href="#"><i class="fas fa-file-pdf"></i></a></span>
-                                                            </div>
-                                                            <div class="student">
-                                                                <span><a title="File1" href="#"><i class="fas fa-file-pdf"></i></a></span>
-                                                            </div>
-                                                            <div class="button">
-                                                                <a class="btn">فرض عدد 01</a>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="courses">
-                                                                <div class="thumb">
-                                                                </div>
-                                                                <div class="content" style="margin-left: 50px;">
-                                                                    <h1 class="taught"><a> 
-                                                                    <span><a title="File1" href="#"><i class="fas fa-file-pdf"></i></a></span>
-                                                                    </a></h1>
-                                                                </div>
-                                                            </div>
-                                                            <div class="taught">
-                                                                <span><a title="File1" href="#"><i class="fas fa-file-pdf"></i></a></span>
-                                                            </div>
-                                                            <div class="student">
-                                                                <span><a title="File1" href="#"><i class="fas fa-file-pdf"></i></a></span>
-                                                            </div>
-                                                            <div class="button">
-                                                                <a class="btn">فرض عدد 02</a>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                    
-                                            </div>
-                                        
-                                        </div>
-                                        <!-- Tab Instructors End -->
-
+                                        <app-examen *ngIf="matiereId && themeId" [matiereId]="matiereId" [themeId]="themeId"></app-examen>
                                     </div>
+<!-----------------------------------------------------------Examen----------------------------------------------------------->
+
+<!-----------------------------------------------------------Calendar----------------------------------------------------------->
+
                                     <div class="tab-pane fade" id="livesessions">
 
                                         <!-- Tab Reviews Start -->
@@ -336,14 +204,16 @@
                                 </div>
                                 <div class="info-list">
                                     <ul>
-                                        <li><a href="#"><i class="icofont-book"></i> <strong>الدرس عدد 01 :</strong></a></li>
-                                        <li><a href="#"><i class="icofont-book"></i> <strong>الدرس عدد 02 :</strong></a></li>
-                                        <li><a href="#"><i class="icofont-book"></i> <strong>الدرس عدد 03 :</strong></a></li>
-                                        <li><a href="#"><i class="icofont-book"></i> <strong>الدرس عدد 04 :</strong></a></li>
-                                        <li><a href="#"><i class="icofont-book"></i> <strong>الدرس عدد 05 :</strong></a></li>
-                                        <li><a href="#"><i class="icofont-book"></i> <strong>الدرس عدد 06 :</strong></a></li>
+                                        <li *ngFor="let lesson of LessonList; let i = index">
+                                            <a href="/matieres/lesson/{{ matiereId }}/{{ themeId }}/{{ lesson.id }}" (click)="handleLessonClick(lesson.id)">
+                                                <i class="icofont-book"></i>
+                                                <strong>{{ 'الدرس عدد ' + lesson.id + ' : ' + lesson.nomLesson }}</strong>
+                                              </a>
+                                        </li>
+                                        
                                     </ul>
-                                </div>
+                                  </div>
+                                  
                                 <div class="info-btn">
                                     <a href="#" class="btn btn-primary btn-hover-dark">تسجيل الحصة</a>
                                 </div>

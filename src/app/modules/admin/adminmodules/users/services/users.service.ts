@@ -1,9 +1,9 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/User';
 import { Comptabilite } from '../models/Comptabilite';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +51,67 @@ export class UsersService {
         return this.http.delete(apiUrl);
       }
       
+      fetchUserById(idUser:number)
+      {
+        const apiUrl = `${this.BASE_URL}/api/utilisateur/getUtilisateur/${idUser}`;
+        return this.http.get<User>(apiUrl);
+      }
 
+      updateUser(
+        userId: number,
+        password: string | null,
+        nomPrenom: string,
+        numeroTel: string,
+        photoFile: File | null,
+        roleId: number | null
+      ): Observable<any> {
+        const url = `${this.BASE_URL}/api/utilisateur/updateUserById/${userId}`;
+      
+        // Prepare form data
+        const formData: FormData = new FormData();
+        formData.append('nomPrenom', nomPrenom);
+        formData.append('numeroTel', numeroTel);
+      
+        if (password !== null) {
+          formData.append('password', password);
+        }
+      
+        if (photoFile !== null) {
+          formData.append('photoFile', photoFile, photoFile.name);
+        }
+      
+        // Add roleId to form data if not null
+        if (roleId !== null) {
+          formData.append('roleId', roleId.toString());
+        }
+      
+        // Make the request
+        return this.http.put(url, formData);
+      }
+
+
+
+      getUserImage(userId: number): Observable<Blob> {
+        const url = `${this.BASE_URL}/images/${userId}/image`;
+    
+        return this.http.get(url, { responseType: 'blob' }).pipe(
+          catchError((error: HttpErrorResponse) => {
+            return throwError('Something went wrong while fetching user image.');
+          })
+        );
+      }
+
+      deleteUserById(idUser:number){
+        const apiUrl = `${this.BASE_URL}/api/utilisateur/removeUtilisateur/${idUser}`;
+        return this.http.delete(apiUrl);
+      }
+      
+      searchUsers(searchTerm: string): Observable<User[]> {
+        const params = new HttpParams().set('searchterm', searchTerm);
+            return this.http.get<User[]>(`${this.BASE_URL}/api/utilisateur/search`, { params });
+      }
+    
+      
+      
+      
 }

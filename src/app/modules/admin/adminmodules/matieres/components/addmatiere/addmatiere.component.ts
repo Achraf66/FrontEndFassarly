@@ -34,7 +34,6 @@ constructor(private fb:FormBuilder,private service:MatiereService,public ref: Dy
   }
   onFileSelected(event : any) {
     const file: File = event.target.files[0];
-    console.log(file)
     const reader = new FileReader();
     reader.readAsDataURL(file);
 

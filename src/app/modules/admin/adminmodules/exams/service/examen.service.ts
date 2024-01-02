@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Examen } from '../Examen';
 
@@ -54,6 +54,44 @@ export class ExamenService {
     return this.http.get(url, { observe: 'response', responseType: 'arraybuffer' });
   }
 
-  
+  downloadPiecesJointes(matiereId: number, examenId: number): Observable<Blob> {
+    const url = `${this.BASEURL}/download/exam/piecesjointes/${matiereId}/${examenId}`;
+    
+    return this.http.get(url, { responseType: 'blob' });
+  }
+
+
+
+
+  fetchExamenById(examenId:number){
+    const url = `${this.BASEURL}/api/examen/fetchExamenById/${examenId}`;
+    return this.http.get<Examen>(url);
+  }
+
+  editExamen(
+    examenId: number,
+    nomExamen: string,
+    videoLien: string,
+    correctionFile: File,
+    pieceJointes: File[]
+  ): Observable<Examen> {
+    const formData = new FormData();
+    formData.append('nomExamen', nomExamen);
+    formData.append('videoLien', videoLien);
+    formData.append('correctionFile', correctionFile);
+    
+    if (pieceJointes) {
+      for (let i = 0; i < pieceJointes.length; i++) {
+        formData.append('pieceJointes', pieceJointes[i]);
+      }
+    }
+
+
+    return this.http.put<Examen>(`${this.BASEURL}/api/examen/edit/${examenId}`, formData);
+  }
+
+  deleteExamenAndFolderById(idExam:number){
+    return this.http.delete(`${this.BASEURL}/api/examen/delete/exam/${idExam}`)
+  }
 
 }

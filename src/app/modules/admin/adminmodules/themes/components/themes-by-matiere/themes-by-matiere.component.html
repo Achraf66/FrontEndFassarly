@@ -3,7 +3,7 @@
 {{matierenom}} -->
 
 <p-toast></p-toast>
-<p-confirmDialog></p-confirmDialog>
+<p-confirmDialog *ngIf="showConfirmationDialogTheme"></p-confirmDialog>
 
 
 <p-table [value]="themes" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}" [paginator]="true"  [rowHover]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [tableStyle]="{ 'min-width': '50rem' }">
@@ -56,8 +56,8 @@
     </ng-template>
     
     <ng-template pTemplate="body" let-theme>
-        <tr>
-            <td>{{ theme.nomTheme }}</td>
+        <tr >
+            <td><a (click)="OpenLessonsByThemes(theme.id,theme.nomTheme)"> {{theme.nomTheme }}</a></td>
             
                 <td>
                     <a  (click)="openModifyThemeDialog(theme.id)">
@@ -73,6 +73,7 @@
 
         </tr>
     </ng-template>
+
 
       <ng-template pTemplate="footer">
             <tr>

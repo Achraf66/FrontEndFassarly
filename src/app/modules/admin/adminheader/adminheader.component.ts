@@ -66,70 +66,63 @@ export class AdminheaderComponent  implements OnInit{
 
         
 
-        {
+        // {
 
           
-            label: 'المحاور',
-            icon: 'pi pi-bookmark',
-            items: [
-                {
-                    label: 'إضافة محور',
-                    icon: 'pi pi-fw pi-plus',
+            // label: 'المحاور',
+            // icon: 'pi pi-bookmark',
+            // items: [
+            //     {
+            //         label: 'إضافة محور',
+            //         icon: 'pi pi-fw pi-plus',
   
-                },
-                {
-                    label: 'جميع المحاور',
-                    icon: 'pi pi-list',
-                    command: (event) => {
-                      this.menuService.setSelectedItem('allThemes');
-                    }
+            //     },
+            //     {
+            //         label: 'جميع المحاور',
+            //         icon: 'pi pi-list',
+            //         command: (event) => {
+            //           this.menuService.setSelectedItem('allThemes');
+            //         }
   
-                }, 
+            //     }, 
 
       
-            ]
+            // ]
         
-        },
+        // },
 
 
-        {
+        // {
 
           
-            label: 'الدروس',
-            icon: 'pi pi-book',
-            items: [
-                {
-                    label: 'إضافة درس جديد',
-                    icon: 'pi pi-fw pi-plus',
+        //     label: 'الدروس',
+        //     icon: 'pi pi-book',
+        //     items: [
+        //         {
+        //             label: 'إضافة درس جديد',
+        //             icon: 'pi pi-fw pi-plus',
   
-                },
-                {
-                    label: 'جميع الدروس',
-                    icon: 'pi pi-list',
+        //         },
+        //         {
+        //             label: 'جميع الدروس',
+        //             icon: 'pi pi-list',
   
-                }, 
+        //         }, 
 
       
-            ]
+        //     ]
         
-        },
+        // },
 
         {
 
           
           label: 'الرسائل',
           icon: 'pi pi-comments',
-          items: [
-              {
-                  // label: 'إضافة محاسبة',
-                  // icon: 'pi pi-fw pi-plus',
-                  // command:(event)=>{
+          command:(event)=>{
 
-                  //     this.openModalAddComptabilite()
-                  //   }
-              }
-    
-          ]
+            this.menuService.setSelectedItem('messagesAll');
+            }
       
       },
       {

@@ -76,7 +76,7 @@
                             <!-- Single Courses Start -->
                             <div class="single-courses animation-down">
                                 <div class="courses-images">
-                                    <a href="courses-details.html">
+                                    <a (click)="navigateToThemeList(matiere.id)">
                                         <img height="250px" [src]="baseImageUrl+'/'+matiere.nomMatiere+'/'+ matiere.photo" alt="{{ matiere.nomMatiere }} Photo">
                                     </a>
                                 </div>
@@ -87,7 +87,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h2><a href="courses-details.html">{{matiere.nomMatiere}}</a></h2>
+                                    <h2><a (click)="navigateToThemeList(matiere.id)">{{matiere.nomMatiere}}</a></h2>
                                     <div class="courses-rating">
 
                                         <div class="rating-meta">

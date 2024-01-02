@@ -8,7 +8,11 @@ const routes: Routes = [
 
   { path: 'matieres', component: MatieresComponent,pathMatch:"full"},
   { path: 'themes', component: ThemesComponent,pathMatch:"full"},
-  { path: 'lesson', component: LessonComponent,pathMatch:"full"}
+  { path: 'lesson', component: LessonComponent,pathMatch:"full"},
+  { path: 'themes/:matiereid', component: ThemesComponent,pathMatch:"full" },
+  // { path: 'lesson/:matiereid/:themeid', component: LessonComponent,pathMatch:"full"},
+  { path: 'lesson/:matiereid/:themeid/:lessonid', component: LessonComponent,pathMatch:"full"},
+
 
 
 ];

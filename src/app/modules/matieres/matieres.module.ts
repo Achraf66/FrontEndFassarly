@@ -13,6 +13,12 @@ import * as moment from 'moment';
 import localear from '@angular/common/locales/ar'
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { CorrectionVideoModalComponent } from './modals/correction-video-modal/correction-video-modal.component';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ExamenComponent } from './lessonComponents/examen/examen.component';
+import { LessonsComponent } from './lessonComponents/lessons/lessons.component';
+import { CalendarComponent } from './lessonComponents/calendar/calendar.component';
 registerLocaleData(localear,'ar');
 /***********************************************************/
 export function momentAdapterFactory() {
@@ -22,7 +28,11 @@ export function momentAdapterFactory() {
   declarations: [
     ThemesComponent,
     MatieresComponent,
-    LessonComponent
+    LessonComponent,
+    CorrectionVideoModalComponent,
+    ExamenComponent,
+    LessonsComponent,
+    CalendarComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +41,8 @@ export function momentAdapterFactory() {
     HttpClientModule,
     FormsModule
 
-    ]
+    ],
+    providers: [DialogService,MessageService,ConfirmationService],
+
 })
 export class MatieresModule { }

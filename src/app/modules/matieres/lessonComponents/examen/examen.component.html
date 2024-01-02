@@ -1,0 +1,46 @@
+         <!-- Tab Instructors Start -->
+         <div class="tab-instructors">
+            <div class="engagement-courses table">
+
+                <div class="courses-top" >
+                    <ul>
+                        <li>الإصلاح</li>
+                        <li>الفرض و المرفقات</li>
+                        <li>الفروض</li>
+                    </ul>
+                </div>
+
+                    <div class="courses-list" *ngFor="let examen of ExamenList">
+                        <ul>
+                            <li>
+                            <div class="courses">
+                                <a (click)="OpenCorrectionVideoModalComponent(examen.id,examen.nomExamen)" >
+                                <i class="fa-solid fa-video"></i>
+                                </a> 
+                                <div class="content">
+                                <h1 class="taught">
+                                    <a>
+                                    <span>
+                                        <a title="مرفق الإصلاح" (click)="downloadCorrection(matiereId,examen.id,examen.nomExamen)">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </a></span>
+                                    </a>
+                                </h1>
+                                </div>
+                            </div>
+                            <div class="taught">
+                                <span><a  (click)="downloadPiecesJointes(matiereId,examen.id)" title="المرفقات" ><i class="fa-solid fa-file-zipper"></i></a></span>
+                            </div>
+                            <!-- <div class="student">
+                                <span><a title="File1" href="#"><i class="fas fa-file-pdf"></i></a></span>
+                            </div> -->
+                            <div class="button">
+                                <a class="btn">{{examen.nomExamen}}</a>
+                            </div>
+                            </li>
+                        </ul>      
+                    </div>
+                </div>                       
+            
+            
+        </div>

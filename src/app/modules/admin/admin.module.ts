@@ -28,21 +28,52 @@ import { EditThemeComponent } from './adminmodules/themes/components/edit-theme/
 import { AddThemeToMatiereComponent } from './adminmodules/themes/components/add-theme-to-matiere/add-theme-to-matiere.component';
 import { ExamenMatiereComponent } from './adminmodules/exams/components/examen-matiere/examen-matiere.component';
 import { AddExamenAndAffectToMatiereComponent } from './adminmodules/exams/components/add-examen-and-affect-to-matiere/add-examen-and-affect-to-matiere.component';
+import { EditExamenMatiereComponent } from './adminmodules/exams/components/edit-examen-matiere/edit-examen-matiere.component';
+import { LessonsByThemeComponent } from './adminmodules/lessons/componenets/lessons-by-theme/lessons-by-theme.component';
+import { AddNewLessonAndAffectToThemeComponent } from './adminmodules/lessons/componenets/add-new-lesson-and-affect-to-theme/add-new-lesson-and-affect-to-theme.component';
+import { EditLessonComponent } from './adminmodules/lessons/componenets/edit-lesson/edit-lesson.component';
+import { EditAppUserByIdComponent } from './adminmodules/users/users/modals/edit-app-user-by-id/edit-app-user-by-id.component';
+import { MessagesModule } from 'primeng/messages';
+import { GetAllMessagesComponent } from './adminmodules/messages/get-all-messages/get-all-messages.component';
 
 @NgModule({
   declarations: [
     UsersComponent,
     AdmindashComponent,
-    AdminheaderComponent,GetallmatieresComponent, ComptabiliteuserComponent, CreateComptabiliteUserMatiereComponent, ComptabiliteModifyComponent,
-    AllthemesComponent,ThemesByMatiereComponent, EditThemeComponent, AddThemeToMatiereComponent, ExamenMatiereComponent, AddExamenAndAffectToMatiereComponent
+    AdminheaderComponent,
+    GetallmatieresComponent,
+    ComptabiliteuserComponent,
+    CreateComptabiliteUserMatiereComponent, 
+    ComptabiliteModifyComponent,
+    AllthemesComponent,
+    ThemesByMatiereComponent, 
+    EditThemeComponent, 
+    AddThemeToMatiereComponent, 
+    ExamenMatiereComponent, 
+    AddExamenAndAffectToMatiereComponent, 
+    EditExamenMatiereComponent,
+    LessonsByThemeComponent,
+    AddNewLessonAndAffectToThemeComponent,
+    EditLessonComponent,
+    EditAppUserByIdComponent,
+    GetAllMessagesComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     HttpClientModule,
-    TableModule,ButtonModule,FormsModule,
-    MenubarModule,DialogModule,ReactiveFormsModule,
-    ListboxModule,DropdownModule,ToastModule,ImageModule,CardModule,ConfirmDialogModule
+    TableModule,
+    ButtonModule,
+    FormsModule,
+    MenubarModule,
+    DialogModule,
+    ReactiveFormsModule,
+    ListboxModule,
+    DropdownModule,
+    ToastModule,
+    ImageModule,
+    CardModule,
+    ConfirmDialogModule
   ],
   providers: [DialogService,MessageService,ConfirmationService],
   exports: [AdminheaderComponent]

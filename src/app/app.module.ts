@@ -9,11 +9,12 @@ import { HeaderComponent } from './Main/header/header.component';
 import { FooterComponent } from './Main/footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditExamenMatiereComponent } from './src/app/modules/admin/adminmodules/exams/components/edit-examen-matiere/edit-examen-matiere.component';
 
 @NgModule({
   declarations: [
     AppComponent, 
-    Page404Component, HeaderComponent, FooterComponent
+    Page404Component, HeaderComponent, FooterComponent, EditExamenMatiereComponent
   ],
   imports: [
     BrowserModule,

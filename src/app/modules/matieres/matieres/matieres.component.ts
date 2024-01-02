@@ -3,6 +3,7 @@ import { MatiereService } from '../services/matiere.service';
 import { Matiere } from '../models/Matiere';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-matieres',
@@ -15,7 +16,9 @@ export class MatieresComponent implements OnInit {
     searchTerm: string;
     matieres: Matiere[] = [];
    
-  constructor(private matiereservice:MatiereService)
+    numtel = '56239812'
+    
+  constructor(private matiereservice:MatiereService,private router:Router)
   {}
 
   ngOnInit(): void {
@@ -47,7 +50,19 @@ export class MatieresComponent implements OnInit {
               throw error; 
             }) ).subscribe(matieres=>console.log(matieres))
           };
-  }
+ 
+ 
+ 
+ 
+ 
+          navigateToThemeList(matiereId: number): void {
+            this.router.navigate(['/matieres/themes/'+matiereId]);
+          } 
+ 
+ 
+ 
+ 
+}
   
 
 

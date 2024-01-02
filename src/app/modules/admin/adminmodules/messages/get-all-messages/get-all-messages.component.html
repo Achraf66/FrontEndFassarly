@@ -1,0 +1,12 @@
+<!-- get-all-messages.component.html -->
+
+<div class="message-container" *ngFor="let message of messages">
+    <div class="message-header">
+      <p>{{ message.sender }} - {{ message.subject }}</p>
+    </div>
+    <div class="message-content">
+      <p>{{ message.content }}</p>
+    </div>
+    <hr class="divider" />
+  </div>
+  

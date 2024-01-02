@@ -1,28 +1,78 @@
-<p-table [value]="Students" [tableStyle]="{'min-width': '60rem' }">
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<p-table [value]="Students"  [rowHover]="true"
+[tableStyle]="{'min-width': '60rem' }" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]" 
+[paginator]="true" >
+
     <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between">
-            <button style="background-color: transparent; border: 0cap;">
+        <button style="background-color: transparent; border: 0cap;">
             <i class="pi pi-spin pi-cog" style="font-size: 2rem ; color: green;"></i>
             </button>    
-            التلاميذ 
+        <div class="text-center">
+          <h2 style="color: green;">التلاميذ</h2>
+          <div class="flex">
+            <button
+              (click)="getStudents()"
+              style="border-radius: 80%;"
+              pButton
+              label="إلغاء البحث"
+              class="p-button-outlined"
+              icon="pi pi-filter-slash"
+            ></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      
+            <span class="p-input-icon-left ml-auto">
+              <i></i>
+              <input [(ngModel)]="searchTerm" type="text" required />
+              <button
+              (click)="onSearch()"
+                [disabled]="!searchTerm"
+                style="border-radius: 80%;"
+              >
+                <i class="icofont-search"></i>
+              </button>
+            </span>
+
+          </div>
         </div>
-    </ng-template>
+      </ng-template>
+
+
+
+    
     <ng-template pTemplate="header">
         <tr>
-            <th>الصورة الشخصية</th>
-            <th>الاسم واللقب</th>
-            <th>رقم الهاتف</th>
-            <th>المستوى</th>
+            <th >الصورة الشخصية</th>
+            <th pSortableColumn="nomPrenom">
+                <div class="sortable-header">الاسم واللقب
+                  <p-sortIcon></p-sortIcon>
+                </div>
+            </th>      
+            <th pSortableColumn="numeroTel">
+                <div class="sortable-header">رقم الهاتف
+                  <p-sortIcon></p-sortIcon>
+                </div>
+            </th> 
+            <th>
+                <div>المستوى
+                </div>
+              </th>
+              
+              
             <th>المحاسبات</th>
-            <th>Status</th>
+            <th></th>
+
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-student>
         <tr>
             <td>
                 <div style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden;">
-                  <p-image src="assets/images/author/author-02.jpg" alt="Image" width="100" [preview]="true" [style]="{'width': '100%' ,'height': '100%;'}"></p-image>
-                </div>
+             <p-image *ngIf="student.photo !==null" [preview]="true"  [src]="baseImageUrl+'/'+student.id+'/'+ student.photo" ></p-image>
+             <p-image *ngIf="student.photo ===null" [preview]="true" src="assets/images/author/author-16.jpg" ></p-image>
+    
+            </div>
               </td>
               
              <td>{{student.nomPrenom}}</td>
@@ -34,12 +84,14 @@
                 </span>
               </td>
              <td><a (click)="openModalComptabilite(student.id,student.nomPrenom,student.numeroTel)" style="background-color: transparent; border: 0cap;"><i class="pi pi-calculator"></i></a></td>
-            <td></td>      
-            <!-- <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
-            <td>{{product.price | currency:'USD'}}</td>
-            <td>{{product.category}}</td>
-            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-            <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td> -->
+            <td >
+                <p-button (onClick)="EditAppUserByIdComponent(student.id)"  severity="info" [text]="true"
+                 label="تعديل بيانات المستخدم" icon="pi pi-user-edit"></p-button>
+                &nbsp;
+                <p-button  (onClick)="deleteUserById(student.id)" [text]="true" severity="danger"  label="حذف المستخدم" icon="pi pi-user-minus"></p-button>
+
+
+            </td>      
         </tr>
     </ng-template>
     <ng-template pTemplate="summary">

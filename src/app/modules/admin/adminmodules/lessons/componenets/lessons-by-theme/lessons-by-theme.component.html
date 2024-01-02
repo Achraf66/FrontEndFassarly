@@ -1,0 +1,70 @@
+<p-toast></p-toast>
+<p-confirmDialog *ngIf="showConfirmationDialogLesson"></p-confirmDialog>
+<div class="card"  >
+    <div class="action-bar" style="justify-content: right;" dir="rtl">
+        <p-button 
+            (onClick)="OpenAddLessonAndAffectToTheme()" 
+            icon="pi pi-plus" 
+            severity="success" 
+            label="إضافة درس جديد لهذا المحور" 
+            [style]="{ 'font-size': '12px' }">
+        </p-button>
+    </div>
+    &nbsp; 
+    &nbsp;
+    &nbsp;
+    
+    <p-table [value]="LessonList" [tableStyle]="{'min-width': '60rem'}" [paginator]="true"  [rowHover]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" >
+        <ng-template pTemplate="caption" dir="rtl" >
+            <div class="flex align-items-center justify-content-between">
+               <h2 style="color: green;"> دروس  </h2> {{this.nomTheme}}
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header"  >
+            <tr>
+                <th>عنوان الدرس</th>
+                <th>الوصف</th>
+                <th>رابط الفيديو</th>
+                <th>مرفقات الدرس</th>
+                <th>الاجراء</th>
+            </tr>
+        </ng-template>
+<!-- Add the following styles to your component's CSS file or in your global styles -->
+<style>
+    .ellipsis {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 150px; /* Adjust the max-width as needed */
+    }
+  </style>
+  
+  <!-- Use the ellipsis class for the description column -->
+  <ng-template pTemplate="body" let-lesson>
+    <tr>
+      <td>{{ lesson.nomLesson }}</td>
+      <td class="ellipsis" title="{{ lesson.description }}">{{ lesson.description }}</td>
+      <td>{{ lesson.videoLien }}</td>
+      <td>
+        {{ lesson.piecesJointes?.length }}
+        <a (click)="downloadPiecesJointes(idTheme, lesson.id)" title="مرفقات الدرس">
+          <i class="fa-solid fa-file-zipper" style="font-size: 24px;"></i>
+        </a>
+      </td>
+      <td>
+        <p-button (onClick)="OpenEditLesson(lesson.id)"
+          [style]="{'background-color': 'green', 'font-size': '12px'}" label="تعديل" icon="pi pi-pencil"></p-button>
+        &nbsp;
+        <p-button (onClick)="deleteLessonById(lesson.id)" [style]="{'background-color': 'red', 'font-size': '12px'}"
+          label="حذف الدرس" icon="pi pi-trash"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+  
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                عدد دروس هذا المحور:  {{LessonList ? LessonList.length : 0 }} 
+            </div>
+        </ng-template>
+    </p-table>
+</div>

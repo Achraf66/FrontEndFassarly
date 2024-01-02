@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
 import { RegisterRequest } from '../models/RegisterRequest';
 import { RoleService } from '../services/role.service';
 import Swal from 'sweetalert2';
@@ -29,12 +28,12 @@ export class RegisterComponent implements OnInit{
   roles:any;
 
   constructor(
-    private title:Title,private router: Router, 
+    private title:Title,
     private authenticationService: AuthService,
-    private titleService:Title,private formBuilder:FormBuilder,
+    private formBuilder:FormBuilder,
     private roleservice:RoleService
     ){
-    title.setTitle("فسرلي | التسجيل")
+    this.title.setTitle("فسرلي | التسجيل")
   }
 
   ngOnInit(): void {
