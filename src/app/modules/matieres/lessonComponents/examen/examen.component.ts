@@ -52,7 +52,6 @@ export class ExamenComponent implements OnInit{
   }
 
 /*****************************************************************************************************/
-
   downloadCorrection(matiereId: number, examenId: number,examenname:string) {
     this.examenService.downloadCorrectionFile(matiereId, examenId).subscribe(
       (response: HttpResponse<ArrayBuffer>) => {
@@ -67,10 +66,8 @@ export class ExamenComponent implements OnInit{
       }
     );
   }
-  
-  
 /*****************************************************************************************************/
-  private handleDownload(response: HttpResponse<ArrayBuffer>,examenname:string): void {
+private handleDownload(response: HttpResponse<ArrayBuffer>,examenname:string): void {
     // Check if the response has a valid body
     if (response.body !== null) {
       const blob = new Blob([response.body], { type: 'application/pdf' });
@@ -87,7 +84,7 @@ export class ExamenComponent implements OnInit{
   
 
 /*****************************************************************************************************/
-  downloadPiecesJointes(matiereId:number ,examenId:number) {
+downloadPiecesJointes(matiereId:number ,examenId:number) {
 
     this.examenService.downloadPiecesJointes(matiereId, examenId)
       .subscribe(blob => {
@@ -106,20 +103,24 @@ export class ExamenComponent implements OnInit{
   }
 
 /*****************************************************************************************************/
-  public OpenCorrectionVideoModalComponent(examenId: number, ExamenNom: string): void {
-    this.dialogService.open(CorrectionVideoModalComponent, {
-      header: undefined,
-      width: '55%',
-      height: '80%',
-      dismissableMask: true,
-      contentStyle: { 'background-color': 'rgba(0, 0, 0, 0)', 'border': 'none' },
-      baseZIndex: 1000,
-      data: {
-        matiereid: this.matiereId,
-        examenId: examenId,
-        ExamenNom: ExamenNom,
-      },
-    });
-  }
+public OpenCorrectionVideoModalComponent(examenId: number, ExamenNom: string): void {
+  this.dialogService.open(CorrectionVideoModalComponent, {
+    showHeader: false, 
+    width: '55%',
+    height: '80%',
+    dismissableMask: true,
+    contentStyle: { 'background-color': 'rgba(0, 0, 0, 0)', 'border': 'none' },
+    baseZIndex: 1000,
+    data: {
+      matiereid: this.matiereId,
+      examenId: examenId,
+      ExamenNom: ExamenNom,
+    },
+  });
+}
+/*****************************************************************************************************/
+
+
+  
 
 }

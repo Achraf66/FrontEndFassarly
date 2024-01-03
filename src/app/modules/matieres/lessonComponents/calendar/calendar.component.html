@@ -1,1 +1,16 @@
-<p>calendar works!</p>
+
+    <div class="tab-reviews">
+        <div class="col-md-4 rtl">
+            
+         <h2>{{ viewDate | calendarDate:(view + 'ViewTitle'):'ar' }}</h2>
+
+    </div>
+
+        <div id="calendar-container">
+                <mwl-calendar-month-view [viewDate]="viewDate" [events]="events"
+                locale="ar"
+                >
+                </mwl-calendar-month-view>                                                                                    
+        </div>
+    </div>
+

@@ -22,8 +22,14 @@ export class MatiereService {
   {
     return this.http.get<Matiere[]>(`${this.FASSARLY_URL}${this.MATIEREURL}getMatiereByNom/${nomMatiere}`)
   }
+
   
+  findMatiereByUser(numtel:string | null){
+    return this.http.get<Matiere[]>(`${this.FASSARLY_URL}${this.MATIEREURL}findMatiereByUser/${numtel}`)
+  }
 
-
+  getMatiereById(idmatiere:number | null){
+    return this.http.get<any>(`${this.FASSARLY_URL}${this.MATIEREURL}getMatiere/${idmatiere}`)
+  }
 
 }

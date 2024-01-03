@@ -68,17 +68,15 @@
                                 </li>
 
                                 <li>
-                                    <a href="#">المواد</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="#"><i class="fas fa-calculator"></i> رياضيات</a></li>
-                                        <li><a href="#"><i class="fas fa-flask"></i> علوم</a></li>
-                                        <li><a href="#"><i class="fas fa-language"></i> Français</a></li>
-                                        <li><a href="#"><i class="fas fa-language"></i> English</a></li>
-                                        <li><a href="#"><i class="fas fa-language"></i> عربي</a></li>
+                                    <a href="/matieres/matieres">المواد</a>
+                                    <ul class="sub-menu" >
+                                        <div *ngFor="let matiere of matieres">
+                                        <li><a href="/matieres/themes/{{matiere.id}}"><i class="fas fa-book"></i> {{matiere.nomMatiere}}</a></li>
+                                        </div>
                                     </ul>
                                 </li>
 
-                                <li><a href="index.html">الصفحة الرئيسية</a></li>
+                                <li><a href="http://localhost:4300/#/acceuil">الصفحة الرئيسية</a></li>
 
                                 
                                 <!-- <li>
@@ -126,11 +124,16 @@
                         <!-- Header Menu End -->
 
                         <!-- Header Sing In & Up Start -->
-                        <div class="header-sign-in-up d-none d-lg-block ">
+                        <div class="header-sign-in-up d-none d-lg-block " *ngIf="!numtel">
                             <ul>
                                 <li><a class="sign-up" href="/auth/login">تسجيل الدخول</a></li>
                                 &nbsp; &nbsp;
                                 <li><a class="sign-up" href="/auth/register">سجل مجانا</a></li>
+                            </ul>
+                        </div>
+                        <div class="header-sign-in-up d-none d-lg-block " *ngIf="numtel">
+                            <ul>
+                                <li><a  class="logout" (click)="logout()">تسجيل الخروج</a></li>
                             </ul>
                         </div>
                         <!-- Header Sing In & Up End -->

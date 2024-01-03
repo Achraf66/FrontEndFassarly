@@ -19,13 +19,7 @@ export class LessonComponent implements OnInit{
   lessonId:any
   LessonList:Lesson[]
   lesson:Lesson
-  view: CalendarView = CalendarView.Month;
 
-
-
-  viewDate: Date = new Date();
-
-  events: CalendarEvent[] = [];
 
   ExamenList : Examen[]
 

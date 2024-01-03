@@ -45,12 +45,6 @@ export class LessonsComponent implements OnInit{
     this.lesson$ = this.lessonService.fetchLessonById(this.lessonId);
   }
 
-
-
-
-
-
-
   private handleDownload(response: HttpResponse<ArrayBuffer>,examenname:string): void {
     // Check if the response has a valid body
     if (response.body !== null) {

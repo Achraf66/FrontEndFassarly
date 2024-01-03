@@ -4,6 +4,7 @@ import { Matiere } from '../models/Matiere';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-matieres',
@@ -15,18 +16,21 @@ export class MatieresComponent implements OnInit {
     baseImageUrl = `${environment.fassarlyBaseUrl}/images/matiereimage`;
     searchTerm: string;
     matieres: Matiere[] = [];
-   
-    numtel = '56239812'
+   userid :any
     
-  constructor(private matiereservice:MatiereService,private router:Router)
-  {}
+  constructor(private matiereservice:MatiereService,private router:Router,private auth:AuthService)
+  {
 
-  ngOnInit(): void {
-    this.loadMatieres();
+   this.userid = this.auth.getUserId()
   }
 
-  loadMatieres(): void {
-    this.matiereservice.getAllMatieres().pipe(
+  ngOnInit(): void {
+
+    this.loadMatieres(this.userid);
+  }
+
+  loadMatieres(numtel:string): void {
+    this.matiereservice.findMatiereByUser(numtel).pipe(
       map((matieres) => {
         this.matieres = matieres;
         return matieres

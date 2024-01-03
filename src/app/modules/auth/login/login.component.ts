@@ -3,9 +3,9 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RoleService } from '../services/role.service';
 import { AuthenticationRequest } from '../models/AuthenticationRequest';
 import Swal from 'sweetalert2';
+import { User } from '../../admin/adminmodules/users/models/User';
 
 @Component({
   selector: 'app-login',
@@ -24,14 +24,17 @@ export class LoginComponent implements OnInit{
   successmsg: boolean = false;
   passwordControl: any;
   confirmPasswordControl: any;
-  
+  CurrentUser:User
+  numtel:string | null
+
   constructor(
     private title:Title,private router: Router, 
     private authenticationService: AuthService,
-    private titleService:Title,private formBuilder:FormBuilder,
-    private roleservice:RoleService
+    private formBuilder:FormBuilder,
     ){
-    title.setTitle("فسرلي | تسجيل الدخول")
+    this.title.setTitle("فسرلي | تسجيل الدخول")
+    this.numtel = this.authenticationService.getUserId();
+    this.fetchUserbytel(this.numtel);
   }
 
   ngOnInit(): void {
@@ -69,7 +72,11 @@ export class LoginComponent implements OnInit{
         title: 'نجاح',
         text: 'تم تسجيل الدخول بنجاح.'
       });
-      this.router.navigate(['/matieres/matieres']);
+      if (this.CurrentUser.roles.some(role => role.name.includes('admin'))) {
+        this.router.navigate(['/admin/admindashboard']);
+      }
+      
+      else {this.router.navigate(['/matieres/matieres']);}
       setTimeout(() => {
       }, 5000);
     }
@@ -96,6 +103,12 @@ export class LoginComponent implements OnInit{
  
   }
 
-
+  fetchUserbytel(nomtel:string | null){
+    return this.authenticationService.findUserBynumTel(nomtel).subscribe(
+        (data)=>{
+          this.CurrentUser = data
+        },(error)=>console.log(error)
+    )
+  }
   
 }
