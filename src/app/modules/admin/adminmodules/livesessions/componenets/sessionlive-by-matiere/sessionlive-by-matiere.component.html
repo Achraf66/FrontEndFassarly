@@ -1,0 +1,85 @@
+
+
+<p-confirmDialog></p-confirmDialog>
+<p-table [value]="seanceEnLignes" [rowHover]="true" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [tableStyle]="{'min-width': '60rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="titre" >
+                <p-sortIcon ></p-sortIcon>عنوان الحصة
+            </th>
+            <th>رابط الحصة</th>
+            <th pSortableColumn="date" >
+                <p-sortIcon ></p-sortIcon>تاريخ الحصة
+            </th>
+            <th pSortableColumn="heureDebut" >
+                <p-sortIcon ></p-sortIcon>ساعة البداية
+            </th>
+            <th pSortableColumn="heureFin" >
+                <p-sortIcon ></p-sortIcon>ساعة النهاية
+            </th>
+            <th colspan="2">اجرائات</th>
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="caption">
+        <div style="display: flex; justify-content: right;">
+            <p-button  (onClick)="OpenAddSessionLive()" icon="pi pi-plus"  severity="success" title="إضافة حصة مباشرة" [style]="{'border-radius': '85%'}"></p-button>
+        </div>
+    
+        <div class="flex">
+            <!-- <button style="border-radius: 80%;" (click)="fetchSessionLiveByMatiere()" pButton label="إلغاء البحث" class="p-button-outlined" icon="pi pi-filter-slash"></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+
+            <span class="p-input-icon-left ml-auto">
+                <i ></i>
+                <!-- <input [(ngModel)]="searchTerm" type="text" required>
+                <button style="border-radius: 80%; " (click)="SearchMatiereByNom(searchTerm)" [disabled]="!searchTerm"><i class="icofont-search"></i></button> -->
+            </span>
+        </div>
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-liveSession>
+        <tr>
+            <td>
+                {{liveSession.titre}}  
+            </td>
+            <td>
+                {{ liveSession.lienZoom.length > 10 ? liveSession.lienZoom.slice(0, 20) + '...' : liveSession.lienZoom }}
+              </td>
+              
+            <td>
+                {{ liveSession.date | customDate: 'longDate': locale :locale }}
+            </td>
+              
+            <td>
+                {{ liveSession.heureDebut}}
+
+            </td>
+            <td>
+                {{ liveSession.heureFin}}
+
+            </td>
+            <td>
+                <p-button (onClick)="OpenEditessionLive(liveSession.id)" [text]="true" severity="primary"
+                label="تعديل" icon="pi pi-pencil"></p-button>
+              &nbsp;
+              <p-button (onClick)="deleteSeanceEnLigneById(liveSession.id)"  [text]="true"  severity="danger"
+                label="حذف الحصة" icon="pi pi-trash"></p-button>
+      
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            إجمالي عدد الحصص المباشرة {{ seanceEnLignes ? seanceEnLignes.length : 0 }}
+        </div>
+    </ng-template>
+</p-table>
+
+
+
+
+
+
+
+

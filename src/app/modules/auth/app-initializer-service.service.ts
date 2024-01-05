@@ -21,6 +21,7 @@ export class AppInitializerService {
 
         // Set the user ID in the AuthService
         this.authService.setUserId(userId);
+        
       }
 
       resolve();

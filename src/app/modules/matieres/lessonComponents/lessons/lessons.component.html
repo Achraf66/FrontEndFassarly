@@ -7,8 +7,12 @@
                 <div class="courses-details">
 
                     <div class="courses-details-images">
-                        <iframe [src]="safeVideoUrl" width="800" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-
+                        <div>
+                            <video controls width="800" height="500">
+                                <source src="{{videoid}}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>     
+                        </div>
                 </div>
 
                     <div class="courses-details-admin rtl">

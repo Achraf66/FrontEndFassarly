@@ -1,0 +1,61 @@
+<p-confirmDialog></p-confirmDialog>
+
+<div class="form-wrapper" dir="rtl">
+
+        <img  style="width: 200px; height: 200px;"  class="rounded-circle shadow-4-strong" *ngIf="user?.photo !== null"  [src]="baseImageUrl+'/'+user.id+'/'+ user.photo">
+        <img style="width: 200px; height: 200px;"  class="rounded-circle shadow-4-strong" *ngIf="user?.photo === null"  src="assets/images/author/author-16.jpg">
+        
+
+
+    <form [formGroup]="UserForm" (ngSubmit)="OnSubmit()">
+        <!-- بداية النموذج الفردي -->
+        <div class="single-form">
+            <div class="p-field">
+                <label for="nomPrenom">الاسم/اللقب</label>
+                <input pInputText type="text" id="nomPrenom" class="p-inputtext-lg" placeholder="الاسم/اللقب" formControlName="nomPrenom" />
+            </div>
+        </div>
+
+
+
+        <!-- بداية النموذج الفردي -->
+        <div class="single-form">
+            <div class="p-field">
+                <label for="password">كلمة المرور</label>
+                <input pPassword type="password" id="password" class="p-inputtext-lg" placeholder="كلمة المرور" formControlName="password" />
+            </div>
+        </div>
+
+        <div class="single-form">
+            <div class="p-field">
+                <label for="confirmPassword">تأكيد كلمة المرور</label>
+                <input pPassword type="password" id="confirmPassword" class="p-inputtext-lg" placeholder="تأكيد كلمة المرور" formControlName="confirmPassword" />
+            </div>
+        </div>
+        
+
+        <!-- بداية النموذج الفردي -->
+        <div class="single-form">
+            <label for="file">الصورة الشخصية</label>
+            <div class="p-field">
+                <input id="file" type="file" (change)="onFileSelected($event)" />
+                <img  style="width: 200px; height: 200px;"  class="rounded-circle shadow-4-strong" *ngIf="imagePreview" [src]="imagePreview" alt="صورة الملف الشخصي"  />
+            </div>
+        </div>
+
+
+        &nbsp;
+        <div class="single-form">
+            <h2>المستوى الحالي</h2>
+            <div *ngFor="let role of user?.roles">
+              <p-listbox [options]="[{ name: role.displayName }]" optionLabel="name" [style]="{'width':'15rem'}" [listStyle]="{'max-height': '220px'}"></p-listbox>
+            </div>
+        </div>
+        <!-- أضف حقول النموذج الأخرى حسب الحاجة -->
+
+        <div class="single-form" style="padding: 20px; border-radius: 5px; text-align: center; margin-top: 20px;">
+            <button pButton type="submit" label="حفظ" class="btn btn-success btn-hover-dark w-100" [disabled]="UserForm.invalid"></button>
+        </div>
+    </form>
+    <p-toast></p-toast>
+</div>

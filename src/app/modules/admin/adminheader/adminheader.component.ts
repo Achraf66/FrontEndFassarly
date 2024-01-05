@@ -63,58 +63,25 @@ export class AdminheaderComponent  implements OnInit{
           ]
       }
       ,
-
-        
-
-        // {
-
-          
-            // label: 'المحاور',
-            // icon: 'pi pi-bookmark',
-            // items: [
-            //     {
-            //         label: 'إضافة محور',
-            //         icon: 'pi pi-fw pi-plus',
-  
-            //     },
-            //     {
-            //         label: 'جميع المحاور',
-            //         icon: 'pi pi-list',
-            //         command: (event) => {
-            //           this.menuService.setSelectedItem('allThemes');
-            //         }
-  
-            //     }, 
-
-      
-            // ]
-        
-        // },
-
-
-        // {
+      {
+        label: 'الحصص المباشرة',
+        icon: 'pi pi-camera', // This is the camera icon, you can change it to any live icon you prefer
+           command: (event) => {
+              this.menuService.setSelectedItem('alllivesessions');
+           }
+      },
+      {
 
           
-        //     label: 'الدروس',
-        //     icon: 'pi pi-book',
-        //     items: [
-        //         {
-        //             label: 'إضافة درس جديد',
-        //             icon: 'pi pi-fw pi-plus',
-  
-        //         },
-        //         {
-        //             label: 'جميع الدروس',
-        //             icon: 'pi pi-list',
-  
-        //         }, 
+        label: 'العروض',
+        icon: 'pi pi-dollar',
+        command:(event)=>{
 
-      
-        //     ]
-        
-        // },
-
-        {
+          this.menuService.setSelectedItem('offers');
+          }
+    
+    },
+      {
 
           
           label: 'الرسائل',

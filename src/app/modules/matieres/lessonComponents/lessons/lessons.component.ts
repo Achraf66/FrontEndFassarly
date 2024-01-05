@@ -30,11 +30,6 @@ export class LessonsComponent implements OnInit{
       this.lesson$.subscribe(
         (data) => {
           this.videoid = data.videoLien;
-          console.log(data);
-  
-          // Move the assignments here
-          this.videoUrl = `https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Ffassarly%2Fvideos%2F${this.videoid}%2F&show_text=false&width=560&t=0`;
-          this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
         }
       );
     }

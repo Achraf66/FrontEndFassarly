@@ -1,0 +1,38 @@
+<div class="modal-dialog modal-dialog-centered" dir="rtl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-center" style="color: #006400; font-size: 24px;">عنوان الحصة  : {{ titleevent }}</h5>
+        </div>
+
+        <!-- Reviews Form Start -->
+        <div class="modal-body reviews-form">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Single Form Start -->
+                    <div class="single-form">
+                        <label for="heuredebut">توقيت بداية الحصة</label>
+                        <input id="heuredebut" type="text" value="{{ heuredebut }}" readonly>
+                    </div>
+                    <!-- Single Form End -->
+                </div>
+                <div class="col-md-6">
+                    <!-- Single Form Start -->
+                    <div class="single-form">
+                        <label for="heurefin">توقيت نهاية الحصة</label>
+                        <input id="heurefin" type="text" value="{{ heurefin }}" readonly>
+                    </div>
+                    <!-- Single Form End -->
+                </div>
+            </div>
+            &nbsp;
+            &nbsp;
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <label>&nbsp;{{ 'الرابط إلى حصة مباشرة' }}:</label>
+                    <a (click)="redirect()" class="link">{{ 'إضغط هنا' }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

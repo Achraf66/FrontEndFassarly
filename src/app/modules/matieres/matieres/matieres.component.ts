@@ -5,6 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-matieres',
@@ -18,9 +19,9 @@ export class MatieresComponent implements OnInit {
     matieres: Matiere[] = [];
    userid :any
     
-  constructor(private matiereservice:MatiereService,private router:Router,private auth:AuthService)
+  constructor(private matiereservice:MatiereService,private router:Router,private auth:AuthService,private title:Title)
   {
-
+    title.setTitle("فسرلي | المواد")
    this.userid = this.auth.getUserId()
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Examen } from 'src/app/modules/admin/adminmodules/exams/Examen';
@@ -11,10 +11,15 @@ import { HttpResponse } from '@angular/common/http';
   templateUrl: './examen.component.html',
   styleUrls: ['./examen.component.css']
 })
-export class ExamenComponent implements OnInit{
+export class ExamenComponent implements OnInit,AfterViewInit{
   @Input() matiereId: any;
   @Input() themeId: any;
 
+
+
+
+
+  
   videoUrl:any
   videoid :any ;
   safeVideoUrl!: SafeResourceUrl;
@@ -109,8 +114,6 @@ public OpenCorrectionVideoModalComponent(examenId: number, ExamenNom: string): v
     width: '55%',
     height: '80%',
     dismissableMask: true,
-    contentStyle: { 'background-color': 'rgba(0, 0, 0, 0)', 'border': 'none' },
-    baseZIndex: 1000,
     data: {
       matiereid: this.matiereId,
       examenId: examenId,
@@ -120,6 +123,21 @@ public OpenCorrectionVideoModalComponent(examenId: number, ExamenNom: string): v
 }
 /*****************************************************************************************************/
 
+@ViewChild('myVideo') myVideo: ElementRef;
+
+seekToTime(timeInSeconds: number): void {
+    const videoElement: HTMLVideoElement = this.myVideo.nativeElement;
+
+    if (!isNaN(timeInSeconds) && videoElement) {
+        videoElement.currentTime = timeInSeconds;
+    }
+}
+
+ngAfterViewInit() {
+  this.myVideo.nativeElement.addEventListener('loadedmetadata', () => {
+      this.seekToTime(30);
+  });
+}
 
   
 

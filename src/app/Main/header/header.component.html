@@ -61,22 +61,30 @@
                         <!-- Header Menu Start -->
                         <div class="header-menu d-none d-lg-block">
                             <ul class="nav-menu">
-                           
 
-                                <li >
+
+                                <li class="active"  *ngIf="isAdmin">
+                                    <a [routerLink]="'/admin/admindashboard'">لوحة المراقبة</a>
+                                </li> 
+                           
+                                <li class="active" >
+                                    <a (click)="EditAppUserByIdComponent()">الإعدادات </a>
+                                </li>   
+
+                                <li class="active" >
                                     <a href="#">العروض</a>
                                 </li>
 
-                                <li>
-                                    <a href="/matieres/matieres">المواد</a>
+                                <li class="active">
+                                    <a routerLink="/matieres/matieres">المواد</a>
                                     <ul class="sub-menu" >
                                         <div *ngFor="let matiere of matieres">
-                                        <li><a href="/matieres/themes/{{matiere.id}}"><i class="fas fa-book"></i> {{matiere.nomMatiere}}</a></li>
+                                        <li><a [routerLink]="['/matieres/themes', matiere.id]"><i class="fas fa-book"></i> {{matiere.nomMatiere}}</a></li>
                                         </div>
                                     </ul>
                                 </li>
 
-                                <li><a href="http://localhost:4300/#/acceuil">الصفحة الرئيسية</a></li>
+                                <li class="active"><a href="http://localhost:4300/#/acceuil">الصفحة الرئيسية</a></li>
 
                                 
                                 <!-- <li>

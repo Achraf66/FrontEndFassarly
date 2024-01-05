@@ -1,49 +1,67 @@
-         <!-- Tab Instructors Start -->
-         <div class="tab-instructors">
-            <div class="engagement-courses table">
 
-                <div class="courses-top" >
-                    <ul>
-                        <li>الإصلاح</li>
-                        <li>الفرض و المرفقات</li>
-                        <li>الفروض</li>
-                    </ul>
+
+<div class="tab-instructors">
+    <div class="engagement-courses table">
+        <div class="courses-top">
+            <ul>
+                <li>الإصلاح</li>
+                <li>الفرض و المرفقات</li>
+                <li>الفروض</li>
+            </ul>
+        </div>
+
+        <div class="courses-list" *ngFor="let examen of ExamenList">
+
+            <div class="modal fade" [id]="'reviewsModal' + examen.id">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content transparent-modal">
+                        <div class="modal-header">
+                            <h5 class="modal-title">الإصلاح</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="courses-details-images">
+                                <video  controls="true" width="800" height="500">
+                                    <source [src]="examen.videoLien">
+                                </video>
+                                <button (click)="seekToTime(30)" ></button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            
+           
+          <ul>
+                <li>
+             
+                    <!-- Rest of your code -->
+                    <div class="courses">
 
-                    <div class="courses-list" *ngFor="let examen of ExamenList">
-                        <ul>
-                            <li>
-                            <div class="courses">
-                                <a (click)="OpenCorrectionVideoModalComponent(examen.id,examen.nomExamen)" >
-                                <i class="fa-solid fa-video"></i>
-                                </a> 
-                                <div class="content">
-                                <h1 class="taught">
-                                    <a>
+                        <div class="reviews-btn">
+                            <a  data-bs-toggle="modal" [attr.data-bs-target]="'#reviewsModal' + examen.id">                            <i class="fa-solid fa-video"></i>
+                            </a>
+                        </div>
+                        <div class="content">
+                            <h1 class="taught">
+                                <a>
                                     <span>
                                         <a title="مرفق الإصلاح" (click)="downloadCorrection(matiereId,examen.id,examen.nomExamen)">
                                             <i class="fas fa-file-pdf"></i>
-                                        </a></span>
-                                    </a>
-                                </h1>
-                                </div>
-                            </div>
-                            <div class="taught">
-                                <span><a  (click)="downloadPiecesJointes(matiereId,examen.id)" title="المرفقات" ><i class="fa-solid fa-file-zipper"></i></a></span>
-                            </div>
-                            <!-- <div class="student">
-                                <span><a title="File1" href="#"><i class="fas fa-file-pdf"></i></a></span>
-                            </div> -->
-                            <div class="button">
-                                <a class="btn">{{examen.nomExamen}}</a>
-                            </div>
-                            </li>
-                        </ul>      
+                                        </a>
+                                    </span>
+                                </a>
+                            </h1>
+                        </div>
                     </div>
-                </div>                       
+                    <div class="taught">
+                        <span><a (click)="downloadPiecesJointes(matiereId,examen.id)" title="المرفقات"><i class="fa-solid fa-file-zipper"></i></a></span>
+                    </div>
+                    <div class="button">
+                        <a class="btn">{{examen.nomExamen}}</a>
+                    </div>
+                </li>
+            </ul>
         </div>
-
-
-
-
-        
+    </div>
+</div>

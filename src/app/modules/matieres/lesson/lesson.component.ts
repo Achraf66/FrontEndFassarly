@@ -37,6 +37,10 @@ export class LessonComponent implements OnInit{
 
 
   ngOnInit(): void {
+
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+   };
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.matiereId = params.get('matiereid') || null;
       this.themeId = params.get('themeid') || null;
@@ -66,7 +70,7 @@ export class LessonComponent implements OnInit{
   navigateToLesson(lessonId: number): void {
     this.router.navigate(['/matieres/lesson', this.matiereId, this.themeId, lessonId]);
   }
-
+  
   handleLessonClick(lessonId: number): void {
     this.router.navigate(['/matieres/lesson', this.matiereId, this.themeId, lessonId]);
   }

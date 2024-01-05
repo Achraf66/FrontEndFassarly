@@ -1,0 +1,81 @@
+
+
+<div class="form-wrapper">
+    <form  [formGroup]="SessionForm" (ngSubmit)="OnSubmit()" >
+        <!-- Single Form Start -->
+        
+        <div class="single-form">
+            <div class="p-field">
+                <label for="titleField">عنوان الحصة</label>
+                <input  formControlName="titre"  type="text" id="titleField" class="p-inputtext-lg" placeholder="عنوان الحصة" />
+            </div>
+        </div>
+        
+        <div class="single-form">
+            <div class="p-field">
+                <label for="linkField">رابط الحصة</label>
+                <textarea pInputTextarea id="linkField" class="p-inputtext-lg" placeholder="رابط الحصة" formControlName="lienZoom"></textarea>
+            </div>
+        </div>
+
+
+
+        <div class="single-form">
+            <div class="p-field">
+                <label for="heureFin">توقيت بداية الحصة مباشرة</label>
+                <div class="p-inputgroup">
+                  <p-inputNumber formControlName="heureDebutHours" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical"
+                                 inputId="vertical" decrementButtonClass="p-button-secondary"
+                                 incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                  </p-inputNumber>
+                  <span class="p-inputgroup-addon">:</span>
+                  <p-inputNumber formControlName="heureDebutMinutes" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical"
+                                 inputId="vertical" decrementButtonClass="p-button-secondary"
+                                 incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                  </p-inputNumber>
+                </div>
+              </div>
+              
+              <div class="p-field">
+                <label for="heureDebutCombined">توقيت بداية الحصة مباشرة</label>
+                <input type="text" pInputText formControlName="heureDebutCombined" readonly>
+              </div>
+        </div>
+
+
+
+        <div class="single-form">
+            <div class="p-field">
+                <label for="heureFin">توقيت نهاية الحصة مباشرة</label>
+                <div class="p-inputgroup">
+                  <p-inputNumber formControlName="heureFinHours" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical"
+                                 inputId="vertical" decrementButtonClass="p-button-secondary"
+                                 incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                  </p-inputNumber>
+                  <span class="p-inputgroup-addon">:</span>
+                  <p-inputNumber formControlName="heureFinMinutes" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical"
+                                 inputId="vertical" decrementButtonClass="p-button-secondary"
+                                 incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                  </p-inputNumber>
+                </div>
+              </div>
+              
+              <div class="p-field">
+                <label for="heureFinCombined">توقيت نهاية الحصة مباشرة</label>
+                <input type="text" pInputText formControlName="heureFinCombined" readonly>
+              </div>
+              
+        </div>
+
+        <div class="single-form">
+            <label for="calendar">تاريخ الحصة المباشرة</label>
+            <div class="p-field">
+              <p-calendar id="calendar" name="datezoom" formControlName="date"></p-calendar>
+            </div>
+          </div>
+   
+        <div class="single-form" style="padding: 20px; border-radius: 5px; text-align: center;">
+            <button class="btn btn-success btn-hover-dark w-100" type="submit">إضافة</button>
+        </div>
+    </form>
+</div>

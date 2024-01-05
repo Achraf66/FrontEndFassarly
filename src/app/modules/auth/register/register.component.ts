@@ -5,6 +5,8 @@ import { AuthService } from '../services/auth.service';
 import { RegisterRequest } from '../models/RegisterRequest';
 import { RoleService } from '../services/role.service';
 import Swal from 'sweetalert2';
+import { Role } from '../../admin/adminmodules/users/models/Role';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -25,24 +27,31 @@ export class RegisterComponent implements OnInit{
   confirmPasswordControl: any;
 
 
-  roles:any;
+  roles:any
 
   constructor(
     private title:Title,
     private authenticationService: AuthService,
     private formBuilder:FormBuilder,
     private roleservice:RoleService
-    ){
+        ){
     this.title.setTitle("فسرلي | التسجيل")
   }
 
   ngOnInit(): void {
 
-   this.roleservice.getAllroles().subscribe(
-
-    data=>this.roles = data
-
-   )
+    this.roleservice.getAllroles().subscribe(
+      (data:any) => {
+        if (data) {
+          this.roles = data.filter((role: any) => role.name !== 'admin');
+        } 
+      },  
+      error => {
+        // Handle error
+      }
+    );
+    
+    
 
     
     this.signupForm = this.formBuilder.group({
@@ -133,5 +142,10 @@ export class RegisterComponent implements OnInit{
   
     return password === confirmPassword ? null : { passwordMismatch: true };
   };
+
+
+
+
+  
 
 }

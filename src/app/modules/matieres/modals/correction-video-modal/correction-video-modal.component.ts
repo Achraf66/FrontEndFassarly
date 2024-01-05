@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import {  Component, OnInit } from '@angular/core';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { Observable } from 'rxjs';
 import { Examen } from 'src/app/modules/admin/adminmodules/exams/Examen';
 import { ExamenService } from 'src/app/modules/admin/adminmodules/exams/service/examen.service';
 
@@ -12,14 +12,12 @@ import { ExamenService } from 'src/app/modules/admin/adminmodules/exams/service/
 export class CorrectionVideoModalComponent implements OnInit {
   safeVideoUrl: any;
   examenId: any;
-  Examen: Examen;
-  videoUrl: any;
-  videoid: any;
+  Examen$: Observable<Examen>;
+  videoLink: string;
 
   constructor(
     public config: DynamicDialogConfig,
     private examenService: ExamenService,
-    private sanitizer: DomSanitizer
   ) {
     this.examenId = this.config.data.examenId;
   }
@@ -29,17 +27,10 @@ export class CorrectionVideoModalComponent implements OnInit {
   }
 
   fetchExamenById(examenId: number) {
-    this.examenService.fetchExamenById(examenId).subscribe(
+    this.Examen$ = this.examenService.fetchExamenById(examenId);
+    this.Examen$.subscribe(
       (data) => {
-        this.Examen = data;
-        console.log(this.Examen?.videoLien);
-
-        // Move the videoUrl construction here
-        this.videoid = this.Examen?.videoLien;
-        this.videoUrl = `https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Ffassarly%2Fvideos%2F${this.videoid}%2F&show_text=false&width=560&t=0`;
-
-        // Use bypassSecurityTrustIframe instead of bypassSecurityTrustResourceUrl
-        this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
+        this.videoLink = data.videoLien;
       },
       (error) => {
         console.log(error);

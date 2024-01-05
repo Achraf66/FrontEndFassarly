@@ -11,17 +11,19 @@ export class AppComponent {
 
   isLoginoradmin : any;
    constructor (private zone: NgZone, private router: Router) {
-    this.router.events.subscribe((event: any) => {
-      if (event instanceof NavigationEnd) {
-        if (event.url === '/auth/login' || event.url ==='/auth/register'|| event.url.startsWith('/admin/')) {
-          this.isLoginoradmin= true;
-        } else {
-          this.isLoginoradmin= false;
-        }
-      }
-    });
+ 
   }
 
   accesstoken = localStorage.getItem('accesstoken');
+
+  shouldShowHeader() {
+    const currentRoute = this.router.url;
+    return !['/auth/login', '/auth/register'].includes(currentRoute) && !currentRoute.startsWith('/admin/');
+  }
+  
+  shouldShowFooter() {
+    return this.shouldShowHeader();
+  }
+  
 
 }

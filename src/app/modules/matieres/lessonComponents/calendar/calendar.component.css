@@ -1,0 +1,14 @@
+.navigation-button {
+    background-color:  #1d6c02; /* Set your preferred background color */
+    color: #FFFFFF; /* Set your preferred text color */
+    padding: 10px 15px;
+    margin-right: 10px; /* Adjust spacing as needed */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .navigation-button:hover {
+    background-color: #1d6c02; /* Set your preferred background color on hover */
+  }
+  

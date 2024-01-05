@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +11,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditExamenMatiereComponent } from './src/app/modules/admin/adminmodules/exams/components/edit-examen-matiere/edit-examen-matiere.component';
 import { AppInitializerService } from './modules/auth/app-initializer-service.service';
+import { DatePipe } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
+import localeAr from '@angular/common/locales/ar';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
+registerLocaleData(localeAr, 'ar');
 
 @NgModule({
   declarations: [
@@ -33,6 +40,10 @@ import { AppInitializerService } from './modules/auth/app-initializer-service.se
         deps: [AppInitializerService],
         multi: true
       },
+      DatePipe, 
+      { provide: LOCALE_ID, useValue: "ar" },
+      DialogService ,MessageService,ConfirmationService
+      
     ],
   bootstrap: [AppComponent]
 })

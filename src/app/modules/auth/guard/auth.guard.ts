@@ -18,7 +18,20 @@ export class AuthGuard implements CanActivate, OnInit {
   constructor(private authService: AuthService, private router: Router,private matiereService:MatiereService) {}
 
   ngOnInit(): void {
+    const token = localStorage.getItem('accesstoken');
 
+    if (token !== null) {
+      const decodedToken: any = jwtDecode(token);
+      
+      // Retrieve the 'sub' claim
+      const userId = decodedToken.sub;
+  
+      // Set the user ID in the AuthService
+      this.authService.setUserId(userId);
+    } else {
+      // Handle the case when the token is null
+      console.error('Access token is null.');
+    }
   }
 
   canActivate(

@@ -35,6 +35,14 @@ import { EditLessonComponent } from './adminmodules/lessons/componenets/edit-les
 import { EditAppUserByIdComponent } from './adminmodules/users/users/modals/edit-app-user-by-id/edit-app-user-by-id.component';
 import { MessagesModule } from 'primeng/messages';
 import { GetAllMessagesComponent } from './adminmodules/messages/get-all-messages/get-all-messages.component';
+import { AlllivesessionsComponent } from './adminmodules/livesessions/componenets/alllivesessions/alllivesessions.component';
+import { SessionliveByMatiereComponent } from './adminmodules/livesessions/componenets/sessionlive-by-matiere/sessionlive-by-matiere.component';
+import { CustomDatePipe } from './adminmodules/livesessions/custom-date.pipe';
+import { AddnewSessionLiveComponent } from './adminmodules/livesessions/componenets/addnew-session-live/addnew-session-live.component';
+import { CalendarModule } from 'primeng/calendar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { EditSessionsComponent } from './adminmodules/livesessions/componenets/edit-sessions/edit-sessions.component';
+import { OffersComponent } from './adminmodules/Offers/components/offers/offers.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +64,13 @@ import { GetAllMessagesComponent } from './adminmodules/messages/get-all-message
     AddNewLessonAndAffectToThemeComponent,
     EditLessonComponent,
     EditAppUserByIdComponent,
-    GetAllMessagesComponent
+    GetAllMessagesComponent,
+    AlllivesessionsComponent,
+    SessionliveByMatiereComponent,
+    CustomDatePipe,
+    AddnewSessionLiveComponent,
+    EditSessionsComponent,
+    OffersComponent
   ],
   imports: [
     CommonModule,
@@ -73,7 +87,10 @@ import { GetAllMessagesComponent } from './adminmodules/messages/get-all-message
     ToastModule,
     ImageModule,
     CardModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    InputNumberModule,
+    CalendarModule,
+    
   ],
   providers: [DialogService,MessageService,ConfirmationService],
   exports: [AdminheaderComponent]

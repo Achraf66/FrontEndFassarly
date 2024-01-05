@@ -12,14 +12,22 @@ import * as moment from 'moment';
 /***************Register AR for calendar********************/
 import localear from '@angular/common/locales/ar'
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CorrectionVideoModalComponent } from './modals/correction-video-modal/correction-video-modal.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ExamenComponent } from './lessonComponents/examen/examen.component';
 import { LessonsComponent } from './lessonComponents/lessons/lessons.component';
 import { CalendarComponent } from './lessonComponents/calendar/calendar.component';
+import { EventdetailsmodalComponent } from './modals/eventdetailsmodal/eventdetailsmodal.component';
+import { EditUserDetailsStudentComponent } from './modals/edit-user-details-student/edit-user-details-student.component';
+import { ListboxModule } from 'primeng/listbox';
+import { DropdownModule } from 'primeng/dropdown';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { ImageModule } from 'primeng/image';
 registerLocaleData(localear,'ar');
+
 /***********************************************************/
 export function momentAdapterFactory() {
   return adapterFactory(moment);
@@ -33,13 +41,22 @@ export function momentAdapterFactory() {
     ExamenComponent,
     LessonsComponent,
     CalendarComponent,
+    EventdetailsmodalComponent,
+    EditUserDetailsStudentComponent,
   ],
   imports: [
     CommonModule,
     MatieresRoutingModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory }),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ListboxModule,
+    DropdownModule,
+    ReactiveFormsModule,
+    ConfirmDialogModule,
+    ToastModule,
+    ImageModule
+
 
     ],
     providers: [DialogService,MessageService,ConfirmationService],
