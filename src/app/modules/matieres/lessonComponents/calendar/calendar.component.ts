@@ -41,7 +41,6 @@ export class CalendarComponent  implements OnInit{
   ngOnInit(): void {
     if (this.matiereId !== null ){
       this.fetchSeancesEnligneByMatiere();
-      console.log("matiereId",this.matiereId)
 
     }
   }

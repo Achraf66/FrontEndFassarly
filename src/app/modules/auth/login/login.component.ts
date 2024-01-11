@@ -6,7 +6,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationRequest } from '../models/AuthenticationRequest';
 import Swal from 'sweetalert2';
 import { User } from '../../admin/adminmodules/users/models/User';
-import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -34,8 +33,6 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) {
     this.title.setTitle("فسرلي | تسجيل الدخول");
-    this.numtel = this.authenticationService.getUserId();
-    this.fetchUserbytel(this.numtel);
   }
 
   ngOnInit(): void {
@@ -66,21 +63,33 @@ export class LoginComponent implements OnInit {
             title: 'نجاح',
             text: 'تم تسجيل الدخول بنجاح.',
             confirmButtonText: 'نعم'
-                    }).then((result) => {
-            if (result.isConfirmed || result.isDismissed) {
-              if (this.CurrentUser?.roles.some((role) => role.name.includes('admin'))) {
-                const token = localStorage.getItem('accesstoken');
-                  this.router.navigate(['/admin/admindashboard']);
-                
-              } else {
-                // Navigate to the matieres page without triggering a full page reload
-                  this.router.navigate(['/matieres/matieres']).then(()=>{
-                  window.location.reload()
-                })
-              }
+          }).then((result) => {
+            if (result.isConfirmed || result.isDismissed) {                     
+              // Navigate to the matieres page without triggering a full page reload
+              this.router.navigate(['/matieres/matieres']).then(() => {
+                this.authenticationService.setUserId(this.signupForm.value.numtel)
+                window.location.reload();
+              });
             }
           });
-        } else {
+        } else if (data.errormessage === 'User Already logged in on another device') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'تنبيه',
+            text: 'المستخدم قد قام بتسجيل الدخول بالفعل على جهاز آخر.',
+            confirmButtonText: 'حسناً'
+          });
+        } 
+        
+        else if (data.errormessage === 'This User is not sms verified yet') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'تحذير',
+            text: ' الرجاء إكمال عملية التحقق من خلال رمز التحقق الذي تم إرساله عبر الرسالة النصية.',
+          });
+        }
+        
+        else {
           Swal.fire({
             icon: 'warning',
             title: 'تحذير',
@@ -89,6 +98,7 @@ export class LoginComponent implements OnInit {
         }
       },
     );
+    
     
 
   }

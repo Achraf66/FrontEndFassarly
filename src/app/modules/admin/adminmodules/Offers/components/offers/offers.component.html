@@ -1,56 +1,33 @@
-<section class="ftco-section bg-light">
+<section class="ftco-section bg-light" style="margin-top: 150px;">
     <div class="container">
         <div class="row justify-content-center pb-5 mb-3">
             <div class="col-md-7 heading-section text-center ftco-animate fadeInUp ftco-animated">
                 <h2>عروضنا</h2>
+                <a  (click)="OpenAddOrEditOffer()" class="btn btn-secondary">تعديل</a>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 ftco-animate fadeInUp ftco-animated">
+            <div class="col-md-4 ftco-animate fadeInUp ftco-animated mb-4">
                 <div class="block-7">
-                    <div class="img" style="background-image: url(https://www.bootdey.com/image/350x280/FFB6C1/000000);"></div>
                     <div class="text-center p-4">
                         <span class="excerpt d-block">اشتراك شهري</span>
-                        <span class="price"><sup>TND</sup> <span class="number">49</span> <sub>/شهر</sub></span>
-                        <ul class="pricing-text mb-5">
-                            <li><span class="fa fa-check mr-2"></span>5 Dog Walk</li>
-                            <li><span class="fa fa-check mr-2"></span>3 Vet Visit</li>
-                            <li><span class="fa fa-check mr-2"></span>3 Pet Spa</li>
-                            <li><span class="fa fa-check mr-2"></span>Free Supports</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
+                        <span class="price"><sup>TND</sup> <span class="number">{{Offer.mensuelle}}</span> <sub>/شهر</sub></span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 ftco-animate fadeInUp ftco-animated">
+            <div class="col-md-4 ftco-animate fadeInUp ftco-animated mb-4">
                 <div class="block-7">
-                    <div class="img" style="background-image: url(https://www.bootdey.com/image/350x280/87CEFA/000000);"></div>
                     <div class="text-center p-4">
-                        <span class="excerpt d-block">Business</span>
-                        <span class="price"><sup>$</sup> <span class="number">79</span> <sub>/mos</sub></span>
-                        <ul class="pricing-text mb-5">
-                            <li><span class="fa fa-check mr-2"></span>5 Dog Walk</li>
-                            <li><span class="fa fa-check mr-2"></span>3 Vet Visit</li>
-                            <li><span class="fa fa-check mr-2"></span>3 Pet Spa</li>
-                            <li><span class="fa fa-check mr-2"></span>Free Supports</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
+                        <span class="excerpt d-block">اشتراك ثلاثي</span>
+                        <span class="price"><sup>TND</sup> <span class="number">{{Offer.trimestrielle}}</span> <sub>/ثلاثي</sub></span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 ftco-animate fadeInUp ftco-animated">
+            <div class="col-md-4 ftco-animate fadeInUp ftco-animated mb-4">
                 <div class="block-7">
-                    <div class="img" style="background-image: url(https://www.bootdey.com/image/350x280/FF7F50/000000);"></div>
                     <div class="text-center p-4">
-                        <span class="excerpt d-block">Ultimate</span>
-                        <span class="price"><sup>$</sup> <span class="number">109</span> <sub>/mos</sub></span>
-                        <ul class="pricing-text mb-5">
-                            <li><span class="fa fa-check mr-2"></span>5 Dog Walk</li>
-                            <li><span class="fa fa-check mr-2"></span>3 Vet Visit</li>
-                            <li><span class="fa fa-check mr-2"></span>3 Pet Spa</li>
-                            <li><span class="fa fa-check mr-2"></span>Free Supports</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
+                        <span class="excerpt d-block">إشتراك سنوي</span>
+                        <span class="price"><sup>TND</sup> <span class="number">{{Offer.anuelle}}</span> <sub>/سنة</sub></span>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,8 @@ import { AuthService } from '../services/auth.service';
 import { RegisterRequest } from '../models/RegisterRequest';
 import { RoleService } from '../services/role.service';
 import Swal from 'sweetalert2';
-import { Role } from '../../admin/adminmodules/users/models/Role';
+import { Router } from '@angular/router';
+import { SmsService } from '../services/smsservice/sms.service';
 
 @Component({
   selector: 'app-register',
@@ -27,13 +28,15 @@ export class RegisterComponent implements OnInit{
   confirmPasswordControl: any;
 
 
+
   roles:any
 
   constructor(
     private title:Title,
     private authenticationService: AuthService,
     private formBuilder:FormBuilder,
-    private roleservice:RoleService
+    private roleservice:RoleService,
+    private router:Router,private smsService:SmsService
         ){
     this.title.setTitle("فسرلي | التسجيل")
   }
@@ -47,7 +50,7 @@ export class RegisterComponent implements OnInit{
         } 
       },  
       error => {
-        // Handle error
+        console.log(error)
       }
     );
     
@@ -116,13 +119,19 @@ export class RegisterComponent implements OnInit{
             });            
           }
 
-          if(data.successmessage === 'Register Success'){
+          if (data.successmessage === 'Register Success') {
             Swal.fire({
               icon: 'success',
               title: 'نجاح',
               text: 'تم تسجيل المستخدم بنجاح',
             });
+            this.smsService.setphoneUser(formData.numTel)
+                    setTimeout(() => {
+              this.router.navigate(['/auth/smsVerification']); 
+            }, 5000);
           }
+
+          
 
         }
         

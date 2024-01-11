@@ -12,11 +12,13 @@ import {  InputGroupModule } from 'primeng/inputgroup';
 import {  InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
+import { SmsVerificationComponent } from './sms-verification/sms-verification.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SmsVerificationComponent
   ],
   imports: [
     CommonModule,

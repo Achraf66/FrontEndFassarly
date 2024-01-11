@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Page404Component } from './ExtraPages/page404/page404.component';
 import { HeaderComponent } from './Main/header/header.component';
 import { FooterComponent } from './Main/footer/footer.component';
@@ -16,6 +16,7 @@ import { registerLocaleData } from '@angular/common';
 import localeAr from '@angular/common/locales/ar';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { HttpInterceptorService } from './modules/auth/http-interceptor.service';
 
 registerLocaleData(localeAr, 'ar');
 
@@ -42,7 +43,12 @@ registerLocaleData(localeAr, 'ar');
       },
       DatePipe, 
       { provide: LOCALE_ID, useValue: "ar" },
-      DialogService ,MessageService,ConfirmationService
+      DialogService ,MessageService,ConfirmationService  
+       ,{
+        provide: HTTP_INTERCEPTORS,
+        useClass: HttpInterceptorService,
+        multi: true,
+      }
       
     ],
   bootstrap: [AppComponent]

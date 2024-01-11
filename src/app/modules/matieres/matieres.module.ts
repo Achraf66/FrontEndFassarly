@@ -26,6 +26,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ImageModule } from 'primeng/image';
+import { OffersComponent } from './offers/components/offers/offers.component';
 registerLocaleData(localear,'ar');
 
 /***********************************************************/
@@ -43,6 +44,7 @@ export function momentAdapterFactory() {
     CalendarComponent,
     EventdetailsmodalComponent,
     EditUserDetailsStudentComponent,
+    OffersComponent,
   ],
   imports: [
     CommonModule,

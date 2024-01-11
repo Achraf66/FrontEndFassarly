@@ -6,4 +6,33 @@ li.active a {
   li.active a:hover {
     background-color: #eaeee9; /* Change the background color on hover */
   }
+  .mobile-menu {
+    display: none;
+    /* Add your styles for the closed state */
   
+    &.open {
+      display: block;
+      /* Add your styles for the open state */
+    }
+  }
+  
+  .overlay {
+    display: none;
+    /* Add overlay styles */
+  }
+  
+  .overlay.active {
+    display: block;
+    /* Add overlay styles for the active state */
+  }
+  
+
+  .rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+
+.ltr {
+ float:right;
+}

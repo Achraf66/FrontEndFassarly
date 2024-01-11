@@ -24,7 +24,7 @@
             <tr>
                 <th>عنوان الدرس</th>
                 <th>الوصف</th>
-                <th>رابط الفيديو</th>
+                <!-- <th>رابط الفيديو</th> -->
                 <th>مرفقات الدرس</th>
                 <th>الاجراء</th>
             </tr>
@@ -44,7 +44,7 @@
     <tr>
       <td>{{ lesson.nomLesson }}</td>
       <td class="ellipsis" title="{{ lesson.description }}">{{ lesson.description }}</td>
-      <td>{{ lesson.videoLien }}</td>
+      <td style="display: none;">{{ lesson.videoLien }}</td>
       <td>
         {{ lesson.piecesJointes?.length }}
         <a (click)="downloadPiecesJointes(idTheme, lesson.id)" title="مرفقات الدرس">

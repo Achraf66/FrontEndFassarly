@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'Fassarlt-FrontEnd';
 
   isLoginoradmin : any;
-   constructor (private zone: NgZone, private router: Router) {
+   constructor (private router: Router) {
  
   }
 
@@ -18,7 +18,7 @@ export class AppComponent {
 
   shouldShowHeader() {
     const currentRoute = this.router.url;
-    return !['/auth/login', '/auth/register'].includes(currentRoute) && !currentRoute.startsWith('/admin/');
+    return !['/auth/login', '/auth/register','/auth/smsVerification'].includes(currentRoute) && !currentRoute.startsWith('/admin/');
   }
   
   shouldShowFooter() {

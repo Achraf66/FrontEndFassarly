@@ -117,17 +117,17 @@ export class ThemesComponent {
     
     }
 
-    findMatiereById(idMatiere:number){
-
+    findMatiereById(idMatiere: number) {
       this.matiereService.getMatiereById(idMatiere).subscribe(
-
-        (data)=> {
-          this.matiere = data
+        (data) => {
+          this.matiere = data;
+        },
+        (error) => {
+          console.error(error);
         }
-      )
-
-
+      );
     }
+    
 
   
   

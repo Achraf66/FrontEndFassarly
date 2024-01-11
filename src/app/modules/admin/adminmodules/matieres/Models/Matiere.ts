@@ -1,5 +1,5 @@
 export class Matiere{
     id:number
-    nomMatiere?:string;
+    nomMatiere:string |null | undefined; 
     photo?:string
 }

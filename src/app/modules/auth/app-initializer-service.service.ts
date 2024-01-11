@@ -18,7 +18,9 @@ export class AppInitializerService {
 
         // Retrieve the 'sub' claim
         const userId = decodedToken.sub;
+        const exp = decodedToken.exp
 
+        this.authService.setexpToken(exp);
         // Set the user ID in the AuthService
         this.authService.setUserId(userId);
         

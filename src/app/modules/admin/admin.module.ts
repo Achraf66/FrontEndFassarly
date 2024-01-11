@@ -43,6 +43,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { EditSessionsComponent } from './adminmodules/livesessions/componenets/edit-sessions/edit-sessions.component';
 import { OffersComponent } from './adminmodules/Offers/components/offers/offers.component';
+import { CreateEditOfferComponent } from './adminmodules/Offers/components/create-edit-offer/create-edit-offer.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { OffersComponent } from './adminmodules/Offers/components/offers/offers.
     CustomDatePipe,
     AddnewSessionLiveComponent,
     EditSessionsComponent,
-    OffersComponent
+    OffersComponent,
+    CreateEditOfferComponent
   ],
   imports: [
     CommonModule,

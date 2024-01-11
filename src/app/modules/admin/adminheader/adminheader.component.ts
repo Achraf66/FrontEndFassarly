@@ -3,6 +3,9 @@ import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddmatiereComponent } from '../adminmodules/matieres/components/addmatiere/addmatiere.component';
 import { MenuService } from '../adminmodules/users/services/MenuService';
+import { AuthService } from '../../auth/services/auth.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adminheader',
@@ -13,16 +16,25 @@ export class AdminheaderComponent  implements OnInit{
   items: MenuItem[] | undefined;
   visibleshowmatiere: boolean = false;
   selectedItem: any;
+  numtel:any
+  constructor(private dialogService: DialogService,
+    private menuService: MenuService,
+    private auth:AuthService,
+    private router:Router
+    
+    ){
 
-  constructor(private dialogService: DialogService,private menuService: MenuService){
-
+    
 
   }
 
 
-
+   
 
   ngOnInit() {
+
+    this.numtel = this.auth.getUserId(); 
+
     this.items = [
       
         {
@@ -96,8 +108,10 @@ export class AdminheaderComponent  implements OnInit{
 
           
         label: 'خروج',
-        icon: 'pi pi-fw pi-power-off'
-    
+        icon: 'pi pi-fw pi-power-off',
+        command: (event) => {
+          this.logout();
+       }
     }
      
     ];
@@ -120,17 +134,55 @@ openModalAddMatiere(): void {
 /****************************************************************/
 
 
-/************************Add Comptabiltie Component Modal******* */
-// openModalAddComptabilite(): void {
-//     const ref= this.dialogService.open(AddcomptabiliteComponent, {
-//        header: 'إضافة إشتراك في مادة', 
-//        width: '40%',
-//        height:'60%',
-//        dismissableMask: true  
-//      });
-   
-//    }
-/************************************************************** */
+logout() {
+  this.auth.logout(this.numtel).subscribe(
+    (data)=> {
+        console.log(data)
+        console.log(this.numtel)
+      if (data.errormessage === 'User Already logged out') {
+          this.auth.setUserId(null);
+          localStorage.clear()
+        
+                
+          Swal.fire({
+            icon: 'info',
+            title: 'تنبيه',
+            text: 'المستخدم قد قام بتسجيل الخروج بالفعل.'
+          });
+        
+      }
+      
+      if (data.successmessage === 'User logged Successfully') {
+        this.auth.setUserId(null);
+        localStorage.clear()
+
+        Swal.fire({
+          icon: 'success',
+          title: 'نجاح',
+          text: 'تم تسجيل الخروج بنجاح.'
+        });
+        
+      }
+    
+      if (data.successmessage === 'User not found') {
+        this.auth.setUserId(null);
+        localStorage.clear()
+         Swal.fire({
+          icon: 'error',
+          title: 'خطأ',
+          text: 'المستخدم غير موجود.'
+        });
+      }
+    },
+
+    (error) => console.log(error)
+  
+  )
+  this.auth.setUserId('');
+  localStorage.setItem('accesstoken', ''); 
+  this.router.navigate(['/auth/login']); 
+}
+
 
 
 

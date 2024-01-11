@@ -1,0 +1,129 @@
+
+<h1>{{phoneUser}}</h1>
+<div *ngIf="phoneUser">
+<div class="row justify-content-center mt-7">
+    <div class="col-lg-5 text-center">
+        <a href="index.html">
+            <img src="assets/img/svg/logo.svg" alt="">
+        </a>
+        <div class="card mt-5">
+            <div class="card-body py-5 px-lg-5">
+                <div class="svg-icon svg-icon-xl text-purple">
+                    <img src="assets/images/logo.png"><br>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><title>ionicons-v5-g</title><path d="M336,208V113a80,80,0,0,0-160,0v95" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path><rect x="96" y="208" width="320" height="272" rx="48" ry="48" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></rect></svg>
+                    
+                </div>
+                <h3 class="fw-normal text-dark mt-4 " dir="rtl">
+                    التحقق من رقم الهاتف :
+                    <br> 
+                     {{phoneUser}} 
+                </h3>
+                <p class="mt-4 mb-1">
+                    لقد قمنا بإرسال رمز التحقق إلى رقم الهاتف.
+                 </p>
+                <p>
+                    يرجى إدخال الرمز في الحقل أدناه.
+                </p>
+
+                <div class="row mt-4 pt-2">
+                    <div class="col">
+                        <input type="text" class="form-control form-control-lg text-center py-4" maxlength="1" autofocus="">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-lg text-center py-4" maxlength="1">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-lg text-center py-4" maxlength="1">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-lg text-center py-4" maxlength="1">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-lg text-center py-4" maxlength="1">
+                    </div>
+                </div>
+
+                <button type="submit" [disabled]="true" href="#!" class="btn btn-primary btn-lg w-100 hover-lift-light mt-4">
+                    تحقق من حسابي
+                </button>
+            </div>
+        </div>
+
+        <p class="text-center text-muted mt-4">
+            لم تستلم الرمز؟
+            <a href="#!" class="text-decoration-none ms-2">
+                إعادة إرسال الرمز
+            </a>
+        </p>
+    </div>
+</div>
+</div>
+
+<div *ngIf="!phoneUser">
+    <div class="row justify-content-center mt-7">
+      <div class="col-lg-5 text-center">
+        <a>
+          <img src="assets/img/svg/logo.svg" alt="">
+        </a>
+        <div class="card mt-5">
+          <div class="card-body py-5 px-lg-5">
+            <div class="svg-icon svg-icon-xl text-purple">
+              <img src="assets/images/logo.png"><br>
+  
+              <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><title>ionicons-v5-g</title><path d="M336,208V113a80,80,0,0,0-160,0v95" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path><rect x="96" y="208" width="320" height="272" rx="48" ry="48" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></rect></svg>
+  
+            </div>
+            <h3 class="fw-normal text-dark mt-4" dir="rtl">
+              التحقق من رقم الهاتف: {{phoneUser}}
+            </h3>
+            <p>
+              يرجى إدخال الرمز ورقم الهاتف في الحقل أدناه.
+            </p>
+  
+            <form (ngSubmit)="onSubmit()" #verificationForm="ngForm">
+              <div class="row mt-4 pt-2">
+                <div class="col">
+                  <label for="phone">رقم الهاتف</label>
+                  <input
+                    maxlength="8"
+                    name="phone"
+                    type="text"
+                    class="form-control form-control-lg text-center py-4"
+                    [(ngModel)]="phoneNumber"
+                    required
+                  >
+                </div>
+              </div>
+  
+              <div class="row mt-4 pt-2">
+                <label>الرمز</label>
+                <div class="col" *ngFor="let i of [1, 2, 3, 4, 5]">
+                  <input
+                    type="text"
+                    class="form-control form-control-lg text-center py-4"
+                    maxlength="1"
+                    [(ngModel)]="verificationCode[i - 1]"
+                    name="verificationCode{{ i }}"
+                    required
+                  >
+                </div>
+              </div>
+  
+              <button type="submit" [disabled]="verificationForm.invalid" class="btn btn-primary btn-lg w-100 hover-lift-light mt-4">
+                تحقق من حسابي
+              </button>
+            </form>
+          </div>
+        </div>
+  
+        <p class="text-center text-muted mt-4">
+          لم تستلم الرمز؟
+          <a href="#!" class="text-decoration-none ms-2">
+            إعادة إرسال الرمز
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+  

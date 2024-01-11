@@ -21,6 +21,9 @@ export class MatieresComponent implements OnInit {
     
   constructor(private matiereservice:MatiereService,private router:Router,private auth:AuthService,private title:Title)
   {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+   };
     title.setTitle("فسرلي | المواد")
    this.userid = this.auth.getUserId()
   }
@@ -39,7 +42,7 @@ export class MatieresComponent implements OnInit {
       catchError((error) => {
         console.error('Error loading matieres:', error);
         throw error; 
-      }) ).subscribe(matieres=>console.log(matieres))
+      }) ).subscribe()
     };
  
  

@@ -94,7 +94,13 @@
               "node_modules/primeng/resources/primeng.min.css"
           
                         ],
-            "scripts": []
+            "scripts": [
+             "src/assets/js/main.js",
+            "src/assets/js/plugins.min.js",
+            "src/assets/js/plugins.min.js",
+            "src/assets/js/main.js"
+        
+          ]
           }
         }
       }

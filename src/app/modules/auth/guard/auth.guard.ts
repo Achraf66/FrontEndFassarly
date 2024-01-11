@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { User } from '../../admin/adminmodules/users/models/User';
 import { MatiereService } from '../../matieres/services/matiere.service';
 import { Matiere } from '../../matieres/models/Matiere';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,10 @@ export class AuthGuard implements CanActivate, OnInit {
   currentUser: User | undefined;
   tel:string
   Matiere: Matiere
-  constructor(private authService: AuthService, private router: Router,private matiereService:MatiereService) {}
+  constructor(private authService: AuthService,
+     private router: Router,
+     private matiereService:MatiereService,
+     private messageService: MessageService) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem('accesstoken');
@@ -39,10 +43,23 @@ export class AuthGuard implements CanActivate, OnInit {
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     // Check if the user is authenticated
+
+
     if (this.authService.isAuthenticated()) {
       // Check if the user has the required roles
       const roles: string[] | null = next.data['roles'];
       const token = localStorage.getItem('accesstoken');
+
+      if (state.url.includes('auth/login')  || (state.url.includes('auth/register'))) {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'تنبيه',
+          detail: 'أنت بالفعل قد قمت بتسجيل الدخول.',
+        });
+        this.router.navigate(['/matieres/matieres']);
+        return false; 
+      }
+
   
       if (token) {
         const decodedToken: any = jwtDecode(token);
@@ -61,7 +78,7 @@ export class AuthGuard implements CanActivate, OnInit {
                   return true;
                 } else {
                   // Redirect to unauthorized page if the user does not have the required roles or access to the course
-                  return this.router.createUrlTree(['/unauthorized']);
+                  return this.router.createUrlTree(['/auth/login']);
                 }
               })
             );
