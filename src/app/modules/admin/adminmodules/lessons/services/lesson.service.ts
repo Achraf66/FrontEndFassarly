@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Lesson } from '../Lesson';
@@ -16,9 +16,6 @@ export class LessonService {
   }
 
 
-
-
-
   getLessonsByThemeId(idTheme:number):Observable<Lesson[]>
   {
     const URL = `${this.BASEURL}/api/lesson/getLessonsByTheme/${idTheme}`
@@ -26,21 +23,39 @@ export class LessonService {
   }
 
 
-  createLessonAndAffectToTheme(idTheme:number,nomLesson:string,videoLien:string,description:string,piecesJointes:File[])
-  {
-    const URL = `${this.BASEURL}/api/lesson/createLessonAndAffectToTheme/${idTheme}`
-    const Formdata : FormData = new FormData();
-    Formdata.append('nomLesson',nomLesson)
-    Formdata.append('videoLien',videoLien)
-    Formdata.append('description',description)
-    if(piecesJointes){
+  createLessonAndAffectToTheme(
+    idTheme: number,
+    nomLesson: string,
+    videoLien: string,
+    description: string,
+    piecesJointes: File[]
+  ) {
+    const URL = `${this.BASEURL}/api/lesson/createLessonAndAffectToTheme/${idTheme}`;
+    const Formdata: FormData = new FormData();
+    Formdata.append('nomLesson', nomLesson);
+    Formdata.append('videoLien', videoLien);
+    Formdata.append('description', description);
+  
+    if (piecesJointes) {
       for (let i = 0; i < piecesJointes.length; i++) {
         Formdata.append('piecesJointes', piecesJointes[i]);
       }
     }
- 
-    return this.http.post(URL,Formdata);
+  
+    // Adjust the return type using 'as'
+    return this.http.post(URL, Formdata);
   }
+  
+
+  download(filename: string,lessonId:number): Observable<HttpEvent<Blob>> {
+
+    return this.http.get(`${this.BASEURL}/download/lessonfile/${filename}/${lessonId}`, {
+      reportProgress: true,
+      observe: 'events',
+      responseType: 'blob'
+    });
+  }
+
 
 
   fetchLessonById(idLesson:number){
@@ -56,12 +71,6 @@ export class LessonService {
 
   }
 
-
-  downloadPiecesJointes(themeId: number, lessonId: number): Observable<Blob> {
-    const url = `${this.BASEURL}/download/lesson/piecesjointes/${themeId}/${lessonId}`;
-    
-    return this.http.get(url, { responseType: 'blob' });
-  }
 
 
   updateLesson(lessonId:number,nomLesson:string,videoLien:string,description:string,piecesJointes:File[])

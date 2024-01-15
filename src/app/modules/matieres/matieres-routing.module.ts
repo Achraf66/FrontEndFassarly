@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'lesson', component: LessonComponent,},
   { path: 'themes/:matiereid', component: ThemesComponent,canActivate:[AuthGuard] },
   // { path: 'lesson/:matiereid/:themeid', component: LessonComponent,},
-  { path: 'lesson/:matiereid/:themeid/:lessonid', component: LessonComponent},
+  { path: 'lesson/:matiereid/:themeid/:lessonid', component: LessonComponent,canActivate:[AuthGuard]},
   { path: 'offers', component: OffersComponent,pathMatch:'full'},
 
 

@@ -17,6 +17,9 @@
             <th pSortableColumn="heureFin" >
                 <p-sortIcon ></p-sortIcon>ساعة النهاية
             </th>
+            <th>
+                الفرض المنزلي
+            </th>
             <th colspan="2">اجرائات</th>
 
         </tr>
@@ -27,13 +30,8 @@
         </div>
     
         <div class="flex">
-            <!-- <button style="border-radius: 80%;" (click)="fetchSessionLiveByMatiere()" pButton label="إلغاء البحث" class="p-button-outlined" icon="pi pi-filter-slash"></button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-
             <span class="p-input-icon-left ml-auto">
                 <i ></i>
-                <!-- <input [(ngModel)]="searchTerm" type="text" required>
-                <button style="border-radius: 80%; " (click)="SearchMatiereByNom(searchTerm)" [disabled]="!searchTerm"><i class="icofont-search"></i></button> -->
             </span>
         </div>
     </ng-template>
@@ -59,6 +57,13 @@
                 {{ liveSession.heureFin}}
 
             </td>
+                <td>
+                    <div class="file-icons">
+                      <a (click)="downloadFile(liveSession.homeWorkFileName,liveSession.id,liveSession.titre)">
+                        <i class="pi pi-download" style="font-size: 24px;"></i>
+                      </a>
+                    </div>
+                  </td>
             <td>
                 <p-button (onClick)="OpenEditessionLive(liveSession.id)" [text]="true" severity="primary"
                 label="تعديل" icon="pi pi-pencil"></p-button>

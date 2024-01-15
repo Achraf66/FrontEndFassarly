@@ -82,7 +82,7 @@
                                 <ul class="widget-link">
                                     <li><a href="#">الصفحة الرئيسية</a></li>
                                     <li><a routerLink="/matieres/matieres">المواد</a></li>
-                                    <li><a href="#">العروض</a></li>
+                                    <li><a [routerLink]="'/matieres/offers'">العروض</a></li>
                                     <!-- <li><a href="#">Marketing</a></li> -->
                                 </ul>
 
@@ -125,7 +125,7 @@
     <!-- Footer End -->
 
     <!--Back To Start-->
-    <a href="#" class="back-to-top">
+    <a class="back-to-top" (click)="scrollToTop()">
         <i class="icofont-simple-up"></i>
-    </a>
+      </a>
     <!--Back To End-->

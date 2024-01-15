@@ -6,6 +6,7 @@ export class SeanceEnLigne {
     heureDebut: string;
     heureFin: string;
     titre: string;
+    homeWorkFileName:string;
     lienZoom: string;
     matieres: Matiere;
 }  

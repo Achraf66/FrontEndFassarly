@@ -3,7 +3,7 @@
 <div *ngIf="phoneUser">
 <div class="row justify-content-center mt-7">
     <div class="col-lg-5 text-center">
-        <a href="index.html">
+        <a>
             <img src="assets/img/svg/logo.svg" alt="">
         </a>
         <div class="card mt-5">
@@ -25,28 +25,27 @@
                 <p>
                     يرجى إدخال الرمز في الحقل أدناه.
                 </p>
+            <form (ngSubmit)="onSubmitWithoutNumber()" #verificationForm2="ngForm">
 
-                <div class="row mt-4 pt-2">
-                    <div class="col">
-                        <input type="text" class="form-control form-control-lg text-center py-4" maxlength="1" autofocus="">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control form-control-lg text-center py-4" maxlength="1">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control form-control-lg text-center py-4" maxlength="1">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control form-control-lg text-center py-4" maxlength="1">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control form-control-lg text-center py-4" maxlength="1">
-                    </div>
+              <div class="row mt-4 pt-2">
+                <label>الرمز</label>
+                <div class="col" *ngFor="let i of [1, 2, 3, 4, 5]">
+                  <input
+                    type="text"
+                    class="form-control form-control-lg text-center py-4"
+                    maxlength="1"
+                    [(ngModel)]="verificationCodewithoutNumber[i - 1]"
+                    name="verificationCodewithoutNumber{{ i }}"
+                    required
+                  >
                 </div>
+              </div>
 
-                <button type="submit" [disabled]="true" href="#!" class="btn btn-primary btn-lg w-100 hover-lift-light mt-4">
+                <button type="submit" [disabled]="verificationForm2.invalid" href="#!" class="btn btn-primary btn-lg w-100 hover-lift-light mt-4">
                     تحقق من حسابي
                 </button>
+            </form>
+
             </div>
         </div>
 

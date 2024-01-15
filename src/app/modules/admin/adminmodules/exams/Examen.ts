@@ -1,10 +1,10 @@
 import { Matiere } from "../matieres/Models/Matiere";
+import { PrototypeExam } from "../prototypeExam/models/PrototypeExam";
 
 export class Examen{
     id: number;
     nomExamen: string;
-    pieceJointes: string[];
-    correction: string;
-    videoLien: string;
     matieres: Matiere; 
+    prototypeExams: PrototypeExam[];
+
 }

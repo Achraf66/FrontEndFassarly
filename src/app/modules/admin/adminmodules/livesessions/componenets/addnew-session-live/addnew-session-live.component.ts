@@ -14,7 +14,7 @@ import { MenuService } from '../../../users/services/MenuService';
 })
 export class AddnewSessionLiveComponent implements OnInit {
   matiereid;
-
+  homeWorkFile:any
 
   SessionForm: FormGroup
 
@@ -109,7 +109,7 @@ export class AddnewSessionLiveComponent implements OnInit {
     seanceEnLigne.lienZoom = this.SessionForm.value.lienZoom;
   
     // Call the service method with the created SeanceEnLigne object
-    this.liveSession.CreateSeanceEnLigneAndAffectToMatiere(this.matiereid, seanceEnLigne).subscribe(
+    this.liveSession.createSeanceEnLigneAndAffectToMatiere(this.matiereid, seanceEnLigne,this.homeWorkFile).subscribe(
       (data:any) => {
         if(data.message === 'SeanceEnLigne créée avec succès'){
           this.messageService.add({
@@ -144,6 +144,14 @@ export class AddnewSessionLiveComponent implements OnInit {
     this.menu.triggerNewItemAdded();
   }
   
+  onFileSelectedhomeWorkFile(event: any) {
+    const file: File = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.homeWorkFile = file;
+    };
+    reader.readAsDataURL(file);
+  }
 
 
 }

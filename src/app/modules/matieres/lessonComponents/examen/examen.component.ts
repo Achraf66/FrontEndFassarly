@@ -1,38 +1,38 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { SafeResourceUrl } from '@angular/platform-browser';
+import { Component, Input, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Examen } from 'src/app/modules/admin/adminmodules/exams/Examen';
 import { ExamenService } from 'src/app/modules/admin/adminmodules/exams/service/examen.service';
-import { CorrectionVideoModalComponent } from '../../modals/correction-video-modal/correction-video-modal.component';
-import { HttpResponse } from '@angular/common/http';
+import { TreeNode } from 'primeng/api';
+import { TreeNodeSelectEvent } from 'primeng/tree';
+import { PrototypeExamDetailsComponent } from '../../modals/prototype-exam-details/prototype-exam-details.component';
 
 @Component({
   selector: 'app-examen',
   templateUrl: './examen.component.html',
   styleUrls: ['./examen.component.css']
 })
-export class ExamenComponent implements OnInit,AfterViewInit{
+export class ExamenComponent implements OnInit{
   @Input() matiereId: any;
   @Input() themeId: any;
 
+  files!: TreeNode[];
 
+  selectedFiles!: any;
 
-
-
-  
   videoUrl:any
   videoid :any ;
-  safeVideoUrl!: SafeResourceUrl;
-  videoPermissions: string = 'autoplay; encrypted-media; picture-in-picture; web-share';
 
   ExamenList : Examen[]
 
   ngOnInit(): void {
     if (this.matiereId !== null && this.themeId !== null) {
       this.fetchGetExamensByMatiere();
+  
     }
-
   }
+
+
+
 
 
   constructor(
@@ -49,96 +49,84 @@ export class ExamenComponent implements OnInit,AfterViewInit{
 
       (data)=>{
         this.ExamenList = data
+        this.files = this.mapExamsToTreeNodes(data);
       },
       (error)=>{
         console.log(error)
       }
       )
   }
+// Add this method to your ExamenComponent
 
-/*****************************************************************************************************/
-  downloadCorrection(matiereId: number, examenId: number,examenname:string) {
-    this.examenService.downloadCorrectionFile(matiereId, examenId).subscribe(
-      (response: HttpResponse<ArrayBuffer>) => {
-        if (response.body !== null) {
-          this.handleDownload(response,examenname);
-        } else {
-          console.error('Response body is null.');
-        }
+
+// Modify mapExamsToTreeNodes method
+mapExamsToTreeNodes(examens: Examen[]): TreeNode<any>[] {
+  return examens.map((examen, index) => {
+    // Check if prototypeExams is available
+    const sortedPrototypeExams = examen.prototypeExams
+      ? examen.prototypeExams.slice().sort((a, b) => {
+          const numA = parseFloat(a.nomPrototypeExam);
+          const numB = parseFloat(b.nomPrototypeExam);
+          return numA - numB;
+        })
+      : [];
+
+    const childrenNodes: TreeNode<any>[] = sortedPrototypeExams.map((prototypeExam, i) => ({
+      key: `${index}-${i}`,
+      label: "نموذج " + prototypeExam.nomPrototypeExam,
+      data: {
+        prototypeExam,
+        nomExamen: examen.nomExamen,
+        idExamen: examen.id, // Include nomExamen in data
       },
-      (error: any) => {
-        console.error('Download failed:', error);
-      }
-    );
+    }));
+
+    return {
+      key: `${index}`,
+      label: examen.nomExamen,
+      children: childrenNodes,
+      data: {
+        ...examen,
+      },
+    };
+  });
+}
+
+onNodeSelect(event: TreeNodeSelectEvent): void {
+  const prototypeExamId: number | undefined = event.node.data?.prototypeExam?.id;
+  const nomExamen: string | undefined = event.node.data?.nomExamen;
+  const idExamen: number | undefined = event.node.data?.idExamen;
+
+  if (prototypeExamId !== undefined && nomExamen !== undefined && idExamen !== undefined  ) {
+    this.OpenPrototypeExamDetailsComponent(prototypeExamId, nomExamen,idExamen);
   }
-/*****************************************************************************************************/
-private handleDownload(response: HttpResponse<ArrayBuffer>,examenname:string): void {
-    // Check if the response has a valid body
-    if (response.body !== null) {
-      const blob = new Blob([response.body], { type: 'application/pdf' });
-  
-      // Create a link element and trigger a download
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download = examenname; 
-      link.click();
-    } else {
-      console.error('Response body is null.');
-    }
-  }
-  
+}
 
-/*****************************************************************************************************/
-downloadPiecesJointes(matiereId:number ,examenId:number) {
 
-    this.examenService.downloadPiecesJointes(matiereId, examenId)
-      .subscribe(blob => {
-        const downloadLink = document.createElement('a');
-        const url = window.URL.createObjectURL(blob);
 
-        downloadLink.href = url;
-        downloadLink.download = 'pieces_jointes.zip';
 
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(downloadLink);
-      });
-  }
 
 /*****************************************************************************************************/
-public OpenCorrectionVideoModalComponent(examenId: number, ExamenNom: string): void {
-  this.dialogService.open(CorrectionVideoModalComponent, {
+
+public OpenPrototypeExamDetailsComponent(prototypeExamId: number,nomExamen:string,idExamen:number): void {
+  this.dialogService.open(PrototypeExamDetailsComponent, {
     showHeader: false, 
-    width: '55%',
+    width: '60%',
     height: '80%',
     dismissableMask: true,
     data: {
-      matiereid: this.matiereId,
-      examenId: examenId,
-      ExamenNom: ExamenNom,
+      prototypeExamId: prototypeExamId,
+      nomExamen:nomExamen,
+      idExamen:idExamen
     },
   });
 }
+
 /*****************************************************************************************************/
 
-@ViewChild('myVideo') myVideo: ElementRef;
 
-seekToTime(timeInSeconds: number): void {
-    const videoElement: HTMLVideoElement = this.myVideo.nativeElement;
 
-    if (!isNaN(timeInSeconds) && videoElement) {
-        videoElement.currentTime = timeInSeconds;
-    }
-}
 
-ngAfterViewInit() {
-  this.myVideo.nativeElement.addEventListener('loadedmetadata', () => {
-      this.seekToTime(30);
-  });
-}
 
-  
 
 }

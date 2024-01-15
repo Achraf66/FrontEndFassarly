@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { SeanceEnLigne } from '../models/SeanceEnLigne';
@@ -24,13 +24,44 @@ export class LivesessionService {
 
 
 
-   
+   createSeanceEnLigneAndAffectToMatiere(matiereId: number, seanceEnLigne: SeanceEnLigne, homeWorkFile: File): Observable<any> {
+    const formData = new FormData();
+  
+    // Check if seanceEnLigne.date is not null before appending
+    if (seanceEnLigne.date !== null && seanceEnLigne.date !== undefined) {
+      formData.append('date', seanceEnLigne.date.toString());
+    }
+    
+    formData.append('heureDebut', seanceEnLigne.heureDebut);
+    formData.append('heureFin', seanceEnLigne.heureFin);
+    formData.append('titre', seanceEnLigne.titre);
+    formData.append('lienZoom', seanceEnLigne.lienZoom);
+    formData.append('homeWorkFile', homeWorkFile);
+  
+    const url = `${this.BASEURL}/api/seanceEnLigne/createSeanceEnLigneAndAffectToMatiere/${matiereId}`;
+  
+    return this.http.post(url, formData);
+  }
+  
+  
+  editSeanceEnLigne(seanceEnLigneId: number, seanceEnLigne: SeanceEnLigne, homeWorkFile: File) {
+    const formData = new FormData();
 
-   CreateSeanceEnLigneAndAffectToMatiere(matiereId:number,SeanceEnLigne:SeanceEnLigne){
-    const SESSIONLIVEURL= `${this.BASEURL}/api/seanceEnLigne/createSeanceEnLigneAndAffectToMatiere/${matiereId}`
-    return this.http.post(SESSIONLIVEURL,SeanceEnLigne);
-   }
+    // Check if seanceEnLigne.date is not null before appending
+    if (seanceEnLigne.date !== null && seanceEnLigne.date !== undefined) {
+      formData.append('date', seanceEnLigne.date.toString());
+    }
+    
+    formData.append('heureDebut', seanceEnLigne.heureDebut);
+    formData.append('heureFin', seanceEnLigne.heureFin);
+    formData.append('titre', seanceEnLigne.titre);
+    formData.append('lienZoom', seanceEnLigne.lienZoom);
+    formData.append('homeWorkFile', homeWorkFile);
 
+    const url = `${this.BASEURL}/api/seanceEnLigne/editSeanceEnLigne/${seanceEnLigneId}`;
+
+    return this.http.put(url, formData);
+  }
 
 
    GetSeanceEnLigne(sessionId:number){
@@ -45,6 +76,14 @@ export class LivesessionService {
    }
 
 
+
+  downloadLiveSessionHomeworkFile(filename: string,liveSessionId:number): Observable<HttpEvent<Blob>> {
+    return this.http.get(`${this.BASEURL}/download/LiveSessionHomeworkFile/${filename}/${liveSessionId}`, {
+      reportProgress: true,
+      observe: 'events',
+      responseType: 'blob'
+    });
+  }
 
     deleteSeanceEnLigneById(seanceEnLigneId:number){
     const SESSIONLIVEURL= `${this.BASEURL}/api/seanceEnLigne/removeSeanceEnLigne/${seanceEnLigneId}`

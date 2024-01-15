@@ -8,11 +8,13 @@
 
                     <div class="courses-details-images">
                         <div>
-                            <video controls width="800" height="500">
-                                <source src="{{videoid}}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>     
-                        </div>
+                            <video #myVideo controls width="800" height="500">
+                              <source [src]="videoid" type="video/mp4">
+                              Your browser does not support the video tag.
+                            </video>
+                          
+                          </div>
+                        
                 </div>
 
                     <div class="courses-details-admin rtl">
@@ -26,22 +28,25 @@
                             </div>
                         </div>     
                     </div>
-                    <h1 class="lesson-title rtl">عنوان الدرس : {{ lesson.nomLesson }} </h1>
+                    <h1 class="lesson-title rtl">عنوان المقطع : {{ lesson?.nomLesson }} </h1>
 
-                    <div class="description-wrapper rtl">
-                        <h3 class="tab-title">محتوى الدرس:</h3>
+                    <div class="description-wrapper rtl" *ngIf="lesson.description">
+                        <h3  class="tab-title">محتوى المقطع:</h3>
                         <p>{{lesson?.description}}</p>
                     </div>
+
                     <div class="description-wrapper rtl">
                     <div class="col-lg-5">
                     <div class="sidebar-widget rtl">
                         <h4 class="widget-title">المرفقات:</h4>
 
                         <ul class="social">
-                            <a (click)="downloadPiecesJointes(themeId,lesson.id)" title="مرفقات الدرس">
-                                <i class="pi pi-download" style="font-size: 24px;"></i>
+                            <a  title="مرفقات الدرس" *ngFor="let piecesJointe of lesson.piecesJointes , let i = index" (click)="downloadFile(piecesJointe, lesson.id, lesson.nomLesson)" title="مرفقات الدرس">
+                                <i class="pi pi-file-pdf" style="font-size: 50px;"></i>
+                                <span class="attachment-count">مرفق عدد {{ 1 + i }}</span>
                             </a>
                         </ul>
+
                     </div>
                     </div>
                     </div>

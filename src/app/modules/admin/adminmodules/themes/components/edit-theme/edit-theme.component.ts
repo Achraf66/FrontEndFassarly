@@ -42,12 +42,12 @@ export class EditThemeComponent implements OnInit {
     this.themeservice.updateThemeNameById(this.idTheme, themename).subscribe(
       (updatedTheme: Theme) => {
 
-        this.messageService.add({ severity: 'info', summary: 'تم تغير إسم المحور بنجاح', detail: 'تم تغير إسم المحور بنجاح' });
+        this.messageService.add({ severity: 'info', summary: 'تم تغير إسم الدرس بنجاح', detail: 'تم تغير إسم الدرس بنجاح' });
         this.closeModalAndNotify()
       },
       (error) => {
 
-        this.messageService.add({ severity: 'error', summary: 'لم يتم تغير إسم المحور', detail: 'لم يتم تغير إسم المحور' });
+        this.messageService.add({ severity: 'error', summary: 'لم يتم تغير إسم الدرس', detail: 'لم يتم تغير إسم الدرس' });
 
       }
     );

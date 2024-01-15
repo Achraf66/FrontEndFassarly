@@ -39,8 +39,8 @@ export class AddNewLessonAndAffectToThemeComponent implements OnInit{
   ngOnInit(): void {
     this.LessonForm = this.fb.group({
       nomLesson : ['',Validators.required],
-      videoLien:['',Validators.required],
-      description:['',Validators.required]
+      videoLien:[''],
+      description:['']
     })
 
 
@@ -86,7 +86,7 @@ export class AddNewLessonAndAffectToThemeComponent implements OnInit{
         (data:any)=>{
         
             this.closeModalAndNotify()
-            this.messageService.add({ severity: 'success', summary: 'نجاح', detail: 'تم إضافة الدرس بنجاح' });    
+            this.messageService.add({ severity: 'success', summary: 'نجاح', detail: 'تم إضافة المقطع فيديو بنجاح' });    
           
         
 
@@ -94,7 +94,7 @@ export class AddNewLessonAndAffectToThemeComponent implements OnInit{
         
         {
 
-          this.messageService.add({ severity: 'error', summary: ' لم يتم إضافة الدرس ', detail: ' لم يتم إضافة الدرس ' });    
+          this.messageService.add({ severity: 'error', summary: ' لم يتم إضافة المقطع فيديو ', detail: ' لم يتم إضافة المقطع فيديو ' });    
 
         }
 

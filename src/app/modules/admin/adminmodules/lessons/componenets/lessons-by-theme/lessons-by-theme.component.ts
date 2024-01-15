@@ -5,7 +5,7 @@ import { LessonService } from '../../services/lesson.service';
 import { AddNewLessonAndAffectToThemeComponent } from '../add-new-lesson-and-affect-to-theme/add-new-lesson-and-affect-to-theme.component';
 import { MenuService } from '../../../users/services/MenuService';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { HttpResponse } from '@angular/common/http';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { EditLessonComponent } from '../edit-lesson/edit-lesson.component';
 
 @Component({
@@ -19,6 +19,9 @@ export class LessonsByThemeComponent implements OnInit{
   idTheme:any
   nomTheme:any
   LessonList:Lesson[]=[]
+
+  downloadProgress = 0;
+
   ngOnInit(): void {
     
 
@@ -58,7 +61,7 @@ export class LessonsByThemeComponent implements OnInit{
 
   public OpenAddLessonAndAffectToTheme(): void {
     this.dialogService.open(AddNewLessonAndAffectToThemeComponent, {
-      header: 'إضافة درس جديد لهذا المحور',
+      header: 'إضافة مقطع فيديو جديد لهذا الدرس',
       width: '40%',
       height: '80%',
       dismissableMask: true,
@@ -78,7 +81,7 @@ export class LessonsByThemeComponent implements OnInit{
 
   public OpenEditLesson(LessonId:number): void {
     this.dialogService.open(EditLessonComponent,{
-      header: 'تغير بيانات الدرس',
+      header: 'تغير بيانات مقطع فيديو',
       width: '40%',
       height: '80%',
       dismissableMask: true,
@@ -98,7 +101,7 @@ export class LessonsByThemeComponent implements OnInit{
     this.showConfirmationDialogLesson = true;
 
     this.confirmationService.confirm({
-        message: 'هل تريد فعلاً حذف هذا الدرس؟',
+        message: 'هل تريد فعلاً حذف هذا المقطع؟',
         header: 'تأكيد الحذف',
         icon: 'pi pi-exclamation-triangle',
         acceptIcon: 'pi pi-check',
@@ -115,8 +118,8 @@ export class LessonsByThemeComponent implements OnInit{
                     if (data.message === 'Lesson supprimé avec succès') {
                         this.messageService.add({
                             severity: 'success',
-                            summary: ' تم حذف الدرس بنجاح ',
-                            detail: 'تم حذف الدرس بنجاح ',
+                            summary: ' تم حذف المقطع  بنجاح ',
+                            detail: 'تم حذف المقطع  بنجاح ',
                             life: 3000
                         });
                         this.closeModalAndNotify();
@@ -131,21 +134,22 @@ export class LessonsByThemeComponent implements OnInit{
           this.showConfirmationDialogLesson = false;
             this.messageService.add({
                 severity: 'error',
-                summary: 'لم يتم حذف الدرس',
-                detail: 'لم يتم حذف الدرس',
+                summary: 'لم يتم حذف المقطع ',
+                detail: 'لم يتم حذف المقطع ',
                 life: 3000
             });
         }
     });
 }
 
-
 closeModalAndNotify() {
 
   this.menu.triggerNewItemAdded();
 }
 
-private handleDownload(response: HttpResponse<ArrayBuffer>,examenname:string): void {
+
+
+private handleDownloadLesson(response: HttpResponse<ArrayBuffer>,lessonName:string): void {
   // Check if the response has a valid body
   if (response.body !== null) {
     const blob = new Blob([response.body], { type: 'application/pdf' });
@@ -153,29 +157,36 @@ private handleDownload(response: HttpResponse<ArrayBuffer>,examenname:string): v
     // Create a link element and trigger a download
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
-    link.download = examenname; 
+    link.download =lessonName; 
     link.click();
+    
   } else {
     console.error('Response body is null.');
   }
 }
 
-downloadPiecesJointes(themeId: number, lessonId: number) {
+downloadFile(filename: string, lessonId: number , lessonName:string): void {
 
-  this.lessonService.downloadPiecesJointes(themeId, lessonId)
-    .subscribe(blob => {
-      const downloadLink = document.createElement('a');
-      const url = window.URL.createObjectURL(blob);
+  
 
-      downloadLink.href = url;
-      downloadLink.download = 'pieces_jointes.zip';
-
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(downloadLink);
-    });
+  this.lessonService.download(filename, lessonId)
+    .subscribe(
+      (event: any) => {
+        if (event.type === HttpEventType.DownloadProgress) {
+          // Handle download progress if needed
+          const percentDone = Math.round((100 * event.loaded) / event.total);
+          this.downloadProgress = percentDone
+        } else if (event instanceof HttpResponse) {
+          this.handleDownloadLesson(event,lessonName);
+        }
+      },
+      (error) => {
+        console.error('Error downloading file:', error);
+      }
+    );
 }
+
+
+
   
 }

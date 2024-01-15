@@ -79,7 +79,7 @@ this.menu.newItemAdded$.subscribe(() => {
 
   public openModifyThemeDialog(idTheme:number): void {
      this.dialogService.open(EditThemeComponent, {
-      header: 'تغيير بيانات المحور',
+      header: 'تغيير بيانات الدرس',
       width: '30%',
       height: '50%',
       data: {
@@ -96,8 +96,8 @@ this.menu.newItemAdded$.subscribe(() => {
     this.showConfirmationDialogTheme = true;
     this.confirmationService.confirm({
         target: event.target as EventTarget,
-        message: 'هل تريد فعلاً حذف هذا المحور؟',
-        header: 'هل تريد فعلاً حذف هذا المحور؟',
+        message: 'هل تريد فعلاً حذف هذا الدرس؟',
+        header: 'هل تريد فعلاً حذف هذا الدرس؟',
         icon: 'pi pi-exclamation-triangle',
         acceptIcon:"none",
         rejectIcon:"none",
@@ -114,7 +114,7 @@ this.menu.newItemAdded$.subscribe(() => {
         reject: () => {
           this.showConfirmationDialogTheme = false;
 
-            this.messageService.add({ severity: 'error', summary: 'لم يتم حذف هذا المحور', detail: 'لم يتم حذف هذا المحور', life: 3000 });
+            this.messageService.add({ severity: 'error', summary: 'لم يتم حذف هذا الدرس', detail: 'لم يتم حذف هذا الدرس', life: 3000 });
         }
     });
 }
@@ -136,7 +136,7 @@ this.themeservice.findThemesSearch(searchTerm,this.matiereId).subscribe(
 
 public openNewAddNewThemeModal(): void {
   this.dialogService.open(AddThemeToMatiereComponent, {
-   header: 'إضافة محور جديد',
+   header: 'إضافة درس جديد',
    width: '30%',
    height: '50%',
    dismissableMask:true,
@@ -151,7 +151,7 @@ public openNewAddNewThemeModal(): void {
 
 public OpenLessonsByThemes(idTheme:number,nomTheme:string): void {
   this.dialogService.open(LessonsByThemeComponent, {
-   header: 'دروس محور :'+nomTheme,
+   header: 'مقاطع فيديو الدرس : '+nomTheme,
    width: '100%',
    height: '125%',
    dismissableMask:false,

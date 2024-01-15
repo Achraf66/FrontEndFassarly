@@ -2,7 +2,7 @@
 
 <form [formGroup]="ThemeForm" (ngSubmit)="onSubmit()">
     <div class="single-form">
-      <label for="nomTheme">إسم المحور</label>
+      <label for="nomTheme">إسم الدرس</label>
       <div class="p-field">
         <input
           pInputText
@@ -10,13 +10,13 @@
           type="text"
           id="nomTheme"
           class="p-inputtext-lg"
-          placeholder="إسم المحور"
+          placeholder="إسم الدرس"
         />
         <div
         *ngIf="ThemeForm.get('nomTheme')?.hasError('required') && ThemeForm.get('nomTheme')?.touched"
         class="text-danger"
         >
-          إسم المحور مطلوب.
+          إسم الدرس مطلوب.
         </div>
       </div>
     </div>

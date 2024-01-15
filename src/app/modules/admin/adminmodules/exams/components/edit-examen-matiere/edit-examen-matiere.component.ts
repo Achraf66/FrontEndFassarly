@@ -38,45 +38,18 @@ export class EditExamenMatiereComponent implements OnInit {
     this.createForm();
   }
 
-  onFileSelectedCorrectionFile(event: any) {
-    const file: File = event.target.files[0];
-  
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.correctionFile = file;
-    };
-  
-    reader.readAsDataURL(file);
-  }
+
   
 
   
-  onFilesSelectedPieceJointes(event: any) {
-    const files: FileList = event.target.files;
-    this.pieceJointes = [];
-  
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const reader = new FileReader();
-  
-      reader.onload = (e: any) => {
-        this.pieceJointes.push(file);
-      };
-  
-      reader.readAsDataURL(file);
-    }
-  }
-
+ 
   OnSubmit() {
     const { nomExamen, videoLien } = this.ExamenForm.value;
 
     this.examenService.editExamen(
       this.examenId,
-      nomExamen,
-      videoLien,
-      this.correctionFile,
-      this.pieceJointes
-      ).subscribe(
+      nomExamen
+            ).subscribe(
       (updatedExamen) => {
         this.messageService.add({ severity: 'success', summary: 'نجاح', detail: 'تم تعديل هذا الفرض بنجاح' });
         this.closeModalAndNotify();
@@ -99,9 +72,8 @@ export class EditExamenMatiereComponent implements OnInit {
 
   private createForm(): void {
     this.ExamenForm = this.fb.group({
-      nomExamen: [this.Examen ? this.Examen.nomExamen : '', Validators.required],
-      videoLien: [this.Examen ? this.Examen.videoLien : '', Validators.required],
-    });
+      nomExamen: [this.Examen ? this.Examen.nomExamen : '', Validators.required]
+        });
   }
 
   private closeModalAndNotify() {

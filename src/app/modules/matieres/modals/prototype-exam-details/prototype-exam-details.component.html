@@ -1,0 +1,79 @@
+<!-- <div class="container" dir="rtl">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="title">
+                الفرض: {{nomExamen}} 
+            </h2>
+        </div>
+        <div class="col-md">
+            <h2 class="title">
+                نموذج: {{PrototypeExam?.nomPrototypeExam}} 
+            </h2>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md">
+        One of three columns
+      </div>
+      <div class="col-md">
+        One of three columns
+      </div>
+      <div class="col-md">
+        One of three columns
+      </div>
+    </div>
+  </div> -->
+
+  <div class="container" dir="rtl">
+
+        <div class="modal-dialog modal-dialog-centered" dir="rtl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" style="color: #006400; font-size: 40px;">عنوان الفرض  : {{ nomExamen }}</h5>
+                    <h5 class="modal-title text-center" style="color: #006400; font-size: 40px;">نموذج {{ PrototypeExam?.nomPrototypeExam }}</h5>
+
+                </div>
+
+                <!-- Reviews Form Start -->
+                <div class="modal-body reviews-form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Single Form Start -->
+                            <div class="single-form">
+                                <h3> الفرض </h3>
+                                <button (click)="downloadExamFile(prototypeExamId,PrototypeExam.nomPrototypeExam)" class="btn btn-secondary">
+                                    <i class="fas fa-file-pdf"></i>
+                                </button>
+                            </div>
+                            <!-- Single Form End -->
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Single Form Start -->
+                            <div class="single-form">
+                                <h3>إصلاح الفرض</h3>
+                                    <div *ngIf="PrototypeExam.correctionFile">
+                                        <button (click)="downloadPrototypeExamCorrectionFile(prototypeExamId,PrototypeExam.nomPrototypeExam)" class="btn btn-secondary">
+                                            <i class="fas fa-file-pdf"></i> 
+                                        </button>
+                                    </div>
+                            </div>
+                            <!-- Single Form End -->
+                        </div>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <div *ngIf="PrototypeExam.correctionLink !== null && PrototypeExam.correctionLink !== undefined">
+                        <video controls width="700" height="350">
+                          <source [src]="PrototypeExam?.correctionLink" type="video/mp4">
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                      
+                      
+
+
+                </div>
+            </div>
+        </div>
+</div>

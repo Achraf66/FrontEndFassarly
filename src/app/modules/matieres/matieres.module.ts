@@ -13,7 +13,6 @@ import * as moment from 'moment';
 import localear from '@angular/common/locales/ar'
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CorrectionVideoModalComponent } from './modals/correction-video-modal/correction-video-modal.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ExamenComponent } from './lessonComponents/examen/examen.component';
@@ -27,6 +26,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ImageModule } from 'primeng/image';
 import { OffersComponent } from './offers/components/offers/offers.component';
+import { TreeModule } from 'primeng/tree';
+import { PrototypeExamDetailsComponent } from './modals/prototype-exam-details/prototype-exam-details.component';
+
 registerLocaleData(localear,'ar');
 
 /***********************************************************/
@@ -38,13 +40,13 @@ export function momentAdapterFactory() {
     ThemesComponent,
     MatieresComponent,
     LessonComponent,
-    CorrectionVideoModalComponent,
     ExamenComponent,
     LessonsComponent,
     CalendarComponent,
     EventdetailsmodalComponent,
     EditUserDetailsStudentComponent,
     OffersComponent,
+    PrototypeExamDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -57,9 +59,8 @@ export function momentAdapterFactory() {
     ReactiveFormsModule,
     ConfirmDialogModule,
     ToastModule,
-    ImageModule
-
-
+    ImageModule,TreeModule
+    
     ],
     providers: [DialogService,MessageService,ConfirmationService],
 

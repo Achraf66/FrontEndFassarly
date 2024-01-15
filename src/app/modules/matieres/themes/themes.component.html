@@ -21,10 +21,10 @@
                 <div class="page-banner-content">
                     <ul class="breadcrumb">
                         <li><a>الصفحة الرئيسية</a></li>
-                        <li><a>المادة</a></li>
-                        <li class="active">المحاور</li>
+                        <li><a>{{matiere.nomMatiere}}</a></li>
+                        <li class="active">الدروس</li>
                     </ul>
-                    <h2 class="title"><span>المحاور</span></h2>
+                    <h2 class="title"><span>  دروس مادة:  <br>{{matiere.nomMatiere}}</span></h2>
                 </div>
                 <!-- Page Banner End -->
             </div>
@@ -64,7 +64,7 @@
               </div>
             <h1> 
              <ul class="breadcrumb">
-             <li class="active"> كل المحاور مادة :  {{ matiere?.nomMatiere }} </li>  
+             <li class="active"> كل دروس مادة :  {{ matiere?.nomMatiere }} </li>  
             </ul>
             </h1>
 
@@ -76,7 +76,7 @@
                  
                   <a (click)="fetchThemes()" class="btn btn-primary btn-hover-dark">
                     
-                    كل المحاور {{ "(" + Themes.length + ")" }}
+                    كل الدروس {{ "(" + Themes.length + ")" }}
                     </a>
                 </div>
            
@@ -109,7 +109,7 @@
         
                                 <div class="content-title">
                                     <div class="meta">
-                                        <a class="action">دروس</a>
+                                        <a class="action">مقاطع فيديو</a>
                                         <a class="action">فروض</a>
                                         <a class="action">حصص مباشرة</a>
                                     </div>

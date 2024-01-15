@@ -31,7 +31,7 @@ registerLocaleData(localeAr, 'ar');
     RouterModule,
     HttpClientModule,
     FontAwesomeModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
     ],
     providers: [
       AppInitializerService,

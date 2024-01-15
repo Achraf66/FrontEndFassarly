@@ -33,7 +33,6 @@ import { LessonsByThemeComponent } from './adminmodules/lessons/componenets/less
 import { AddNewLessonAndAffectToThemeComponent } from './adminmodules/lessons/componenets/add-new-lesson-and-affect-to-theme/add-new-lesson-and-affect-to-theme.component';
 import { EditLessonComponent } from './adminmodules/lessons/componenets/edit-lesson/edit-lesson.component';
 import { EditAppUserByIdComponent } from './adminmodules/users/users/modals/edit-app-user-by-id/edit-app-user-by-id.component';
-import { MessagesModule } from 'primeng/messages';
 import { GetAllMessagesComponent } from './adminmodules/messages/get-all-messages/get-all-messages.component';
 import { AlllivesessionsComponent } from './adminmodules/livesessions/componenets/alllivesessions/alllivesessions.component';
 import { SessionliveByMatiereComponent } from './adminmodules/livesessions/componenets/sessionlive-by-matiere/sessionlive-by-matiere.component';
@@ -44,6 +43,10 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { EditSessionsComponent } from './adminmodules/livesessions/componenets/edit-sessions/edit-sessions.component';
 import { OffersComponent } from './adminmodules/Offers/components/offers/offers.component';
 import { CreateEditOfferComponent } from './adminmodules/Offers/components/create-edit-offer/create-edit-offer.component';
+import { PrototypeExamByExamComponent } from './adminmodules/prototypeExam/components/prototype-exam-by-exam/prototype-exam-by-exam.component';
+import { EditPrototypeExamByIdComponent } from './adminmodules/prototypeExam/components/edit-prototype-exam-by-id/edit-prototype-exam-by-id.component';
+import { AddPrototypeExamComponent } from './adminmodules/prototypeExam/components/add-prototype-exam/add-prototype-exam.component';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,10 @@ import { CreateEditOfferComponent } from './adminmodules/Offers/components/creat
     AddnewSessionLiveComponent,
     EditSessionsComponent,
     OffersComponent,
-    CreateEditOfferComponent
+    CreateEditOfferComponent,
+    PrototypeExamByExamComponent,
+    EditPrototypeExamByIdComponent,
+    AddPrototypeExamComponent
   ],
   imports: [
     CommonModule,
@@ -92,6 +98,7 @@ import { CreateEditOfferComponent } from './adminmodules/Offers/components/creat
     ConfirmDialogModule,
     InputNumberModule,
     CalendarModule,
+    ProgressBarModule
     
   ],
   providers: [DialogService,MessageService,ConfirmationService],

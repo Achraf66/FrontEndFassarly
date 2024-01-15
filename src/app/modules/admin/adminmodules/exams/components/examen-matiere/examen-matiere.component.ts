@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../../users/services/MenuService';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ExamenService } from '../../service/examen.service';
 import { Examen } from '../../Examen';
 import { AddExamenAndAffectToMatiereComponent } from '../add-examen-and-affect-to-matiere/add-examen-and-affect-to-matiere.component';
-import { HttpResponse } from '@angular/common/http';
 import { EditExamenMatiereComponent } from '../edit-examen-matiere/edit-examen-matiere.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { PrototypeExamByExamComponent } from '../../../prototypeExam/components/prototype-exam-by-exam/prototype-exam-by-exam.component';
 
 @Component({
   selector: 'app-examen-matiere',
@@ -16,12 +16,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 export class ExamenMatiereComponent implements OnInit{
 
   matiereId:number
-
+  searchTerm:string = ''
   ExamenList :Examen[]=[]
-
-  expandText = false;
-  displayText = 'This is the full text that will be displayed when clicked';
-  truncatedText = this.displayText.slice(0, 20); 
+  showConfirmationDialogExamen :boolean = false
 
 
   constructor(  
@@ -60,7 +57,12 @@ export class ExamenMatiereComponent implements OnInit{
     
   
   }
-  downloadpdf() {}
+  SearchExamByNom(searchTerm:string){
+    this.examenService.searchExamens(searchTerm).subscribe(
+      data => this.ExamenList = data,
+      error => console.error('Error searching examens:', error)
+    )
+  }
 
 
   public OpenCreateExamenAndAffectToMatiereComponent(): void {
@@ -76,56 +78,7 @@ export class ExamenMatiereComponent implements OnInit{
   
   }
 
-  downloadCorrection(matiereId: number, examenId: number,examenname:string) {
-    this.examenService.downloadCorrectionFile(matiereId, examenId).subscribe(
-      (response: HttpResponse<ArrayBuffer>) => {
-        if (response.body !== null) {
-          this.handleDownload(response,examenname);
-        } else {
-          console.error('Response body is null.');
-        }
-      },
-      (error: any) => {
-        console.error('Download failed:', error);
-      }
-    );
-  }
   
-  
-  
-  private handleDownload(response: HttpResponse<ArrayBuffer>,examenname:string): void {
-    // Check if the response has a valid body
-    if (response.body !== null) {
-      const blob = new Blob([response.body], { type: 'application/pdf' });
-  
-      // Create a link element and trigger a download
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download = examenname; 
-      link.click();
-    } else {
-      console.error('Response body is null.');
-    }
-  }
-  
-  downloadPiecesJointes(matiereId:number ,examenId:number) {
-
-    this.examenService.downloadPiecesJointes(matiereId, examenId)
-      .subscribe(blob => {
-        const downloadLink = document.createElement('a');
-        const url = window.URL.createObjectURL(blob);
-
-        downloadLink.href = url;
-        downloadLink.download = 'pieces_jointes.zip';
-
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(downloadLink);
-      });
-  }
-
 
   public OpenEditExamenMatiereComponent(examenId:number,ExamenNom:string): void {
     this.dialogService.open(EditExamenMatiereComponent, {
@@ -143,6 +96,7 @@ export class ExamenMatiereComponent implements OnInit{
   }
 
   deleteExamenAndFolderById(ExamenId:number){
+    this.showConfirmationDialogExamen = true
     this.examenService.deleteExamenAndFolderById(ExamenId).subscribe(
 
     (data:any)=>{
@@ -161,6 +115,7 @@ export class ExamenMatiereComponent implements OnInit{
 
 
   deleteExam(event: Event,ExamenId:number) {
+    this.showConfirmationDialogExamen = true
     this.confirmationService.confirm({
         target: event.target as EventTarget,
         message: 'هل تريد فعلاً حذف ',
@@ -181,6 +136,24 @@ export class ExamenMatiereComponent implements OnInit{
         }
     });
 }
+
+
+
+public OpenPrototypeExamByExamId(examenId:number,ExamenNom:string): void {
+  this.dialogService.open(PrototypeExamByExamComponent, {
+   header: 'نماذج الفرض',
+   width: '80%',
+   height: '90%',
+   dismissableMask:true,
+   data: {
+     matiereid:this.matiereId,
+     examenId:examenId,
+     ExamenNom:ExamenNom
+   },
+ });
+
+}
+
   
 
 }

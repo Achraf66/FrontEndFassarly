@@ -5,8 +5,8 @@
         <!-- Single Form Start -->
         <div class="single-form">
             <div class="p-field">
-                <label for="inputField">عنوان درس</label>
-                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="عنوان درس" formControlName="nomLesson" />
+                <label for="inputField">عنوان مقطع فيديو</label>
+                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="عنوان مقطع فيديو" formControlName="nomLesson" />
               </div>
         </div>
 
@@ -20,13 +20,13 @@
         
         <div class="single-form">
             <div class="p-field">
-                <label for="inputField">وصف الدرس</label>
-                <textarea pInputTextarea id="inputField" class="p-inputtext-lg" placeholder="وصف الدرس" formControlName="description"></textarea>
+                <label for="inputField">وصف مقطع فيديو</label>
+                <textarea pInputTextarea id="inputField" class="p-inputtext-lg" placeholder="وصف مقطع فيديو" formControlName="description"></textarea>
             </div>
         </div>
         
         <div class="single-form">
-            <label for="demo">المرفقات</label>
+            <label for="demo"> مرفقات مقطع فيديو </label>
             <input (change)="onFilesSelectedPieceJointes($event)"  [multiple]="true" accept="application/pdf" type="file">
         </div>
         

@@ -60,8 +60,8 @@
                                     <!-- Single Form End -->
                                           <!-- Single Form Start -->
                                         <div class="single-form">
-                                            <button  type="submit" class="btn btn-primary btn-hover-dark w-100">تسجيل الدخول</button>
-                                            <h3 style="margin-top: 10px;">هل ليس لديك حساب؟ <a href="/auth/register" style="color: #28a745; border-color: #28a745;">تسجيل حساب جديد</a></h3>
+                                            <button  type="submit" [disabled]="signupForm.invalid" class="btn btn-primary btn-hover-dark w-100">تسجيل الدخول</button>
+                                            <h3 style="margin-top: 10px;">هل ليس لديك حساب؟ <a [routerLink]="'/auth/register'" style="color: #28a745; border-color: #28a745;">تسجيل حساب جديد</a></h3>
                                         </div>
                                         <!-- Single Form End -->
                                     </form>

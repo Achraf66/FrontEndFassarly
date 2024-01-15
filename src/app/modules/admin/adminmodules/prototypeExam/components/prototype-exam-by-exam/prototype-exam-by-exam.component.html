@@ -1,0 +1,78 @@
+
+<p-toast></p-toast>
+<p-confirmDialog *ngIf="showConfirmationDialogPrototypeExam"></p-confirmDialog>
+<p-table [value]="PrototypeExamList" [rowHover]="true" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [tableStyle]="{'min-width': '60rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="nomPrototypeExam" >
+                <p-sortIcon ></p-sortIcon>
+                عنوان نموذج الفرض</th>
+                <th>تحميل نموذج الفرض</th>
+                <th>تحميل إصلاح الفرض</th>
+                <th colspan="2" >أجراءات</th>
+
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="caption">
+        <div class="flex">
+            <button style="border-radius: 80%;" (click)="getPrototypeExamsByExamenId()" pButton label="إلغاء البحث" class="p-button-outlined" icon="pi pi-filter-slash"></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <!-- <span class="p-input-icon-left ml-auto">
+                <i ></i>
+                <input [(ngModel)]="searchTerm" type="text" required>
+                <button style="border-radius: 80%; " (click)="SearchMatiereByNom(searchTerm)" [disabled]="!searchTerm"><i class="icofont-search"></i></button>
+            </span> -->
+        </div>
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-prototypeExam>
+        <tr>
+            <td>
+                {{prototypeExam.nomPrototypeExam}}
+            </td>
+            <td>
+
+                <p-button (onClick)="downloadExamFile(prototypeExam.id, prototypeExam.nomPrototypeExam)" [outlined]="true" severity="success">
+                    <i class="pi pi-download"></i>
+                </p-button>
+            </td>
+            <td>
+
+                <p-button (onClick)="downloadPrototypeExamCorrectionFile(prototypeExam.id, prototypeExam.nomPrototypeExam)" [outlined]="true" severity="success">
+                    <i class="pi pi-download"></i>
+                </p-button>
+            </td>
+            <td>
+                <a (click)="OpenPrototypeExamById(prototypeExam.id)">
+                    <i class="pi pi-pencil" style="color:green"></i> 
+                </a>
+            </td>
+
+            <td>
+                <a (click)="deletePrototypeExamsById($event,prototypeExam.id)">
+                    <i class="pi pi-trash" style="color:red"></i> 
+                </a>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <tr>
+            <td colspan="5" style="text-align: center;">
+                <button
+                (click)="OpenAddPrototypeExam()"
+                pButton
+                type="button"
+                label="إضافة نموذج جديد"
+                class="p-button-success"
+                ></button>
+            </td>
+        </tr>
+</ng-template>
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            نماذج هذا الفرض {{ PrototypeExamList ? PrototypeExamList.length : 0 }}
+        </div>
+    </ng-template>
+</p-table>

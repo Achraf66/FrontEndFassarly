@@ -124,6 +124,7 @@ export class RegisterComponent implements OnInit{
               icon: 'success',
               title: 'نجاح',
               text: 'تم تسجيل المستخدم بنجاح',
+              confirmButtonText: 'نعم'
             });
             this.smsService.setphoneUser(formData.numTel)
                     setTimeout(() => {

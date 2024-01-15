@@ -1,6 +1,5 @@
    
-   <html>
-   
+   <html>   
             <!-- Page Banner Start -->
             <div class="section page-banner rtl" style="max-height: 400px !important;">
 
@@ -13,13 +12,11 @@
                     <div class="page-banner-content">
                         <ul class="breadcrumb">
                             <li><a>الصفحة الرئيسية</a></li>
-                            <li><a>المادة</a></li>
-                            <li>المحور</li>
-                        <li class="active">
-                            الدرس   
-                            </li> 
+                            <li><a>{{Matiere?.nomMatiere}}</a></li>
+                            <li class="active">{{Theme?.nomTheme}}</li>
+                        
                         </ul>
-                        <h2 class="title"><span>الدرس :</span></h2>
+                        <h2 class="title"><span>مقاطع فيديو الدرس :</span></h2>
                     </div>
                     <!-- Page Banner End -->
                 </div>
@@ -43,7 +40,7 @@
                                 <!-- Details Tab Menu Start -->
                                 <div class="details-tab-menu">
                                     <ul class="nav justify-content-center">
-                                        <li><button class="active" data-bs-toggle="tab" data-bs-target="#course">الدروس</button></li>
+                                        <li><button class="active" data-bs-toggle="tab" data-bs-target="#course">مقطع فيديو </button></li>
                                         <li><button data-bs-toggle="tab" data-bs-target="#exams">الفروض</button></li>
                                         <li><button data-bs-toggle="tab" data-bs-target="#livesessions">الحصص المباشرة</button></li>
                                     </ul>
@@ -86,17 +83,18 @@
                                 <!-- Sidebar Widget Information Start -->
                                 <div class="sidebar-widget widget-information rtl" style="height: 600px; width: 400px; overflow-y: auto;">
                                     <div class="info-price">
-                                        <span class="price">لائحة الدروس : </span>
+                                        <span class="price">لائحة مقاطع فيديو الدرس : </span>
                                     </div>
                                     <div class="info-list">
                                         <ul>
                                             <li *ngFor="let lesson of LessonList; let i = index">
-                                                <a (click)="navigateToLesson(lesson.id)">
-                                                <i class="icofont-book"></i>&nbsp;
-                                                <strong>{{ 'الدرس عدد ' + (i + 1 < 10 ? '0' : '') + (i + 1) + ' : ' + lesson.nomLesson }}</strong>
-                                                </a>
-                                            </li>                                                                               
+                                            <a (click)="navigateToLesson(lesson.id)">
+                                                <i class="pi pi-video"></i>&nbsp;
+                                                <strong>{{ 'المقطع عدد ' + (i + 1 < 10 ? '0' : '') + (i + 1) + ' : ' + lesson.nomLesson }}</strong>
+                                            </a>
+                                            </li>
                                         </ul>
+  
                                     </div>
                                 </div>
                                 

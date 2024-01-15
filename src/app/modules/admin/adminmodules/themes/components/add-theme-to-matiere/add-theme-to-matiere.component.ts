@@ -49,10 +49,10 @@ export class AddThemeToMatiereComponent implements OnInit {
 
         (data)=>{
 
-          this.messageService.add({ severity: 'info', summary: 'تم إضافة محور جديد بنجاح', detail: 'تم إضافة محور جديد بنجاح' });
+          this.messageService.add({ severity: 'info', summary: 'تم إضافة درس جديد بنجاح', detail: 'تم إضافة درس جديد بنجاح' });
           this.closeModalAndNotify();
         },(error)=>{
-          this.messageService.add({ severity: 'error', summary: 'لم يتم إضافة محور جديد', detail: 'لم يتم إضافة محور جديد' });
+          this.messageService.add({ severity: 'error', summary: 'لم يتم إضافة درس جديد', detail: 'لم يتم إضافة درس جديد' });
 
         }
 

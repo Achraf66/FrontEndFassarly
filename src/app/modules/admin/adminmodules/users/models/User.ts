@@ -1,3 +1,4 @@
+import { Comptabilite } from "./Comptabilite";
 import { Role } from "./Role";
 
 export class User{ 
@@ -7,5 +8,6 @@ export class User{
         numeroTel:string;
         photo:string;
         roles:Role[];
+        comptabilites:Comptabilite[]
 
 }

@@ -86,6 +86,8 @@ export class LoginComponent implements OnInit {
             icon: 'warning',
             title: 'تحذير',
             text: ' الرجاء إكمال عملية التحقق من خلال رمز التحقق الذي تم إرساله عبر الرسالة النصية.',
+            confirmButtonText: 'حسناً'
+
           });
         }
         
@@ -94,6 +96,8 @@ export class LoginComponent implements OnInit {
             icon: 'warning',
             title: 'تحذير',
             text: 'الاعتمادات غير صحيحة. الرجاء التحقق من صحة الرقم أو استخدام رقم هاتف آخر.',
+            confirmButtonText: 'حسناً'
+
           });
         }
       },

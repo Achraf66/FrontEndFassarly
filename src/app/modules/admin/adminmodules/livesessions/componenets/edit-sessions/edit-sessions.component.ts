@@ -17,7 +17,7 @@ export class EditSessionsComponent implements OnInit {
   matiereid:any;
   sessionid:any;
   Session: SeanceEnLigne = new SeanceEnLigne();
-
+  homeWorkFile:any
   constructor(
     private LivesessionService: LivesessionService,
     private fb: FormBuilder,
@@ -129,7 +129,7 @@ export class EditSessionsComponent implements OnInit {
     seanceEnLigne.titre = this.SessionForm.value.titre;
     seanceEnLigne.lienZoom = this.SessionForm.value.lienZoom;
 
-    this.LivesessionService.editSeanceEnLigneById(this.sessionid, seanceEnLigne).subscribe(
+    this.LivesessionService.editSeanceEnLigne(this.sessionid, seanceEnLigne,this.homeWorkFile).subscribe(
       () => {
         this.messageService.add({
           severity: 'success',
@@ -155,7 +155,16 @@ export class EditSessionsComponent implements OnInit {
     this.ref.close()
     this.menu.triggerNewItemAdded();
   }
-  
+
+  onFileSelectedhomeWorkFile(event: any) {
+    const file: File = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.homeWorkFile = file;
+    };
+    reader.readAsDataURL(file);
+  }
+
 }
 
   

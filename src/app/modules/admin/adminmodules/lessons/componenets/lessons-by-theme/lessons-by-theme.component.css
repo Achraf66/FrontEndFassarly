@@ -1,0 +1,15 @@
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; /* Adjust the max-width as needed */
+  }
+
+  .file-icons {
+    display: flex;
+  }
+  
+  .file-icons a {
+    margin-right: 10px; /* Adjust margin as needed */
+  }
+  

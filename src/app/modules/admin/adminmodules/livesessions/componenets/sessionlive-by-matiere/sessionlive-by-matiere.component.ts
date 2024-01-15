@@ -1,15 +1,13 @@
 import { Component, Inject, LOCALE_ID } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { MatiereService } from 'src/app/modules/matieres/services/matiere.service';
 import { LivesessionService } from '../../services/livesession.service';
 import { SeanceEnLigne } from '../../models/SeanceEnLigne';
-import { DOCUMENT, DatePipe } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { AddnewSessionLiveComponent } from '../addnew-session-live/addnew-session-live.component';
 import { EditSessionsComponent } from '../edit-sessions/edit-sessions.component';
 import { MenuService } from '../../../users/services/MenuService';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialog } from 'primeng/confirmdialog';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-sessionlive-by-matiere',
@@ -24,7 +22,6 @@ export class SessionliveByMatiereComponent {
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig, 
-    private fb: FormBuilder,
     private dialogService:DialogService,
     private liveSesssions : LivesessionService,
     @Inject(DOCUMENT) public document: Document,
@@ -112,7 +109,7 @@ deleteSeanceEnLigneById(SeanceEnLigneId: number): void {
           }
         },
         (error) => {
-          // Handle error, if needed
+            console.log(error)
         }
       );
     },
@@ -130,5 +127,46 @@ deleteSeanceEnLigneById(SeanceEnLigneId: number): void {
 closeModalAndNotify() {
   this.ref.close()
   this.menu.triggerNewItemAdded();
+}
+
+private handleDownloadLesson(response: HttpResponse<ArrayBuffer>,SessionName:string): void {
+  // Check if the response has a valid body
+  if (response.body !== null) {
+    const blob = new Blob([response.body], { type: 'application/pdf' });
+
+    // Create a link element and trigger a download
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download =SessionName; 
+    link.click();
+    
+  } else {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'حصل عطل عند التحميل',
+      detail: 'حصل عطل عند التحميل',
+      life: 3000
+    });  
+  }
+}
+
+downloadFile(filename: string, SessionId: number , SessionName:string): void {
+  this.liveSesssions.downloadLiveSessionHomeworkFile(filename, SessionId)
+    .subscribe(
+      (event: any) => {
+        if (event.type === HttpEventType.DownloadProgress) {
+        } else if (event instanceof HttpResponse) {
+          this.handleDownloadLesson(event,SessionName);
+        }
+      },
+      (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'حصل عطل عند التحميل',
+          detail: 'حصل عطل عند التحميل',
+          life: 3000
+        }); 
+            }
+    );
 }
 }

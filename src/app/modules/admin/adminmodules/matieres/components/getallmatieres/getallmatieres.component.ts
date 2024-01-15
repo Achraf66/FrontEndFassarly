@@ -149,7 +149,7 @@ export class GetallmatieresComponent implements OnInit, OnDestroy{
 
   public openThemesByMatiereComponenet(matiereid:number,matierenom:string): void {
      this.dialogService.open(ThemesByMatiereComponent, {
-      header: 'محاور المادة',
+      header: 'دروس المادة',
       width: '70%',
       height: '100%',
       dismissableMask:true,
@@ -166,8 +166,8 @@ export class GetallmatieresComponent implements OnInit, OnDestroy{
 public openExamenByMatiere(matiereid:number): void {
   this.dialogService.open(ExamenMatiereComponent, {
    header: 'فروض المادة',
-   width: '100%',
-   height: '100%',
+   width: '80%',
+   height: '90%',
    dismissableMask:true,
    data: {
      matiereid:matiereid,

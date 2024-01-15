@@ -40,8 +40,8 @@ export class EditLessonComponent implements OnInit {
     // Move the form initialization logic here
     this.EditLessonForm = this.fb.group({
       nomLesson: [this.lesson?.nomLesson, Validators.required],
-      videoLien: [this.lesson?.videoLien, Validators.required],
-      description: [this.lesson?.description, Validators.required],
+      videoLien: [this.lesson?.videoLien],
+      description: [this.lesson?.description],
     });
   }
 
@@ -78,8 +78,8 @@ export class EditLessonComponent implements OnInit {
     if (this.lesson) {
       this.EditLessonForm = this.fb.group({
         nomLesson: [this.lesson.nomLesson, Validators.required],
-        videoLien: [this.lesson.videoLien, Validators.required],
-        description: [this.lesson.description, Validators.required],
+        videoLien: [this.lesson.videoLien],
+        description: [this.lesson.description],
       });
     }
   }
