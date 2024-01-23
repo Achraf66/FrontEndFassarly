@@ -2,7 +2,7 @@
 
 <div class="form-wrapper" dir="rtl">
 
-        <img  style="width: 200px; height: 200px;"  class="rounded-circle shadow-4-strong" *ngIf="user?.photo !== null"  [src]="baseImageUrl+'/'+user.id+'/'+ user.photo">
+        <img  style="width: 200px; height: 200px;"  class="rounded-circle shadow-4-strong" *ngIf="user?.photo !== null"  [src]="user.photo">
         <img style="width: 200px; height: 200px;"  class="rounded-circle shadow-4-strong" *ngIf="user?.photo === null"  src="assets/images/author/author-16.jpg">
         
 

@@ -35,10 +35,10 @@
                     {{matiere.nomMatiere}}
             </td>
             <td>
-                    <p-image [preview]="true" height="100px" [src]="baseImageUrl + '/' + matiere.nomMatiere + '/' + matiere.photo" alt="{{ matiere.nomMatiere }} Photo"></p-image>
+                    <p-image [preview]="true" height="100px" [src]="matiere.photo" alt="{{ matiere.nomMatiere }} Photo"></p-image>
             </td>
             <td>
-                <a (click)="OpenSessionLiveByMatiere(matiere.id)">
+                <a class="hover-pointer" (click)="OpenSessionLiveByMatiere(matiere.id)">
                     <i class="pi pi-calendar"></i> الحصص المباشرة للمادة
                 </a> 
             </td>   

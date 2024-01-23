@@ -1,29 +1,34 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { EventdetailsmodalComponent } from '../modals/eventdetailsmodal/eventdetailsmodal.component';
+import { CustomCalendarEvent } from '../models/CustomCalendarEvent';
 import { CalendarView, DateAdapter } from 'angular-calendar';
+import { SeanceEnLigne } from '../../admin/adminmodules/livesessions/models/SeanceEnLigne';
+import { LivesessionService } from '../../admin/adminmodules/livesessions/services/livesession.service';
 import { DialogService } from 'primeng/dynamicdialog';
-import { SeanceEnLigne } from 'src/app/modules/admin/adminmodules/livesessions/models/SeanceEnLigne';
-import { LivesessionService } from 'src/app/modules/admin/adminmodules/livesessions/services/livesession.service';
-import { CustomCalendarEvent } from '../../models/CustomCalendarEvent';
-import { EventdetailsmodalComponent } from '../../modals/eventdetailsmodal/eventdetailsmodal.component';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { MatiereService } from '../services/matiere.service';
+import { Matiere } from '../models/Matiere';
+
 @Component({
-  selector: 'app-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  selector: 'app-live-sessions-theme',
+  templateUrl: './live-sessions-theme.component.html',
+  styleUrls: ['./live-sessions-theme.component.css']
 })
-
-export class CalendarComponent  implements OnInit{
-
-  
-  @Input() matiereId: any;
+export class LiveSessionsThemeComponent implements OnInit {
+  matiereId:any
   LiveSessions: SeanceEnLigne[] = [];
   events: CustomCalendarEvent[] = [];
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
   activeDayIsOpen: boolean = true;
-
+  matiere:Matiere
   constructor(private sessionService: LivesessionService
     ,private dateAdapter: DateAdapter
-    ,private dialogService:DialogService) {
+    ,private dialogService:DialogService,
+    private route:ActivatedRoute,
+    private matiereService:MatiereService
+    
+    ) {
   }
 
   isSameMonth(date1: Date, date2: Date): boolean {
@@ -39,10 +44,34 @@ export class CalendarComponent  implements OnInit{
   
 
   ngOnInit(): void {
+
+
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.matiereId = params.get('matiereid') || null;  
+  
+    });
+
     if (this.matiereId !== null ){
       this.fetchSeancesEnligneByMatiere();
-
+      this.fetchMatiereById(this.matiereId)
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   }
   onPreviousMonth(): void {
     this.viewDate = this.dateAdapter.addMonths(this.viewDate, -1);
@@ -107,7 +136,7 @@ export class CalendarComponent  implements OnInit{
     this.dialogService.open(EventdetailsmodalComponent, {
       showHeader: false, 
       width: '30%',
-      height: '40%',
+      height: '50%',
       dismissableMask: true,
     
        data: {
@@ -119,5 +148,15 @@ export class CalendarComponent  implements OnInit{
       },
     });
   }
-  
+
+
+  fetchMatiereById(idMatiere:number){
+
+    this.matiereService.getMatiereById(idMatiere).subscribe(
+      (data)=>
+      this.matiere = data
+      ,(error)=>console.log(error)
+    )
+  }
+
 }

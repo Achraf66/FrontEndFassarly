@@ -32,4 +32,10 @@ export class MatiereService {
     return this.http.get<any>(`${this.FASSARLY_URL}${this.MATIEREURL}getMatiere/${idmatiere}`)
   }
 
+
+  searchMatiereByNom(searchTerm: string): Observable<Matiere[]> {
+    const params = { searchTerm: searchTerm };
+    return this.http.get<Matiere[]>(`${this.FASSARLY_URL}${this.MATIEREURL}search`, { params });
+  }
+
 }

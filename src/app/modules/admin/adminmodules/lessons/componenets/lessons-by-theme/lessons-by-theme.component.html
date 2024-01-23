@@ -37,10 +37,12 @@
       <td style="display: none;">{{ lesson.videoLien }}</td>
       <td>
         <div class="file-icons">
-          <a *ngFor="let piecesJointe of lesson.piecesJointes" (click)="downloadFile(piecesJointe, lesson.id, lesson.nomLesson)" title="مرفقات الدرس">
-            <i class="pi pi-download" style="font-size: 24px;"></i>
-          </a>
-        </div>
+          <div *ngFor="let piecesJointe of lesson.piecesJointes" title="مرفقات الدرس">
+              <a [href]="piecesJointe" download="{{ extractFileName(piecesJointe) }}">
+                  <i class="pi pi-download" style="font-size: 24px;"></i>
+              </a>
+          </div>
+      </div>      
       </td>
       
       <td>

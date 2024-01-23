@@ -93,17 +93,17 @@ export class AdminheaderComponent  implements OnInit{
           }
     
     },
-      {
+      // {
 
           
-          label: 'الرسائل',
-          icon: 'pi pi-comments',
-          command:(event)=>{
+      //     label: 'الرسائل',
+      //     icon: 'pi pi-comments',
+      //     command:(event)=>{
 
-            this.menuService.setSelectedItem('messagesAll');
-            }
+      //       this.menuService.setSelectedItem('messagesAll');
+      //       }
       
-      },
+      // },
       {
 
           

@@ -1,4 +1,3 @@
-import { HttpEventType, HttpResponse } from '@angular/common/http';
 import {Component,Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Lesson } from 'src/app/modules/admin/adminmodules/lessons/Lesson';
@@ -38,38 +37,14 @@ export class LessonsComponent implements OnInit{
     this.lesson$ = this.lessonService.fetchLessonById(this.lessonId);
   }
 
-  private handleDownloadLesson(response: HttpResponse<ArrayBuffer>,lessonName:string): void {
-    // Check if the response has a valid body
-    if (response.body !== null) {
-      const blob = new Blob([response.body], { type: 'application/pdf' });
-  
-      // Create a link element and trigger a download
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download =lessonName; 
-      link.click();
-      
-    } else {
-      console.error('Response body is null.');
-    }
-  }
-  
-  downloadFile(filename: string, lessonId: number , lessonName:string): void {
-    this.lessonService.download(filename, lessonId)
-      .subscribe(
-        (event: any) => {
-          if (event.type === HttpEventType.DownloadProgress) {
-          } else if (event instanceof HttpResponse) {
-            this.handleDownloadLesson(event,lessonName);
-          }
-        },
-        (error) => {
-          console.error('Error downloading file:', error);
-        }
-      );
-  }
-  
 
+
+  
+// In your Angular component
+extractFileName(url: string): string {
+  const parts = url.split('/');
+  return parts[parts.length - 1];
+}
 
 
 }

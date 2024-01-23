@@ -71,7 +71,10 @@ getMatiereBynom(nomMatiere: string):Observable<Matiere[]>
 {
   return this.http.get<Matiere[]>(`${this.BASEURL}/api/matiere/getMatiereByNom/${nomMatiere}`)
 }
-
+searchMatiereByNom(searchTerm: string): Observable<Matiere[]> {
+  const params = { searchTerm: searchTerm };
+  return this.http.get<Matiere[]>(`${this.BASEURL}/api/matiere/search`, { params });
+}
 
 
 

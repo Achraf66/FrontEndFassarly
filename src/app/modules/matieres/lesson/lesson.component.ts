@@ -5,10 +5,12 @@ import { Examen } from '../../admin/adminmodules/exams/Examen';
 import { LessonService } from '../../admin/adminmodules/lessons/services/lesson.service';
 import { Lesson } from '../../admin/adminmodules/lessons/Lesson';
 import { MatiereService } from '../services/matiere.service';
-import { catchError } from 'rxjs';
+import { Observable, catchError, mergeMap, of, switchMap } from 'rxjs';
 import { Matiere } from '../models/Matiere';
 import { ThemeService } from '../../admin/adminmodules/themes/services/theme.service';
 import { Theme } from '../../admin/adminmodules/themes/models/Theme';
+import { AuthService } from '../../auth/services/auth.service';
+import { User } from '../../admin/adminmodules/users/models/User';
 
 @Component({
   selector: 'app-lesson',
@@ -26,7 +28,8 @@ export class LessonComponent implements OnInit{
   Matiere:Matiere
   Theme:Theme
   ExamenList : Examen[]
-
+  currentUser: User | undefined;
+  isAdmin : boolean = false;
 
 
   constructor(
@@ -36,10 +39,38 @@ export class LessonComponent implements OnInit{
     private router: Router,
     private MatiereService:MatiereService,
     private themeService:ThemeService,
+    private authService:AuthService
     ){
 
     this.title.setTitle(" فسرلي | الدرس ")
+
+    const userId = this.authService.getUserId();
+
     
+
+    this.fetchCurrentUser(userId).pipe(
+      switchMap(data => {
+        this.currentUser = data;
+        return this.authService.findUserBynumTel(userId);
+      }),
+      catchError(error => {
+        return of(null); 
+      })
+    ).subscribe(
+      (data) => {
+        if (data) {
+          this.currentUser = data
+          this.hasRolenolivesessions()
+          this.checkAdminRole();
+
+        } else {
+        }
+      },
+      (error) => console.log('Error in findUserBynumTel:', error)
+    );
+
+
+
   }
 
 
@@ -64,8 +95,9 @@ export class LessonComponent implements OnInit{
     });
   
     this.fetchMatiereById();
-    this.fetchThemeById();
-  
+    this.fetchThemeById();  
+
+
   }
   
 
@@ -111,4 +143,39 @@ export class LessonComponent implements OnInit{
       },(error)=>catchError(error)
     )
   }
+
+
+
+
+    // Fetch the current user based on userId
+    private fetchCurrentUser(userId: string | null): Observable<any> {
+      return this.authService.findUserBynumTel(userId).pipe(
+        mergeMap((data) => {
+          this.currentUser = data;
+          return of(null);
+        }),
+        catchError((error) => {
+          this.currentUser = undefined; // Set to undefined in case of an error
+          return of(null);
+        })
+      );
+    }
+    
+    //Check for silver Role
+    hasRolenolivesessions(): boolean {    
+      const hasRole = this.currentUser?.roles?.some(role => role.name.includes('silver'));    
+      return hasRole || false;
+    }
+    
+    
+    checkAdminRole() {
+      if (this.currentUser?.roles.some((role) => role.name.includes('admin'))) {
+        this.isAdmin = true;
+      }
+    }
+    
+
+
+
+
 }

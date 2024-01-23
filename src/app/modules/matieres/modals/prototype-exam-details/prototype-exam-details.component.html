@@ -42,9 +42,9 @@
                             <!-- Single Form Start -->
                             <div class="single-form">
                                 <h3> الفرض </h3>
-                                <button (click)="downloadExamFile(prototypeExamId,PrototypeExam.nomPrototypeExam)" class="btn btn-secondary">
+                                <a [href]="PrototypeExam.examFile" download="examFile.pdf" class="btn btn-secondary">
                                     <i class="fas fa-file-pdf"></i>
-                                </button>
+                                </a>
                             </div>
                             <!-- Single Form End -->
                         </div>
@@ -53,9 +53,9 @@
                             <div class="single-form">
                                 <h3>إصلاح الفرض</h3>
                                     <div *ngIf="PrototypeExam.correctionFile">
-                                        <button (click)="downloadPrototypeExamCorrectionFile(prototypeExamId,PrototypeExam.nomPrototypeExam)" class="btn btn-secondary">
+                                        <a [href]="PrototypeExam.correctionFile" download="Correction_File_Name.pdf" class="btn btn-secondary">
                                             <i class="fas fa-file-pdf"></i> 
-                                        </button>
+                                        </a>
                                     </div>
                             </div>
                             <!-- Single Form End -->

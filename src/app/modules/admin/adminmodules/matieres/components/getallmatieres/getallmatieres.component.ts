@@ -128,7 +128,7 @@ export class GetallmatieresComponent implements OnInit, OnDestroy{
   SearchMatiereByNom(nomMatiere:string){
 
 
-    this.matiereservice.getMatiereBynom(nomMatiere).subscribe(
+    this.matiereservice.searchMatiereByNom(nomMatiere).subscribe(
 
       (data)=> {
 

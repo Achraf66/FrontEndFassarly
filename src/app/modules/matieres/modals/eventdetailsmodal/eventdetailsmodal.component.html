@@ -1,3 +1,4 @@
+
 <div class="modal-dialog modal-dialog-centered" dir="rtl">
     <div class="modal-content">
         <div class="modal-header">
@@ -24,13 +25,33 @@
                     <!-- Single Form End -->
                 </div>
             </div>
+            <div class="row">
+  
+                <div class="col-md-12 text-center">
+                    <!-- Single Form Start -->
+                    <div class="single-form">
+                        <a  title="تحميل الفرض المنزلي" [href]="this.LiveSession.homeWorkFileName" title="تحميل الفرض المنزلي">
+                            <i class="pi pi-file-pdf" style="font-size: 50px;"></i>
+                            <br>
+                            <span class="attachment-count"> الفرض المنزلي</span>
+                        </a>
+                    </div>
+                    <!-- Single Form End -->
+                </div>
+
+          
+            </div>
+
+
+
+            
             &nbsp;
             &nbsp;
 
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <label>&nbsp;{{ 'الرابط إلى حصة مباشرة' }}:</label>
-                    <a (click)="redirect()" class="link">{{ 'إضغط هنا' }}</a>
+                    <label>&nbsp; &nbsp;{{ 'الرابط إلى حصة مباشرة' }}:</label>
+                    <a style="margin-right: 20px;" (click)="redirect()" class="link hover-pointer">{{ 'إضغط هنا' }}</a>
                 </div>
             </div>
         </div>

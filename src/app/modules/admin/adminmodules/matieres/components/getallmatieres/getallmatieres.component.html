@@ -26,23 +26,23 @@
     
     <ng-template pTemplate="body" let-matiere>
         <tr>
-            <td (click)="openThemesByMatiereComponenet(matiere.id,matiere.nomMatiere)">
+            <td  class="hover-pointer" (click)="openThemesByMatiereComponenet(matiere.id,matiere.nomMatiere)">
                     {{matiere.nomMatiere}}
             </td>
             <td>
-                    <p-image [preview]="true" height="100px" [src]="baseImageUrl + '/' + matiere.nomMatiere + '/' + matiere.photo" alt="{{ matiere.nomMatiere }} Photo"></p-image>
+                    <p-image [preview]="true" height="100px" [src]="matiere.photo" alt="{{ matiere.nomMatiere }} Photo"></p-image>
             </td>
             <td>
-                <a (click)="openExamenByMatiere(matiere.id)">
+                <a class="hover-pointer" (click)="openExamenByMatiere(matiere.id)">
                     <i class="pi pi-copy"></i> فروض المادة
                 </a>    
             <td>
-                <a  (click)="deleteMatiere(matiere.id)">
+                <a class="hover-pointer" (click)="deleteMatiere(matiere.id)">
                     <i class="pi pi-trash" style="color:red"></i> 
                 </a>
             </td>
             <td>
-                <a  (click)="modifyMatiere(matiere.id)">
+                <a class="hover-pointer" (click)="modifyMatiere(matiere.id)">
                     <i class="pi pi-pencil" style="color:green"></i> 
                 </a>
             </td>        </tr>

@@ -15,7 +15,8 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
   styleUrls: ['./sessionlive-by-matiere.component.css']
 })
 export class SessionliveByMatiereComponent {
-
+  
+  SeanceEnligneConfirm = true;
   matiereid
   seanceEnLignes:SeanceEnLigne[] =[]
 
@@ -68,7 +69,6 @@ export class SessionliveByMatiereComponent {
 }
 
 
-
 public OpenEditessionLive(sessionid:number): void {
   this.dialogService.open(EditSessionsComponent, {
    header: 'تعديل بيانات الحصة المباشرة',
@@ -98,7 +98,7 @@ deleteSeanceEnLigneById(SeanceEnLigneId: number): void {
     accept: () => {
       this.liveSesssions.deleteSeanceEnLigneById(SeanceEnLigneId).subscribe(
         (data: any) => {
-          if (data.message === 'SeanceEnLigne supprimée avec succès') {
+          if (data.successmessage === 'LiveSession deleted successfully') {
             this.messageService.add({
               severity: 'success',
               summary: ' تم حذف الجلسة عبر الإنترنت بنجاح ',
@@ -125,48 +125,8 @@ deleteSeanceEnLigneById(SeanceEnLigneId: number): void {
 }
 
 closeModalAndNotify() {
-  this.ref.close()
   this.menu.triggerNewItemAdded();
 }
 
-private handleDownloadLesson(response: HttpResponse<ArrayBuffer>,SessionName:string): void {
-  // Check if the response has a valid body
-  if (response.body !== null) {
-    const blob = new Blob([response.body], { type: 'application/pdf' });
 
-    // Create a link element and trigger a download
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download =SessionName; 
-    link.click();
-    
-  } else {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'حصل عطل عند التحميل',
-      detail: 'حصل عطل عند التحميل',
-      life: 3000
-    });  
-  }
-}
-
-downloadFile(filename: string, SessionId: number , SessionName:string): void {
-  this.liveSesssions.downloadLiveSessionHomeworkFile(filename, SessionId)
-    .subscribe(
-      (event: any) => {
-        if (event.type === HttpEventType.DownloadProgress) {
-        } else if (event instanceof HttpResponse) {
-          this.handleDownloadLesson(event,SessionName);
-        }
-      },
-      (error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'حصل عطل عند التحميل',
-          detail: 'حصل عطل عند التحميل',
-          life: 3000
-        }); 
-            }
-    );
-}
 }

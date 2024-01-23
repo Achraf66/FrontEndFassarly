@@ -5,6 +5,7 @@ import { ThemesComponent } from './themes/themes.component';
 import { LessonComponent } from './lesson/lesson.component';
 import { AuthGuard } from '../auth/guard/auth.guard';
 import { OffersComponent } from './offers/components/offers/offers.component';
+import { LiveSessionsThemeComponent } from './live-sessions-theme/live-sessions-theme.component';
 
 const routes: Routes = [
 
@@ -12,9 +13,9 @@ const routes: Routes = [
   { path: 'themes', component: ThemesComponent,},
   { path: 'lesson', component: LessonComponent,},
   { path: 'themes/:matiereid', component: ThemesComponent,canActivate:[AuthGuard] },
-  // { path: 'lesson/:matiereid/:themeid', component: LessonComponent,},
   { path: 'lesson/:matiereid/:themeid/:lessonid', component: LessonComponent,canActivate:[AuthGuard]},
   { path: 'offers', component: OffersComponent,pathMatch:'full'},
+  { path: 'livesessionstheme/:matiereid', component: LiveSessionsThemeComponent,pathMatch:'full'},
 
 
 

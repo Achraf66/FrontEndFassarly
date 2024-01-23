@@ -14,7 +14,7 @@
             <input (change)="onFileSelected($event)"  accept="image/*" type="file">صورة الخلفية    
         </div>
         <img [src]="imagePreview" alt="Preview" *ngIf="imagePreview" />
-        <img *ngIf="!imagePreview" [src]="baseImageUrl+'/'+matiere.nomMatiere+'/'+ matiere.photo" alt="{{ matiere.nomMatiere }} Photo">
+        <img *ngIf="!imagePreview" [src]="matiere.photo" alt="{{ matiere.nomMatiere }} Photo">
 
 
         <div class="single-form" style="padding: 20px; border-radius: 5px; text-align: center;">

@@ -15,7 +15,6 @@ import { MenuService } from '../../../users/services/MenuService';
 export class AddnewSessionLiveComponent implements OnInit {
   matiereid;
   homeWorkFile:any
-
   SessionForm: FormGroup
 
   constructor(private liveSession:LivesessionService,

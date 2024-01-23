@@ -33,16 +33,18 @@
                 {{prototypeExam.nomPrototypeExam}}
             </td>
             <td>
-
-                <p-button (onClick)="downloadExamFile(prototypeExam.id, prototypeExam.nomPrototypeExam)" [outlined]="true" severity="success">
-                    <i class="pi pi-download"></i>
-                </p-button>
+                <a [href]="prototypeExam.examFile" download="examFile.pdf">
+                    <p-button [outlined]="true" severity="success">
+                      <i class="pi pi-download"></i> 
+                    </p-button>
+                  </a>
             </td>
             <td>
-
-                <p-button (onClick)="downloadPrototypeExamCorrectionFile(prototypeExam.id, prototypeExam.nomPrototypeExam)" [outlined]="true" severity="success">
-                    <i class="pi pi-download"></i>
-                </p-button>
+                <a [href]="prototypeExam.correctionFile" download="Correction_File_Name.pdf">
+                    <p-button [outlined]="true" severity="success">
+                      <i class="pi pi-download"></i> 
+                    </p-button>
+                  </a>
             </td>
             <td>
                 <a (click)="OpenPrototypeExamById(prototypeExam.id)">

@@ -33,7 +33,7 @@
             <label for="file">صورة الملف الشخصي</label>
             <div class="p-field">
                 <input id="file" type="file" (change)="onFileSelected($event)" />
-                <img *ngIf="imagePreview" [src]="imagePreview" alt="صورة الملف الشخصي" class="uploaded-image" />
+                <img *ngIf="imagePreview" [src]="user.photo" alt="صورة الملف الشخصي" class="uploaded-image" />
             </div>
         </div>
 

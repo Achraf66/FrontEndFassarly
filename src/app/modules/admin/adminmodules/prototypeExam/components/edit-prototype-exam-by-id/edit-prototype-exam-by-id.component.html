@@ -1,4 +1,4 @@
-<h2 dir="rtl" > عنوان الفرض: {{ExamenNom}} :  نموذج :{{prototypeExam.nomPrototypeExam}}</h2>
+<h2 dir="rtl" > عنوان الفرض: {{ExamenNom}} :  نموذج :{{prototypeExam?.nomPrototypeExam}}</h2>
 
 <div class="form-wrapper" dir="rtl">
     <form *ngIf="EditPrototypeExamForm" [formGroup]="EditPrototypeExamForm" (ngSubmit)="onSubmit()" >
@@ -13,13 +13,11 @@
         <div class="single-form">
             <label for="demo">نموذج الفرض</label>
             <input (change)="onFileSelectedPrototypeExamFile($event)" [multiple]="false" accept="application/pdf" type="file">
-            <div class="title">{{prototypeExam.examFile}}</div> 
         </div>
 
         <div class="single-form">
             <label for="demo">إصلاح الفرض</label>
             <input (change)="onFileSelectedCorrectionFile($event)"  [multiple]="false" accept="application/pdf" type="file">
-            <div class="title">{{prototypeExam.correctionFile}}</div>
         </div>
 
         <div class="single-form">

@@ -21,15 +21,15 @@ export class MatieresComponent implements OnInit {
     
   constructor(private matiereservice:MatiereService,private router:Router,private auth:AuthService,private title:Title)
   {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-   };
+
     title.setTitle("فسرلي | المواد")
    this.userid = this.auth.getUserId()
   }
 
   ngOnInit(): void {
-
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
     this.loadMatieres(this.userid);
   }
 
@@ -47,7 +47,7 @@ export class MatieresComponent implements OnInit {
  
  
     getMatiereBynom(searchTerm: string) {
-      this.matiereservice.getMatiereBynom(searchTerm).pipe(
+      this.matiereservice.searchMatiereByNom(searchTerm).pipe(
         map(
             (matieres)=>{
               this.matieres=matieres;

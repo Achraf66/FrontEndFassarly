@@ -42,7 +42,7 @@
                                     <ul class="nav justify-content-center">
                                         <li><button class="active" data-bs-toggle="tab" data-bs-target="#course">مقطع فيديو </button></li>
                                         <li><button data-bs-toggle="tab" data-bs-target="#exams">الفروض</button></li>
-                                        <li><button data-bs-toggle="tab" data-bs-target="#livesessions">الحصص المباشرة</button></li>
+                                        <li *ngIf="!hasRolenolivesessions() || isAdmin" ><button data-bs-toggle="tab" data-bs-target="#livesessions">الحصص المباشرة</button></li>
                                     </ul>
                                 </div>
                                 <!-- Details Tab Menu End -->
@@ -88,7 +88,7 @@
                                     <div class="info-list">
                                         <ul>
                                             <li *ngFor="let lesson of LessonList; let i = index">
-                                            <a (click)="navigateToLesson(lesson.id)">
+                                            <a class="hover-pointer hover-color" (click)="navigateToLesson(lesson.id)">
                                                 <i class="pi pi-video"></i>&nbsp;
                                                 <strong>{{ 'المقطع عدد ' + (i + 1 < 10 ? '0' : '') + (i + 1) + ' : ' + lesson.nomLesson }}</strong>
                                             </a>

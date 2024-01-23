@@ -5,7 +5,6 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { environment } from 'src/environments/environment';
 import { MatiereService } from '../../services/matiere.service';
 import Swal from 'sweetalert2';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-modify-matiere',

@@ -36,3 +36,7 @@ li.active a {
 .ltr {
  float:right;
 }
+
+.hover-pointer {
+  cursor: pointer;
+}

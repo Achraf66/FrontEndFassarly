@@ -76,7 +76,7 @@
         </div>
    
         <div class="single-form" style="padding: 20px; border-radius: 5px; text-align: center;">
-            <button class="btn btn-success btn-hover-dark w-100" type="submit">إضافة</button>
+            <button [disabled]="SessionForm.invalid" class="btn btn-success btn-hover-dark w-100" type="submit">إضافة</button>
         </div>
     </form>
 </div>

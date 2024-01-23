@@ -16,3 +16,6 @@
     margin-right: 5px; /* Adjust as needed */
   }
   
+  .hover-pointer {
+    cursor: pointer;
+  }

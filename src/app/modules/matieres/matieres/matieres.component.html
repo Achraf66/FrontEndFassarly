@@ -59,12 +59,12 @@
                 <div class="courses-category-wrapper">
                     <div class="courses-search search-2">
                         <input [(ngModel)]="searchTerm" type="text" placeholder="البحث" required>
-                        <button (click)="getMatiereBynom(searchTerm)" [disabled]="!searchTerm"><i class="icofont-search"></i></button>
+                        <button class="hover-pointer" (click)="getMatiereBynom(searchTerm)" [disabled]="!searchTerm"><i class="icofont-search"></i></button>
                       </div>
                       
 
                     <ul class="category-menu">
-                        <li><a class="active" (click)="loadMatieres">كل المواد</a></li>
+                        <li><a class="active hover-pointer" (click)="loadMatieres(this.userid)">كل المواد</a></li>
                     </ul>
                 </div>
                 <!-- Courses Category Wrapper End  -->
@@ -77,9 +77,9 @@
 
                             <!-- Single Courses Start -->
                             <div class="single-courses animation-down">
-                                <div class="courses-images">
-                                    <a (click)="navigateToThemeList(matiere.id)">
-                                        <img height="250px" [src]="baseImageUrl+'/'+matiere.nomMatiere+'/'+ matiere.photo" alt="{{ matiere.nomMatiere }} Photo">
+                                <div class="courses-images hover-pointer">
+                                    <a class="hover-pointer" (click)="navigateToThemeList(matiere.id)">
+                                        <img height="250px" [src]="matiere.photo" alt="{{ matiere.nomMatiere }} Photo">
                                     </a>
                                 </div>
                                 <div class="courses-content">
@@ -89,15 +89,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h2><a (click)="navigateToThemeList(matiere.id)">{{matiere.nomMatiere}}</a></h2>
+                                    <h2><a class="hover-pointer" (click)="navigateToThemeList(matiere.id)">{{matiere.nomMatiere}}</a></h2>
                                     <div class="courses-rating">
 
-                                        <div class="rating-meta">
+                                        <div>
+
                                             <span class="rating-star">
-													<span class="rating-bar" style="width: 100%;"></span>
+                                                <i class="pi pi-star-fill" style="color: rgb(215, 187, 6);"></i>
+                                                <i class="pi pi-star-fill" style="color: rgb(215, 187, 6);"></i>
+                                                <i class="pi pi-star-fill" style="color: rgb(215, 187, 6);"></i>
+                                                <i class="pi pi-star-fill" style="color: rgb(215, 187, 6);"></i>
+                                                <i class="pi pi-star-fill" style="color: rgb(215, 187, 6);"></i>
                                             </span>
-                                            <p>التقيم</p>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>

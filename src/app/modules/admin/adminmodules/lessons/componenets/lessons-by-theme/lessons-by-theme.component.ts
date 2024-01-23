@@ -40,11 +40,9 @@ export class LessonsByThemeComponent implements OnInit{
 
   this.idTheme = this.config.data.idTheme
   this.nomTheme = this.config.data.nomTheme
-  
   this.fetchLessonsByidTheme(this.idTheme);
   
   }
-
 
 
   fetchLessonsByidTheme(idTheme:number){
@@ -57,7 +55,6 @@ export class LessonsByThemeComponent implements OnInit{
     )
 
   }
-
 
   public OpenAddLessonAndAffectToTheme(): void {
     this.dialogService.open(AddNewLessonAndAffectToThemeComponent, {
@@ -74,8 +71,6 @@ export class LessonsByThemeComponent implements OnInit{
       }
     });
   }
-
-
 
 
 
@@ -148,44 +143,11 @@ closeModalAndNotify() {
 }
 
 
-
-private handleDownloadLesson(response: HttpResponse<ArrayBuffer>,lessonName:string): void {
-  // Check if the response has a valid body
-  if (response.body !== null) {
-    const blob = new Blob([response.body], { type: 'application/pdf' });
-
-    // Create a link element and trigger a download
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download =lessonName; 
-    link.click();
-    
-  } else {
-    console.error('Response body is null.');
-  }
+// In your Angular component
+extractFileName(url: string): string {
+  const parts = url.split('/');
+  return parts[parts.length - 1];
 }
-
-downloadFile(filename: string, lessonId: number , lessonName:string): void {
-
-  
-
-  this.lessonService.download(filename, lessonId)
-    .subscribe(
-      (event: any) => {
-        if (event.type === HttpEventType.DownloadProgress) {
-          // Handle download progress if needed
-          const percentDone = Math.round((100 * event.loaded) / event.total);
-          this.downloadProgress = percentDone
-        } else if (event instanceof HttpResponse) {
-          this.handleDownloadLesson(event,lessonName);
-        }
-      },
-      (error) => {
-        console.error('Error downloading file:', error);
-      }
-    );
-}
-
 
 
   

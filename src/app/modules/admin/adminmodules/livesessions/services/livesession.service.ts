@@ -86,7 +86,7 @@ export class LivesessionService {
   }
 
     deleteSeanceEnLigneById(seanceEnLigneId:number){
-    const SESSIONLIVEURL= `${this.BASEURL}/api/seanceEnLigne/removeSeanceEnLigne/${seanceEnLigneId}`
+    const SESSIONLIVEURL= `${this.BASEURL}/api/seanceEnLigne/deleteLiveSessinById/${seanceEnLigneId}`
     return this.http.delete(SESSIONLIVEURL);
    }
 

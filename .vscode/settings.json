@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/3647ff30-9564-4756-9055-2748cf6114f5/resourceGroups/Fassarly/providers/Microsoft.Web/sites/Fassarly",
+    "appService.deploySubpath": "dist"
+}

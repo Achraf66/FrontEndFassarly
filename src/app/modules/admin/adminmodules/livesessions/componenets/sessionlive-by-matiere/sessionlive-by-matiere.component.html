@@ -1,6 +1,5 @@
 
 
-<p-confirmDialog></p-confirmDialog>
 <p-table [value]="seanceEnLignes" [rowHover]="true" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="header">
         <tr>
@@ -59,7 +58,7 @@
             </td>
                 <td>
                     <div class="file-icons">
-                      <a (click)="downloadFile(liveSession.homeWorkFileName,liveSession.id,liveSession.titre)">
+                      <a [href]="liveSession.homeWorkFileName">
                         <i class="pi pi-download" style="font-size: 24px;"></i>
                       </a>
                     </div>
