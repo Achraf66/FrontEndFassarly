@@ -27,9 +27,10 @@ export class ExamenService {
 
   createExamenAndAffectToMatiere(
     matiereId: number,
-    nomExamen: string
+    nomExamen: string,
+    orderExamen:number
   ): Observable<any> {
-    const URL_CREATE_Examen = `${this.BASEURL}/api/examen/create`;
+    const URL_CREATE_Examen = `${this.BASEURL}/api/examen/create/${orderExamen}`;
   
     const formData: FormData = new FormData();
     formData.append('matiereId', JSON.stringify(matiereId));
@@ -48,12 +49,13 @@ export class ExamenService {
 
   editExamen(
     examenId: number,
-    nomExamen: string
+    nomExamen: string,
+    orderExamen:number
       ): Observable<Examen> {
     const formData = new FormData();
     formData.append('nomExamen', nomExamen);
-  
-    return this.http.put<Examen>(`${this.BASEURL}/api/examen/edit/${examenId}`, formData);
+
+    return this.http.put<Examen>(`${this.BASEURL}/api/examen/edit/${examenId}/${orderExamen}`, formData);
   }
 
   deleteExamenAndFolderById(idExam:number){

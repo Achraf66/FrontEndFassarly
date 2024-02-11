@@ -28,8 +28,11 @@ export class MatieresComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
+
       return false;
+      
     };
+
     this.loadMatieres(this.userid);
   }
 

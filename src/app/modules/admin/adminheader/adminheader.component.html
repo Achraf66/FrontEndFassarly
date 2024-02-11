@@ -1,7 +1,7 @@
 <div class="card">
     <p-menubar [model]="items">
         <ng-template pTemplate="start">
-            <a [routerLink]="'/matieres/matieres'">
+            <a (click)="redirectToMatierePage()">
             <img src="assets/images/logo.png" height="60" style="border-radius: 8;" class="mr-2" />
             </a>
         </ng-template>

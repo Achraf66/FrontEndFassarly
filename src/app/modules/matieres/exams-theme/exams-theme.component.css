@@ -1,0 +1,34 @@
+.navigation-button {
+    background-color:  #1d6c02; /* Set your preferred background color */
+    color: #FFFFFF; /* Set your preferred text color */
+    padding: 10px 15px;
+    margin-right: 10px; /* Adjust spacing as needed */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .navigation-button:hover {
+    background-color: #1d6c02; /* Set your preferred background color on hover */
+  }
+
+  .rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+
+.ltr {
+ float:right;
+}
+
+.lesson-title {
+    font-size: 24px; /* Adjust the font size as needed */
+    font-weight: bold;
+    color: #333; /* Choose your preferred color */
+    /* Add any other styling properties you desire */
+  }
+
+  .hover-pointer {
+    cursor: pointer;
+  }

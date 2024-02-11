@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { User } from 'src/app/modules/admin/adminmodules/users/models/User';
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent  implements OnInit{
   User:User
   matieres:Matiere[]
   numtel:any
@@ -29,12 +29,20 @@ export class HeaderComponent {
     this.isMobileMenuOpen = false;
   }
 
+  ngOnInit(): void {
+
+  }
   constructor(
     private matiereService: MatiereService,
     private auth: AuthService,
     private router: Router,
     private dialogService: DialogService,private authService:AuthService
   ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+
+    
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (event.url !== '/auth/login' && event.url !== '/auth/register') {
@@ -123,6 +131,9 @@ fetchUserByNumtel(numtel: string) {
       console.log(error);
     }
   );
+}
+redirectToFacebook(): void {
+  window.open('https://www.facebook.com/fassarly', '_blank');
 }
 
 fetchMatierebyUser(numtel: string) {

@@ -44,11 +44,12 @@ export class EditExamenMatiereComponent implements OnInit {
   
  
   OnSubmit() {
-    const { nomExamen, videoLien } = this.ExamenForm.value;
+    const { nomExamen, videoLien,order } = this.ExamenForm.value;
 
     this.examenService.editExamen(
       this.examenId,
-      nomExamen
+      nomExamen,
+      order
             ).subscribe(
       (updatedExamen) => {
         this.messageService.add({ severity: 'success', summary: 'نجاح', detail: 'تم تعديل هذا الفرض بنجاح' });
@@ -72,7 +73,9 @@ export class EditExamenMatiereComponent implements OnInit {
 
   private createForm(): void {
     this.ExamenForm = this.fb.group({
-      nomExamen: [this.Examen ? this.Examen.nomExamen : '', Validators.required]
+      nomExamen: [this.Examen ? this.Examen.nomExamen : '', Validators.required],
+      order: [this.Examen ? this.Examen.order : '', Validators.required]
+
         });
   }
 

@@ -27,8 +27,9 @@ export class AdminheaderComponent  implements OnInit{
     
 
   }
-
-
+  redirectToMatierePage(): void {
+    this.router.navigate(['/matieres/matieres']);
+  }
    
 
   ngOnInit() {

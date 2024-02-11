@@ -4,6 +4,7 @@ export class PrototypeExam {
     examFile: string;
     correctionFile: string;
     correctionLink: string;
+    order:number;
   
     constructor(id: number, nomPrototypeExam: string, examFile: string, correctionFile: string, correctionLink: string) {
       this.id = id;

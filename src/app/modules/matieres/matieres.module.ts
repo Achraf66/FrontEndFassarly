@@ -29,6 +29,7 @@ import { OffersComponent } from './offers/components/offers/offers.component';
 import { TreeModule } from 'primeng/tree';
 import { PrototypeExamDetailsComponent } from './modals/prototype-exam-details/prototype-exam-details.component';
 import { LiveSessionsThemeComponent } from './live-sessions-theme/live-sessions-theme.component';
+import { ExamsThemeComponent } from './exams-theme/exams-theme.component';
 
 registerLocaleData(localear,'ar');
 
@@ -49,6 +50,7 @@ export function momentAdapterFactory() {
     OffersComponent,
     PrototypeExamDetailsComponent,
     LiveSessionsThemeComponent,
+    ExamsThemeComponent,
   ],
   imports: [
     CommonModule,

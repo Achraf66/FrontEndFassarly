@@ -33,6 +33,8 @@
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="nomExamen" > <p-sortIcon ></p-sortIcon>عنوان الفرض</th>
+                <th pSortableColumn="order" > <p-sortIcon ></p-sortIcon>ترتيب الفرض</th>
+
                 <th>نماذج الفرض</th>
                 <th>تعديل</th>
                 <th>حذف الفرض</th>
@@ -42,6 +44,8 @@
             <tr>
           
                 <td>{{examen.nomExamen}}</td>
+                <td>{{examen.order}}</td>
+
                 <td (click)="OpenPrototypeExamByExamId(examen.id,examen.nomExamen)">
                   <p-button [text]="true" [raised]="true" severity="help" label="نماذج الفرض" ></p-button>
                 </td>

@@ -37,7 +37,9 @@ export class AddExamenAndAffectToMatiereComponent implements OnInit {
     this.matiereId = this.config.data.matiereid
 
     this.ExamenForm = this.fb.group({
-      nomExamen : ['',Validators.required]
+      nomExamen : ['',Validators.required],
+      order : ['',Validators.required]
+
         })
     
   }
@@ -50,7 +52,8 @@ export class AddExamenAndAffectToMatiereComponent implements OnInit {
   OnSubmit() {
     this.examenService.createExamenAndAffectToMatiere(
       this.matiereId,
-      this.ExamenForm.value.nomExamen
+      this.ExamenForm.value.nomExamen,
+      this.ExamenForm.value.order
           ).subscribe(
       (data) => {
         this.closeModalAndNotify();

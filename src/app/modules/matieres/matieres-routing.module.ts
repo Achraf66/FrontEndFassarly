@@ -6,6 +6,7 @@ import { LessonComponent } from './lesson/lesson.component';
 import { AuthGuard } from '../auth/guard/auth.guard';
 import { OffersComponent } from './offers/components/offers/offers.component';
 import { LiveSessionsThemeComponent } from './live-sessions-theme/live-sessions-theme.component';
+import { ExamsThemeComponent } from './exams-theme/exams-theme.component';
 
 const routes: Routes = [
 
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'lesson/:matiereid/:themeid/:lessonid', component: LessonComponent,canActivate:[AuthGuard]},
   { path: 'offers', component: OffersComponent,pathMatch:'full'},
   { path: 'livesessionstheme/:matiereid', component: LiveSessionsThemeComponent,pathMatch:'full'},
+  { path: 'examethemes/:matiereid', component: ExamsThemeComponent,pathMatch:'full'}
 
 
 

@@ -6,5 +6,5 @@ export class Examen{
     nomExamen: string;
     matieres: Matiere; 
     prototypeExams: PrototypeExam[];
-
+    order :number;
 }

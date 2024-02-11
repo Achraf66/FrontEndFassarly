@@ -62,24 +62,33 @@
                 <input [(ngModel)]="searchTerm" type="text" placeholder="البحث" required>
                 <button class="hover-pointer" (click)="findThemesSearch(searchTerm)" [disabled]="!searchTerm"><i class="icofont-search"></i></button>
               </div>
-            <h1> 
+            <h2> 
              <ul class="breadcrumb">
              <li class="active">دروس مادة : {{matiere?.nomMatiere}}</li>  
             </ul>
-            </h1>
+            </h2>
 
          
             <div class="courses-tab-wrapper">
              
                 <div class="tab-btn">
                  
+        
+
+                    <a  [routerLink]="['/matieres/examethemes', matiere?.id]" class="btn btn-secondary btn-hover-dark" style="margin-right: 30px;">
+                        فروض المادة 
+                    </a>
+
                     <a *ngIf="!hasRolenolivesessions() || isAdmin" [routerLink]="['/matieres/livesessionstheme', matiere?.id]" class="btn btn-secondary btn-hover-dark" style="margin-right: 30px;">
                         الحصص المباشرة 
                     </a>
 
-                <a (click)="fetchThemes()" class="btn btn-primary btn-hover-dark">
-                    كل الدروس {{ "(" + Themes.length + ")" }}
-                </a>
+                    <a (click)="fetchThemes()" class="btn btn-primary btn-hover-dark">
+                        كل الدروس {{ "(" + Themes.length + ")" }}
+                    </a>
+
+
+
 
                 </div>
            

@@ -60,6 +60,7 @@ export class EditPrototypeExamByIdComponent implements OnInit {
         examFile: [this.prototypeExam?.examFile],
         correctionFile: [this.prototypeExam?.correctionFile],
         correctionLink: [this.prototypeExam?.correctionLink],
+        
     });
 }
 
