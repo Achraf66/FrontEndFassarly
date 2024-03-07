@@ -40,9 +40,12 @@ getThemeById(idTheme: number): Observable<Theme> {
   return this.http.get<Theme>(url);
 }
 
-updateThemeNameById(id: number, newThemeName: string): Observable<Theme> {
+updateThemeNameById(id: number, order: number, newThemeName: string): Observable<Theme> {
   const url = `${this.BASEURL}/api/theme/updateNameThemeById/${id}`;
-  const params = new HttpParams().set('newThemeName', newThemeName);
+  let params = new HttpParams();
+  
+  params = params.set('newThemeName', newThemeName); 
+  params = params.set('order', order.toString()); 
 
   return this.http.put<Theme>(url, null, { params });
 }

@@ -64,7 +64,7 @@
                     &nbsp;
                     &nbsp;
                     <div *ngIf="PrototypeExam.correctionLink !== null && PrototypeExam.correctionLink !== undefined">
-                        <video controls width="700" height="350">
+                        <video controls width="700" height="350" controlsList="nodownload">
                           <source [src]="PrototypeExam?.correctionLink" type="video/mp4">
                           Your browser does not support the video tag.
                         </video>

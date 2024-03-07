@@ -34,7 +34,8 @@ export class AddThemeToMatiereComponent implements OnInit {
     ngOnInit(): void {
       
       this.ThemeForm = this.fb.group({
-        nomTheme: ['',Validators.required]
+        nomTheme: ['',Validators.required],
+        order : ['',Validators.required]
 
       })
     }

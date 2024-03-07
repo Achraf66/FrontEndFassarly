@@ -48,8 +48,14 @@
         <th pSortableColumn="nomTheme">
         <p-sortIcon></p-sortIcon>
         إسم الدرس    
-
         </th>
+
+        <th pSortableColumn="order">
+          <p-sortIcon></p-sortIcon>
+          ترتيب الدرس    
+          </th>
+
+
          <th colspan="2" >أجراءات</th>
 
         </tr>
@@ -57,8 +63,9 @@
     
     <ng-template pTemplate="body" let-theme>
         <tr >
+          
             <td><a (click)="OpenLessonsByThemes(theme.id,theme.nomTheme)"> {{theme.nomTheme }}</a></td>
-            
+            <td> {{theme.order }} </td>
                 <td>
                     <a  (click)="openModifyThemeDialog(theme.id)">
                         <i class="pi pi-pencil" style="color:green"></i> 
@@ -70,6 +77,9 @@
                         <i class="pi pi-trash" style="color:red"></i> 
                     </a>
             </td>
+
+
+            
 
         </tr>
     </ng-template>

@@ -20,6 +20,27 @@
         </div>
       </div>
     </div>
+
+
+    <div class="single-form">
+      <label for="nomTheme">ترتيب الدرس</label>
+      <div class="p-field">
+        <input
+          pInputText
+          formControlName="order"
+          type="text"
+          id="order"
+          class="p-inputtext-lg"
+          placeholder="ترتيب الدرس"
+        />
+        <div
+        *ngIf="ThemeForm.get('order')?.hasError('required') && ThemeForm.get('order')?.touched"
+        class="text-danger"
+        >
+        ترتيب الدرس مطلوب.
+        </div>
+      </div>
+    </div>
   
     <!-- Add more form controls as needed -->
   

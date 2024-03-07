@@ -14,6 +14,7 @@ export class EditThemeComponent implements OnInit {
   Theme: Theme;
   nameTheme: string;
   idTheme: number;
+  orderNumber:number
 
   constructor(
     private menu:MenuService,
@@ -29,17 +30,19 @@ export class EditThemeComponent implements OnInit {
   ngOnInit(): void {
     // Use safe navigation operator to avoid errors
     this.nameTheme = this.Theme?.nomTheme;
+    this.orderNumber = this.Theme?.order;
   }
 
   fetchTheme(idTheme: number): void {
     this.themeservice.getThemeById(idTheme).subscribe((theme: Theme) => {
       this.Theme = theme;
       this.nameTheme = this.Theme?.nomTheme;
+      this.orderNumber = this.Theme?.order;
     });
   }
 
-  updateNameTheme(themename: string): void {
-    this.themeservice.updateThemeNameById(this.idTheme, themename).subscribe(
+  updateNameTheme(themename: string,order:number): void {
+    this.themeservice.updateThemeNameById(this.idTheme,order,themename).subscribe(
       (updatedTheme: Theme) => {
 
         this.messageService.add({ severity: 'info', summary: 'تم تغير إسم الدرس بنجاح', detail: 'تم تغير إسم الدرس بنجاح' });

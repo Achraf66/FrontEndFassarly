@@ -7,6 +7,7 @@ export class Theme{
 
     id:number;
     nomTheme:string
+    order:number
     matieres:Matiere
     lessons:any
 
