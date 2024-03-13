@@ -1,42 +1,64 @@
-
-
 <div class="form-wrapper">
-    <form  [formGroup]="EditOffer" (ngSubmit)="OnSubmit()" >
+    <form [formGroup]="EditOffer" (ngSubmit)="OnSubmit()" class="grid-form">
 
+        <h2>عرض التسجيلات</h2>
         <!-- Single Form Start -->
         <div class="single-form">
             <div class="p-field">
-                <label for="inputField">المعلوم الشهري</label>
-                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="المعلوم الشهري" formControlName="mensuelle" />
-              </div>
+                <label for="inputField">إشتراك سنوي</label>
+                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="إشتراك سنوي" formControlName="recordYear" />
+            </div>
         </div>
         <!-- Single Form END ---->
 
         <!-- Single Form Start -->
         <div class="single-form">
             <div class="p-field">
-                <label for="inputField">المعلوم الثلاثي</label>
-                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="المعلوم الثلاثي" formControlName="trimestrielle" />
-              </div>
+                <label for="inputField">إشتراك لبقية السنة الدراسية</label>
+                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="إشتراك لبقية السنة الدراسية" formControlName="recordRestOfYear" />
+            </div>
         </div>
         <!-- Single Form END ---->
 
         <!-- Single Form Start -->
         <div class="single-form">
             <div class="p-field">
-                <label for="inputField">المعلوم السنوي</label>
-                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="المعلوم السنوي" formControlName="anuelle" />
-              </div>
+                <label for="inputField">إشتراك شهري</label>
+                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="إشتراك شهري" formControlName="recordMonth" />
+            </div>
         </div>
         <!-- Single Form END -->
 
-        
+        <h2>عرض الحصص المباشرة</h2>
+        <!-- Single Form Start -->
+        <div class="single-form">
+            <div class="p-field">
+                <label for="inputField">إشتراك سنوي</label>
+                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="إشتراك سنوي" formControlName="liveYear" />
+            </div>
+        </div>
+        <!-- Single Form END ---->
+
+        <!-- Single Form Start -->
+        <div class="single-form">
+            <div class="p-field">
+                <label for="inputField">إشتراك لبقية السنة الدراسية</label>
+                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="إشتراك لبقية السنة الدراسية" formControlName="liveRestOfYear" />
+            </div>
+        </div>
+        <!-- Single Form END ---->
+
+        <!-- Single Form Start -->
+        <div class="single-form">
+            <div class="p-field">
+                <label for="inputField">إشتراك شهري</label>
+                <input pInputText type="text" id="inputField" class="p-inputtext-lg" placeholder="إشتراك شهري" formControlName="liveMonth" />
+            </div>
+        </div>
+        <!-- Single Form END -->
 
         <div class="single-form" style="padding: 20px; border-radius: 5px; text-align: center;">
-            <button class="btn btn-success btn-hover-dark w-100"
-            type="submit"
-            [disabled]="EditOffer.invalid">إضافة</button>
-            
+            <button class="btn btn-success btn-hover-dark w-100" type="submit" [disabled]="EditOffer.invalid">إضافة</button>
         </div>
     </form>
 </div>

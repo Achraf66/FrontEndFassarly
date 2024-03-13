@@ -1,7 +1,10 @@
 export class Offer {
     id: number;
-    mensuelle: number;
-    trimestrielle: number;
-    anuelle: number;
+    recordYear: number;
+    recordRestOfYear: number;
+    recordMonth: number;
+    liveYear: number;
+    liveRestOfYear: number;
+    liveMonth: number;
   }
   

@@ -11,7 +11,7 @@ import { OfferService } from 'src/app/modules/admin/adminmodules/Offers/service/
 })
 export class OffersComponent implements OnInit{
 
-  Offer: Offer = { id: 0, mensuelle: 0, trimestrielle: 0, anuelle: 0 };
+  Offer: Offer = {id:0,recordMonth:0,recordRestOfYear:0,recordYear:0,liveMonth:0,liveYear:0,liveRestOfYear:0 };
 
   constructor(private offerService:OfferService,private titleService:Title){
     this.fetchOfferById();

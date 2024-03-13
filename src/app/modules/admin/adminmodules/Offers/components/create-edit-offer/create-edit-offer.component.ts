@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OfferService } from '../../service/offer.service';
 import { Offer } from '../../models/Offer';
 import { catchError } from 'rxjs';
-import Swal from 'sweetalert2';
 import { MenuService } from '../../../users/services/MenuService';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
@@ -43,18 +42,25 @@ export class CreateEditOfferComponent implements OnInit {
   initializeForm() {
     this.EditOffer = this.fb.group({
       id: [null],
-      mensuelle: [null, Validators.required],
-      trimestrielle: [null, Validators.required],
-      anuelle: [null, Validators.required]
+      recordMonth: [0, Validators.required],
+      recordRestOfYear: [0, Validators.required],
+      recordYear: [0, Validators.required],
+      
+      liveMonth: [0, Validators.required],
+      liveRestOfYear: [0, Validators.required],
+      liveYear: [0, Validators.required]
     });
   }
 
   patchFormValues() {
     this.EditOffer.patchValue({
       id: this.Offer.id,
-      mensuelle: this.Offer.mensuelle || null,
-      trimestrielle: this.Offer.trimestrielle || null,
-      anuelle: this.Offer.anuelle || null
+      recordMonth: this.Offer.recordMonth || 0,
+      recordRestOfYear: this.Offer.recordRestOfYear || 0,
+      recordYear: this.Offer.recordYear || 0,
+      liveMonth: this.Offer.liveMonth || 0,
+      liveRestOfYear: this.Offer.liveRestOfYear || 0,
+      liveYear: this.Offer.liveYear || 0
     });
   }
 
