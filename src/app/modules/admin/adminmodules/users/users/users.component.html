@@ -2,7 +2,7 @@
 <p-confirmDialog></p-confirmDialog>
 
 <p-table [value]="Students"  [rowHover]="true"
-[tableStyle]="{'min-width': '60rem' }" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]" 
+[tableStyle]="{'min-width': '65em' }" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]" 
 [paginator]="true" >
 
     <ng-template pTemplate="caption">
@@ -54,6 +54,18 @@
                   <p-sortIcon></p-sortIcon>
                 </div>
             </th> 
+            <th pSortableColumn="dateCreation">
+              <div class="sortable-header">تاريخ انشاء الحساب
+                <p-sortIcon></p-sortIcon>
+              </div>
+            </th>
+             
+             <th pSortableColumn="smsVerified">
+            <div class="sortable-header">الحساب مفعل
+                <p-sortIcon></p-sortIcon>
+              </div>
+            </th>
+
             <th>
                 <div>نوعية الاشتراك
                 </div>
@@ -77,6 +89,14 @@
               
              <td>{{student.nomPrenom}}</td>
             <td>{{student.numeroTel}}</td>
+            <td style="width: 15%;">{{student.dateCreation}}</td>
+
+              <td style="width: 15%;" *ngIf="student.smsVerified"><h5 style="color: green;">نعم</h5></td>
+              <td style="width: 15%;" *ngIf="!student.smsVerified">
+                <h5 style="color: rgb(255, 28, 7);">لا</h5>
+              </td>
+            
+
             <td>
                 <span *ngFor="let role of student.roles; let last = last">
                   {{ role.displayName }}

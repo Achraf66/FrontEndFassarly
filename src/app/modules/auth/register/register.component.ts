@@ -7,6 +7,10 @@ import { RoleService } from '../services/role.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { SmsService } from '../services/smsservice/sms.service';
+import { CookieService } from 'ngx-cookie-service';
+import { PasswordSuggestionService } from '../services/passwordSuggestion/password-suggestion.service';
+import { Clipboard } from '@angular/cdk/clipboard'; 
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-register',
@@ -14,10 +18,12 @@ import { SmsService } from '../services/smsservice/sms.service';
   styleUrls: ['./register.component.css' ,'../../../../styles.css']
 })
 export class RegisterComponent implements OnInit{
-  
+  suggestedPassword: string = '';
+
   signupForm: FormGroup;
   submitted = false;
 
+  loading: boolean = false;
 
   showPassword = false;
   showConfirmPassword = false;
@@ -26,7 +32,7 @@ export class RegisterComponent implements OnInit{
   successmsg: boolean = false;
   passwordControl: any;
   confirmPasswordControl: any;
-
+  accountCreated : boolean = false;
 
 
   roles:any
@@ -36,7 +42,12 @@ export class RegisterComponent implements OnInit{
     private authenticationService: AuthService,
     private formBuilder:FormBuilder,
     private roleservice:RoleService,
-    private router:Router,private smsService:SmsService
+    private router:Router,
+    private smsService:SmsService,
+    private cookieService:CookieService,
+    private passwordSuggestionService: PasswordSuggestionService,
+    private clipboard: Clipboard,
+    private messageService:MessageService
         ){
     this.title.setTitle("فسرلي | التسجيل")
   }
@@ -89,9 +100,8 @@ export class RegisterComponent implements OnInit{
   onSubmit() {
 
     this.submitted = true;
-
-   
-
+    this.loading = true;
+    
     const formData: RegisterRequest = {
       firstname: this.signupForm.value.firstname ,
       lastname: this.signupForm.value.lastname,
@@ -105,13 +115,15 @@ export class RegisterComponent implements OnInit{
 
         data=>{
           if (data.errormessage === 'Some roles are not valid.') {
+            this.loading = false;
             Swal.fire({
               icon: 'error',
               title: 'خطأ',
               text: 'خطأ في اختيار المستوى الأكاديمي باللغة العربية',
             });
           }
-          if (data.successmessage === 'User Already Exisits') {
+          if (data.errormessage === 'Phone number is already registered.') {
+            this.loading = false;
             Swal.fire({
               icon: 'warning',
               title: 'تحذير',
@@ -120,30 +132,46 @@ export class RegisterComponent implements OnInit{
           }
 
           if (data.successmessage === 'Register Success') {
+            this.loading = false;
+            this.accountCreated=true;
+            this.cookieService.set('numtel', formData.numTel);
+            this.cookieService.set('password', formData.password);  
+            this.signupForm.reset();
             Swal.fire({
               icon: 'success',
               title: 'نجاح',
-              text: 'تم تسجيل المستخدم بنجاح',
-              confirmButtonText: 'نعم'
+              html: `
+                <p style="font-size: 1.2em; color: #333;">تم تسجيل الحساب بنجاح. ستتلقى رسالة تأكيد عبر الهاتف لتأكيد حسابك.</p>
+                <p style="font-size: 1.2em; color: #333;">الرجاء إدخال الرمز</p>
+              `,
+              confirmButtonText: 'نعم',
+              confirmButtonColor: '#3085d6'
             });
+                        
             this.smsService.setphoneUser(formData.numTel)
                     setTimeout(() => {
               this.router.navigate(['/auth/smsVerification']); 
             }, 5000);
           }
-
-          
-
-        }
-        
-
-      )
+        },
+        (error) => {
+          this.loading = false; 
+          Swal.fire({
+            icon: 'error',
+            title: 'خطأ',
+            text: 'حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.',
+          });
+        })
     
 
   }
 
 
 
+  copyToClipboard(text: string) {
+    this.clipboard.copy(text);
+    this.showSuccessMessage("تم نسخ كلمة المرور المقترحة")
+  }
 
 
     passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
@@ -155,7 +183,24 @@ export class RegisterComponent implements OnInit{
 
 
 
+  suggestPassword() {
+     this.suggestedPassword = this.passwordSuggestionService.generateRandomPassword();
+    this.signupForm.patchValue({ password: this.suggestedPassword, confirmPassword: this.suggestedPassword });
+  }
 
   
+  showSuccessMessage(message: string) {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'تم نسخ كلمة المرور المقترحة',
+    });
 
+    setTimeout(() => {
+      this.clearMessages();
+    }, 2000); 
+  }
+
+  clearMessages() {
+    this.messageService.clear();
+  }
 }

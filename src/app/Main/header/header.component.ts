@@ -111,8 +111,8 @@ logout() {
 EditAppUserByIdComponent(): void {
 this.dialogService.open(EditUserDetailsStudentComponent, {
     header: 'البيانات الشخصية',
-    width: '50%',
-    height: '90%',
+    width: 'auto',
+    height: 'auto',
     dismissableMask:true,
     data: {
       idUser: this.User.id
@@ -154,9 +154,9 @@ checkAdminRole() {
   }
 }
 
-@HostListener('window:resize', ['$event'])
-onResize(event: any) {
-  this.isMobileMenuOpen = window.innerWidth <= 1000; 
-}
+// @HostListener('window:resize', ['$event'])
+// onResize(event: any) {
+//   this.isMobileMenuOpen = window.innerWidth <= 1000; 
+// }
 
 }

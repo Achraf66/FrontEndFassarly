@@ -3,17 +3,50 @@
     text-align: right;
 }
 
-
 .ltr {
- float:right;
+    float: right;
 }
 
-
-
 .lesson-title {
-    font-size: 24px; /* Adjust the font size as needed */
+    font-size: 24px;
     font-weight: bold;
-    color: #333; /* Choose your preferred color */
-    /* Add any other styling properties you desire */
-  }
-  
+    color: #333;
+}
+
+.video-responsive {
+    width: 100%;
+    height: auto;
+}
+
+.sidebar-widget .social a {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.attachment-count {
+    display: block;
+    margin-top: 5px;
+}
+
+/* Responsive Styles */
+@media (max-width: 991.98px) {
+    .sidebar-widget {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .description-wrapper {
+        margin-top: 20px;
+    }
+    .video-responsive {
+        height: auto;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .courses-details-admin,
+    .lesson-title,
+    .description-wrapper {
+        text-align: center;
+    }
+}

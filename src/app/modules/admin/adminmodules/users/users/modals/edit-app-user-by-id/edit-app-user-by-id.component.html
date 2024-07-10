@@ -1,8 +1,5 @@
-<!-- edit-app-user-by-id.component.html -->
 <p-confirmDialog></p-confirmDialog>
 <div class="form-wrapper" dir="rtl">
-
-
     <form [formGroup]="UserForm" (ngSubmit)="OnSubmit()">
         <!-- بداية النموذج الفردي -->
         <div class="single-form">
@@ -17,6 +14,17 @@
             <div class="p-field">
                 <label for="numeroTel">رقم الهاتف</label>
                 <input pInputText type="text" id="numeroTel" class="p-inputtext-lg" placeholder="رقم الهاتف" formControlName="numeroTel" />
+            </div>
+        </div>
+
+        <div class="single-form">
+            <div class="p-field checkbox-field">
+                <label for="smsVerified">تفعيل الحساب الحالي :</label>
+                <p-checkbox 
+                id="smsVerified"
+                formControlName="smsVerified" 
+                [binary]="true" 
+                inputId="binary" />
             </div>
         </div>
 

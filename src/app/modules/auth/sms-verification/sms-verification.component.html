@@ -1,6 +1,8 @@
 
+
 <div *ngIf="phoneUser">
 <div class="row justify-content-center mt-7">
+  
     <div class="col-lg-5 text-center">
         <a>
             <img src="assets/img/svg/logo.svg" alt="">
@@ -40,7 +42,7 @@
                 </div>
               </div>
 
-                <button type="submit" [disabled]="verificationForm2.invalid" href="#!" class="btn btn-primary btn-lg w-100 hover-lift-light mt-4">
+                <button type="submit"  [disabled]="verificationForm2.invalid || disabledConfirm" href="#!" class="btn btn-primary btn-lg w-100 hover-lift-light mt-4">
                     تحقق من حسابي
                 </button>
             </form>
@@ -48,18 +50,23 @@
             </div>
         </div>
 
-        <p class="text-center text-muted mt-4">
-            لم تستلم الرمز؟
-            <a href="#!" class="text-decoration-none ms-2">
-                إعادة إرسال الرمز
-            </a>
-        </p>
+        <h4 class="text-center text-muted mt-4">
+          لم تستلم الرمز؟
+          <a (click)="resendCode(phoneNumber)" class="clickable text-decoration-none ms-2">
+              إعادة إرسال الرمز
+          </a>
+        </h4>
+
     </div>
 </div>
 </div>
 
 <div *ngIf="!phoneUser">
     <div class="row justify-content-center mt-7">
+      <div *ngIf="loading" class="loading-overlay">
+        <p-progressSpinner></p-progressSpinner>
+        <div class="loading-message">يرجى الانتظار</div>
+      </div>      
       <div class="col-lg-5 text-center">
         <a>
           <img src="assets/img/svg/logo.svg" alt="">
@@ -89,6 +96,7 @@
                     type="text"
                     class="form-control form-control-lg text-center py-4"
                     [(ngModel)]="phoneNumber"
+                    [ngClass]="{'highlight-error': isError}"
                     required
                   >
                 </div>
@@ -108,11 +116,18 @@
                 </div>
               </div>
   
-              <button type="submit" [disabled]="verificationForm.invalid" class="btn btn-primary btn-lg w-100 hover-lift-light mt-4">
+              <button type="submit" [disabled]="verificationForm.invalid || disabledConfirm" class="btn btn-primary btn-lg w-100 hover-lift-light mt-4">
                 تحقق من حسابي
               </button>
             </form>
           </div>
+          <h4 class="text-center text-muted mt-4">
+            لم تستلم الرمز؟
+            <a (click)="resendCode(phoneNumber)" class="clickable text-decoration-none ms-2">
+                إعادة إرسال الرمز
+            </a>
+          </h4>
+        
         </div>
   
       </div>

@@ -42,6 +42,7 @@ export class EditAppUserByIdComponent implements OnInit {
       nomPrenom: [this.user?.nomPrenom || '', Validators.required],
       numeroTel: [this.user?.numeroTel || '', Validators.required],
       roles: [null],
+      smsVerified:[this.user?.smsVerified],
       password: [''],
     });
   }
@@ -54,6 +55,7 @@ export class EditAppUserByIdComponent implements OnInit {
         this.UserForm.patchValue({
           nomPrenom: this.user?.nomPrenom || '',
           numeroTel: this.user?.numeroTel || '',
+          smsVerified: this.user?.smsVerified || '',
         });
       },
       (error) => {

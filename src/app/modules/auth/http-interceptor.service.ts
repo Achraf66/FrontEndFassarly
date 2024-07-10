@@ -19,7 +19,8 @@ export class HttpInterceptorService implements HttpInterceptor {
       '/api/v1/auth/register',
       '/api/v1/auth/logout',
       '/api/roles/getAllRoles',
-      '/api/v1/auth/verify-sms'
+      '/api/v1/auth/verify-sms',
+      '/api/v1/auth/reSendCodeVerification'
     ];
 
     // Check if the request URL is in the excluded list

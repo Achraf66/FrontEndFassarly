@@ -47,6 +47,7 @@ import { PrototypeExamByExamComponent } from './adminmodules/prototypeExam/compo
 import { EditPrototypeExamByIdComponent } from './adminmodules/prototypeExam/components/edit-prototype-exam-by-id/edit-prototype-exam-by-id.component';
 import { AddPrototypeExamComponent } from './adminmodules/prototypeExam/components/add-prototype-exam/add-prototype-exam.component';
 import {ProgressBarModule} from 'primeng/progressbar';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import {ProgressBarModule} from 'primeng/progressbar';
     ConfirmDialogModule,
     InputNumberModule,
     CalendarModule,
-    ProgressBarModule
+    ProgressBarModule,
+    CheckboxModule
     
   ],
   providers: [DialogService,MessageService,ConfirmationService],

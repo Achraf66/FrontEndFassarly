@@ -30,5 +30,13 @@ export class SmsService {
     return  this.http.post<AuthResponseData>(URL,VerifySmsRequest);
   }
 
+  reSendSmsCode(numTel: string) {
+    const URL = `${this.BASEURL}/api/v1/auth/reSendCodeVerification`;
+    const formData: FormData = new FormData();
+    formData.append('numTel', numTel);
+    return this.http.post<AuthResponseData>(URL, formData);
+}
+
+
 
 }

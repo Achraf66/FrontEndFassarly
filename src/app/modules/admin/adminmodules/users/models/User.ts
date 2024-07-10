@@ -7,6 +7,8 @@ export class User{
         nomPrenom :string;
         numeroTel:string;
         photo:string;
+        smsVerified:boolean;
+        dateCreation:string;
         roles:Role[];
         comptabilites:Comptabilite[]
 

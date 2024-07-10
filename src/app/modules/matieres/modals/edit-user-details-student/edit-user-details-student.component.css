@@ -1,0 +1,52 @@
+.form-wrapper {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  img.rounded-circle {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  
+  .single-form {
+    margin-bottom: 20px;
+  }
+  
+  .p-field label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .p-field input {
+    width: 100%;
+  }
+  
+  .single-form button {
+    width: 100%;
+  }
+  
+  @media (max-width: 767px) {
+    .form-wrapper {
+      padding: 10px;
+    }
+  
+    img.rounded-circle {
+      width: 150px;
+      height: 150px;
+    }
+  
+    .p-field label {
+      font-size: 14px;
+    }
+  
+    .p-field input {
+      font-size: 14px;
+    }
+  
+    .single-form button {
+      font-size: 14px;
+    }
+  }
+  

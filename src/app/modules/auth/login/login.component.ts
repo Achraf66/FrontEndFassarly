@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationRequest } from '../models/AuthenticationRequest';
 import Swal from 'sweetalert2';
 import { User } from '../../admin/adminmodules/users/models/User';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthService,
     private formBuilder: FormBuilder,
+    private cookieService:CookieService
   ) {
     this.title.setTitle("فسرلي | تسجيل الدخول");
   }
@@ -40,6 +42,17 @@ export class LoginComponent implements OnInit {
       numtel: ['', [Validators.required, Validators.maxLength(8), Validators.minLength(8)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
+
+        const savedNumtel = this.cookieService.get('numtel');
+        const savedPassword = this.cookieService.get('password');
+    
+        if (savedNumtel) {
+          this.signupForm.patchValue({ numtel: savedNumtel });
+        }
+        
+        if (savedPassword) {
+          this.signupForm.patchValue({ password: savedPassword });
+        }
   }
 
   get f() {
@@ -53,11 +66,14 @@ export class LoginComponent implements OnInit {
       numtel: this.signupForm.value.numtel,
       password: this.signupForm.value.password,
     };
+    this.cookieService.set('numtel', FormData.numtel);
+    this.cookieService.set('password', FormData.password);  
 
     this.authenticationService.login(FormData).subscribe(
       (data) => {
         if (data.successmessage === 'Sucess login') {
           localStorage.setItem('accesstoken', data.access_token);
+          this.cookieService.set('accesstoken',data.access_token)
           Swal.fire({
             icon: 'success',
             title: 'نجاح',

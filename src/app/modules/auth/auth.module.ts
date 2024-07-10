@@ -13,6 +13,11 @@ import {  InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { SmsVerificationComponent } from './sms-verification/sms-verification.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { CookieService } from 'ngx-cookie-service';
+import { ButtonModule } from 'primeng/button';
+import { MessagesModule } from 'primeng/messages';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -24,7 +29,19 @@ import { SmsVerificationComponent } from './sms-verification/sms-verification.co
     CommonModule,
     AuthRoutingModule,
     FormsModule,
-    HttpClientModule,ReactiveFormsModule,DropdownModule,InputGroupAddonModule,InputGroupModule,PasswordModule,InputTextModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    DropdownModule,
+    InputGroupAddonModule,
+    InputGroupModule,
+    PasswordModule,
+    InputTextModule,
+    ProgressSpinnerModule,
+    ButtonModule,
+    MessagesModule
+  ],
+  providers:[
+    CookieService,MessageService
   ]
 
 })

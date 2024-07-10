@@ -3,9 +3,19 @@
 
 
 
-    <div class="main-wrapper">
+<p-messages
+  [showTransitionOptions]="'500ms'"
+  [hideTransitionOptions]="'500ms'"
+></p-messages>
 
-   
+    
+<div class="main-wrapper">
+
+    <div *ngIf="loading" class="loading-overlay">
+        <p-progressSpinner></p-progressSpinner>
+        <div class="loading-message">حسابك قيد الإنشاء، يرجى الانتظار</div>
+    </div>
+    
 
         <!-- Register & Login Start -->
         <div class="section section-padding">
@@ -44,7 +54,7 @@
                                 <h3 class="text-muted rtl">   <span></span></h3>
 
                                 <div class="form-wrapper">
-                                    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" >
+                                    <form [formGroup]="signupForm" >
                                         <!-- Single Form Start -->
                                         <div class="single-form">
                                             <label for="firstname">الاسم</label>
@@ -94,136 +104,95 @@
                                         <div style="color: red;" *ngIf="signupForm.get('numtel')?.hasError('minlength') && signupForm.get('numtel')?.touched">
                                             يجب أن يكون رقم الهاتف مؤلفًا من 8 أرقام
                                         </div>
+                                    
+                                        <div class="single-form">
+                                            <label for="password">كلمة السر</label>
+
+                                                <p-password
+                                                id="password"
+                                                placeholder="كلمة السر"
+                                                [ngClass]="{ 'is-invalid': f['password'].touched && f['password'].errors }"
+                                                promptLabel="كلمة المرور"
+                                                formControlName="password"
+                                                [toggleMask]="true"
+                                                weakLabel="ضعيفة" mediumLabel="متوسطة التعقيد" strongLabel="كلمة مرور معقدة"
+                                                [style]="{'width':'100%'}"
+                                                ></p-password>                                            
+                                            <div *ngIf="f['password'].touched && f['password'].hasError('required')" class="invalid-feedback">
+                                            كلمة السر مطلوبة
+                                            </div>
                                         
-                                        
+                                        </div>
 
-
-                                                    <!-- Single Form End -->
-                                                    <!-- Single Form Password Start -->
-                                                    <div class="single-form">
-                                                        <label for="password">كلمة السر</label>
-                                                        <!-- <input
-                                                        formControlName="password"
-                                                        id="password"
-                                                        placeholder="كلمة السر"
-                                                        type="{{ showConfirmPassword ? 'text' : 'password' }}"
-                                                        [ngClass]="{ 'is-invalid': f['password'].touched && f['password'].hasError('required') }"
-                                                        /> -->
-
-
-                                                        <p-password
-                                                        id="password"
-                                                        placeholder="كلمة السر"
-                                                        [ngClass]="{ 'is-invalid': f['password'].touched && f['password'].errors }"
-                                                        promptLabel="كلمة المرور"
-                                                        formControlName="password"
-                                                        [toggleMask]="true"
-                                                        weakLabel="ضعيفة" mediumLabel="متوسطة التعقيد" strongLabel="كلمة مرور معقدة"
-                                                        [style]="{'width':'100%'}"
-                                                        ></p-password>
-                                                  
-
-
-
-                                                        <!----Password required Validator inside of the password input---->
-                                                        <div *ngIf="f['password'].touched && f['password'].hasError('required')" class="invalid-feedback">
-                                                        كلمة السر مطلوبة
-                                                        </div>
-                                                        
-                                      
-                                                    </div>
-                                                    <div  style="color: red;" *ngIf="signupForm.hasError('passwordMismatch') && (signupForm.dirty || signupForm.touched)" >
-                                                        كلمات السر غير متطابقة
-                                                    </div>
+                                        <div  style="color: red;" *ngIf="signupForm.hasError('passwordMismatch') && (signupForm.dirty || signupForm.touched)" >
+                                            كلمات السر غير متطابقة
+                                        </div>
                                                     <!----Password minLenght Validator inside of the password input---->
-                                                <div> 
-                                                    <div style="color: red;" *ngIf="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched">
-                                                        كلمة السر يجب أن تحتوي على الأقل على 8 أحرف
-                                                    </div>
-                                                </div>
+                                        <div> 
+                                            <div style="color: red;" *ngIf="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched">
+                                                كلمة السر يجب أن تحتوي على الأقل على 8 أحرف
+                                            </div>
+                                        </div>
 
 
-                                                    <!-- Single Form Password End -->
+                                        <div class="single-form">
+                                            <label for="confirmPassword">إعادة كلمة السر</label>
+
+                                                <p-password
+                                                id="confirmPassword"
+                                                placeholder="إعادة كلمة السر"
+                                                [ngClass]="{ 'is-invalid': f['confirmPassword'].touched && f['confirmPassword'].errors }"
+                                                promptLabel="كلمة المرور"
+                                                formControlName="confirmPassword"
+                                                [toggleMask]="true"
+                                                weakLabel="ضعيفة" mediumLabel="متوسطة التعقيد" strongLabel="كلمة مرور معقدة"
+                                                [style]="{'width':'100%'}"
+                                                ></p-password>                                            
+                                            <div *ngIf="f['password'].touched && f['password'].hasError('required')" class="invalid-feedback">
+                                            كلمة السر مطلوبة
+                                            </div>
+                                        
+                                        </div>
+
+                                        <div  style="color: red;" *ngIf="signupForm.hasError('passwordMismatch') && (signupForm.dirty || signupForm.touched)" >
+                                            كلمات السر غير متطابقة
+                                        </div>
+                                            
+                                        <div *ngIf="f['confirmPassword'].touched && f['confirmPassword'].hasError('required')" class="invalid-feedback">
+                                        مطلوبة إعادة كلمة السر
+                                        </div>
 
 
-                                                    
-                                                    <!-- Single Form End -->
-
-<!-- Single Form Confirm Password Start -->
-<div class="single-form">
-    <label for="confirmPassword">إعادة كلمة السر</label>
-    <div class="input-group">
-      <!-- <input
-        type="{{ showConfirmPassword ? 'text' : 'password' }}"
-        formControlName="confirmPassword"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': f['confirmPassword'].touched && f['confirmPassword'].errors }"
-        id="confirmPassword"
-        placeholder="إعادة كلمة السر"
-      > -->
-
-
-      <p-password
-      id="confirmPassword"
-      placeholder="إعادة كلمة السر"
-      [ngClass]="{ 'is-invalid': f['confirmPassword'].touched && f['confirmPassword'].errors }"
-      promptLabel="كلمة المرور"
-      formControlName="confirmPassword"
-      [toggleMask]="true"
-      weakLabel="ضعيفة" mediumLabel="متوسطة التعقيد" strongLabel="كلمة مرور معقدة"
-      [style]="{'width':'155%'}"
-      ></p-password>
-
-      <div  style="color: red;" *ngIf="signupForm.hasError('passwordMismatch') && (signupForm.dirty || signupForm.touched)" >
-        كلمات السر غير متطابقة
-    </div>
-
-
-
-      <!-- <div class="input-group-append"> -->
-     
-    
-        <!-- <button type="button" class="btn btn-outline-secondary" (click)="toggleConfirmPasswordVisibility() ; togglePasswordVisibility()" >
-          <i class="fa" [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
-        </button> -->
-      <!-- </div> -->
-    </div>
-  
-    <!-- Password required Validator inside of the confirmPassword input -->
-    <div *ngIf="f['confirmPassword'].touched && f['confirmPassword'].hasError('required')" class="invalid-feedback">
-      مطلوبة إعادة كلمة السر
-    </div>
-
-      
-  </div>
-  <!-- Single Form Confirm Password End -->
-      
-
-
-
-
-
-
+                                        <div class="single-form">
+                                            <div style="margin-bottom: 15px; align-items: center;">
+                                                <button  pButton type="button" icon="pi pi-key" class="btn btn-success" (click)="suggestPassword()">اقتراح كلمة مرور</button>
+                                                &nbsp;
+                                                <button *ngIf="suggestedPassword" pButton type="button" icon="pi pi-copy" class="btn btn-success" style="margin-left: 10px;" (click)="copyToClipboard(suggestedPassword)"
+                                                >&nbsp;نسخ كلمة المرور</button>
+                                            </div>  
+                                            </div>
+                                                                                                                                                      
 
   
 
 
                                         
-                <!-- Single Form Start -->
-                <div class="single-form">
-                    <label for="roles" style="display: block; margin-bottom: 5px;">إختيار نوعية الاشتراك</label>
-                    <div style="display: flex; flex-direction: column;">
-                    <p-dropdown formControlName="roles" [options]="roles" optionLabel="displayName" placeholder="إختيار نوعية الاشتراك" class="ng-dirty ng-invalid">
-                    </p-dropdown>
-                    </div>
-                </div>
-                <!-- Single Form End -->
+                                        <!-- Single Form Start -->
+                                        <div class="single-form">
+                                            <label for="roles" style="display: block; margin-bottom: 5px;">المستوى الدراسي :</label>
+                                            <div style="display: flex; flex-direction: column;">
+                                            <p-dropdown formControlName="roles" [options]="roles" optionLabel="displayName" placeholder="إختيار المستوى الدراسي" class="ng-dirty ng-invalid">
+                                            </p-dropdown>
+                                            </div>
+                                        </div>
+                                        <!-- Single Form End -->
   
                                         <!-- Single Form Start -->
                                         <div class="single-form" style="background-color: #d4edda; padding: 20px; border-radius: 5px; text-align: center;">
                                             <button class="btn btn-success btn-hover-dark w-100"
                                             type="submit"
-                                            [disabled]="signupForm.invalid"
+                                            (click)="onSubmit()"
+                                            [disabled]="signupForm.invalid || this.accountCreated"
                                             >إنشاء الحساب</button>
                                         </div>
                                         <h3 style="margin-top: 10px;">هل لديك حساب؟ <a  [routerLink]="'/auth/login'" style=" color: #28a745; border-color: #28a745;">تسجيل الدخول</a></h3>
@@ -243,20 +212,9 @@
             </div>
         </div>
         <!-- Register & Login End -->
+        <p-messages [enableService]="true" [closable]="false"></p-messages>
+</div>
 
- 
-
-
-
-
-          
-        <!--Back To Start-->
-        <a href="#" class="back-to-top">
-            <i class="icofont-simple-up"></i>
-        </a>
-        <!--Back To End-->
-
-    </div>
 
 
 

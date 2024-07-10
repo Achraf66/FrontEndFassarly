@@ -1,109 +1,66 @@
-   
-   <html>   
-            <!-- Page Banner Start -->
-            <div class="section page-banner rtl" style="max-height: 400px !important;">
+<div class="section page-banner rtl" style="max-height: 400px !important;">
+    <img class="shape-1 animation-round" src="assets/images/shape/shape-8.png" alt="Shape">
+    <img class="shape-2" src="assets/images/shape/shape-23.png" alt="Shape">
+    <div class="container">
+        <div class="page-banner-content">
+            <ul class="breadcrumb">
+                <li><a>الصفحة الرئيسية</a></li>
+                <li><a>{{ Matiere?.nomMatiere }}</a></li>
+                <li class="active">{{ Theme?.nomTheme }}</li>
+            </ul>
+            <h2 class="title"><span>مقاطع فيديو الدرس :</span></h2>
+        </div>
+    </div>
+    <img class="shape-3" src="assets/images/shape/shape-24.png" alt="Shape">
+</div>
 
-                <img class="shape-1 animation-round" src="assets/images/shape/shape-8.png" alt="Shape">
-
-                <img class="shape-2" src="assets/images/shape/shape-23.png" alt="Shape">
-
-                <div class="container">
-                    <!-- Page Banner Start -->
-                    <div class="page-banner-content">
-                        <ul class="breadcrumb">
-                            <li><a>الصفحة الرئيسية</a></li>
-                            <li><a>{{Matiere?.nomMatiere}}</a></li>
-                            <li class="active">{{Theme?.nomTheme}}</li>
-                        
+<div class="section section-padding mt-n10">
+    <div class="container">
+        <div class="row gx-10">
+            <div class="col-lg-8">
+                <div class="courses-details-tab">
+                    <div class="details-tab-menu">
+                        <ul class="nav justify-content-center">
+                            <li><button class="active" data-bs-toggle="tab" data-bs-target="#course">مقطع فيديو</button></li>
+                            <li><button data-bs-toggle="tab" data-bs-target="#exams">الفروض</button></li>
+                            <li *ngIf="!hasRolenolivesessions() || isAdmin"><button data-bs-toggle="tab" data-bs-target="#livesessions">الحصص المباشرة</button></li>
                         </ul>
-                        <h2 class="title"><span>مقاطع فيديو الدرس :</span></h2>
                     </div>
-                    <!-- Page Banner End -->
-                </div>
 
-
-                <img class="shape-3" src="assets/images/shape/shape-24.png" alt="Shape">
-
-
-            </div>
-            <!-- Page Banner End -->
-
-            <!-- Courses Start -->
-            <div class="section section-padding mt-n10">
-                <div class="container">
-                    <div class="row gx-10">
-                        <div class="col-lg-8">
-
-                            <!-- Menu Bar Course Exam video -->
-                            <div class="courses-details-tab">
-
-                                <!-- Details Tab Menu Start -->
-                                <div class="details-tab-menu">
-                                    <ul class="nav justify-content-center">
-                                        <li><button class="active" data-bs-toggle="tab" data-bs-target="#course">مقطع فيديو </button></li>
-                                        <li><button data-bs-toggle="tab" data-bs-target="#exams">الفروض</button></li>
-                                        <li *ngIf="!hasRolenolivesessions() || isAdmin" ><button data-bs-toggle="tab" data-bs-target="#livesessions">الحصص المباشرة</button></li>
-                                    </ul>
-                                </div>
-                                <!-- Details Tab Menu End -->
-
-                                <!-- Video course -->
-                                <div class="details-tab-content">
-                                    <div class="tab-content">
-
-    <!------------------------------------------------------------Lessons---------------------------------------------------------------------------------------------------------------------------------->
-                                            <div class="tab-pane fade show active" id="course">                            
-                                                <app-lessons *ngIf="matiereId && themeId && lessonId" [lessonId]="lessonId" [matiereId]="matiereId" [themeId]="themeId"></app-lessons>
-                                            </div>
-    <!------------------------------------------------------------Lessons---------------------------------------------------------------------------------------------------------------------------------->
-    <!-----------------------------------------------------------Examen------------------------------------------------------------------------------------------------------------------------------------>
-                                            
-
-                                        <div class="tab-pane fade" id="exams">
-                                                <app-examen *ngIf="matiereId && themeId" [matiereId]="matiereId" [themeId]="themeId"></app-examen>
-                                            </div>
-    <!-----------------------------------------------------------Examen------------------------------------------------------------------------------------------------------------------------------------>
-
-    <!-----------------------------------------------------------Calendar---------------------------------------------------------------------------------------------------------------------------------->
-                                            <div class="tab-pane fade" id="livesessions">
-                                                <app-calendar *ngIf="matiereId && themeId"  [matiereId]="matiereId" ></app-calendar>
-                                            </div>
-    <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
-                                    </div>
-                                </div>
-                                <!-- Video course -->
-
+                    <div class="details-tab-content">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="course">
+                                <app-lessons *ngIf="matiereId && themeId && lessonId" [lessonId]="lessonId" [matiereId]="matiereId" [themeId]="themeId"></app-lessons>
                             </div>
-                            <!-- Courses Details Tab End -->
-                        </div>
-                        <div class="col-lg-4">
-                            <!-- Courses Details Sidebar Start -->
-                            <div class="sidebar">
-
-                                <!-- Sidebar Widget Information Start -->
-                                <div class="sidebar-widget widget-information rtl" style="height: 600px; width: 400px; overflow-y: auto;">
-                                    <div class="info-price">
-                                        <span class="price">ملخص الدرس : </span>
-                                    </div>
-                                    <div class="info-list">
-                                        <ul>
-                                            <li *ngFor="let lesson of LessonList; let i = index">
-                                            <a class="hover-pointer hover-color" (click)="navigateToLesson(lesson.id)">
-                                                <i class="pi pi-video"></i>&nbsp;
-                                                <strong>{{ 'المقطع عدد ' + (i + 1 < 10 ? '0' : '') + (i + 1) + ' : ' + lesson.nomLesson }}</strong>
-                                            </a>
-                                            </li>
-                                        </ul>
-  
-                                    </div>
-                                </div>
-                                
+                            <div class="tab-pane fade" id="exams">
+                                <app-examen *ngIf="matiereId && themeId" [matiereId]="matiereId" [themeId]="themeId"></app-examen>
                             </div>
-                            <!-- Courses Details Sidebar End -->
+                            <div class="tab-pane fade" id="livesessions">
+                                <app-calendar *ngIf="matiereId && themeId" [matiereId]="matiereId"></app-calendar>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Courses End -->
-
-</html>
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <div class="sidebar-widget widget-information rtl">
+                        <div class="info-price">
+                            <span class="price">ملخص الدرس :</span>
+                        </div>
+                        <div class="info-list">
+                            <ul>
+                                <li *ngFor="let lesson of LessonList; let i = index">
+                                    <a class="hover-pointer hover-color" (click)="navigateToLesson(lesson.id)">
+                                        <i class="pi pi-video"></i>&nbsp;
+                                        <strong>{{ 'المقطع عدد ' + (i + 1 < 10 ? '0' : '') + (i + 1) + ' : ' + lesson.nomLesson }}</strong>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

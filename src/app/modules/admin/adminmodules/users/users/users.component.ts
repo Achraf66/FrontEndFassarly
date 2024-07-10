@@ -66,8 +66,8 @@ export class UsersComponent implements OnInit{
    openModalComptabilite(idUser:number,nomPrenom:string,numtel:string): void {
     const ref = this.dialogService.open(ComptabiliteuserComponent, {
       header: 'المحاسبات',
-      width: '90%',
-      height: '90%',
+      width: 'auto',
+      height: 'auto',
       dismissableMask:true,
       data: {
         idUser: idUser,

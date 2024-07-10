@@ -2,3 +2,32 @@
     cursor: pointer;
   }
   
+  @media (max-width: 767px) {
+    .page-banner {
+      height: 300px;
+    }
+
+    .page-banner-content h2 {
+      font-size: 1.5em;
+    }
+
+    .icon-shape-1 {
+      width: 250px;
+      height: 250px;
+    }
+
+    .courses-wrapper-02 .col-lg-4,
+    .courses-wrapper-02 .col-md-3 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+
+    .courses-search input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .courses-search button {
+      width: 25%;
+    }
+  }

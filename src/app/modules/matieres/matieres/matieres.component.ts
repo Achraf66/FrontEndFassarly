@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
 import { Title } from '@angular/platform-browser';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-matieres',
@@ -40,6 +41,26 @@ export class MatieresComponent implements OnInit {
     this.matiereservice.findMatiereByUser(numtel).pipe(
       map((matieres) => {
         this.matieres = matieres;
+        if (this.matieres.length === 0) {
+          Swal.fire({
+            title: 'مرحبًا بك في فسرلي',
+            html: `
+              <h3>لإضافة المحتوى الخاص بكم، يرجى الاتصال بنا على:</h3>
+              <h4> (216+) 27108931  <br> (216+) 25177323 </h4>
+              <h3>: او على صفحتنا الفايسبوك  </h3>
+              
+              <a href="https://www.facebook.com/fassarly" target="_blank">
+                <img src="assets/images/facebookLogo.png" width="50" height="50" alt="Facebook">
+              </a>
+            `,
+            confirmButtonText: 'حسنًا',
+            imageUrl: 'assets/images/logo.png', 
+            imageWidth: 100,
+            imageHeight: 100,
+            imageAlt: 'Custom image'
+          });
+        }
+        
         return matieres
       }),
       catchError((error) => {

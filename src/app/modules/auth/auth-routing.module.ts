@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SmsVerificationComponent } from './sms-verification/sms-verification.component';
+import { MessageService } from 'primeng/api';
 
 const routes: Routes = [
 
