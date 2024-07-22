@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddmatiereComponent } from './components/addmatiere/addmatiere.component';
 
 const routes: Routes = [
-
-{path:'addmatiere',component:AddmatiereComponent}
-
+    {
+      path:'addmatiere',component:AddmatiereComponent
+    }
 ];
 
 @NgModule({

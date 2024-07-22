@@ -52,11 +52,17 @@
 
         <h4 class="text-center text-muted mt-4">
           لم تستلم الرمز؟
-          <a (click)="resendCode(phoneNumber)" class="clickable text-decoration-none ms-2">
-              إعادة إرسال الرمز
+          <a 
+            (click)="resendCode(phoneNumber)" 
+            class="clickable text-decoration-none ms-2"
+            [ngClass]="{ 'disabled-link': isResendDisabled }"
+            [attr.disabled]="isResendDisabled ? true : null"
+          >
+            إعادة إرسال الرمز
           </a>
+          <span *ngIf="isResendDisabled">{{ resendTimer }} ثانية</span>
         </h4>
-
+        
     </div>
 </div>
 </div>
@@ -83,7 +89,7 @@
               التحقق من رقم الهاتف: {{phoneUser}}
             </h3>
             <p>
-              يرجى إدخال الرمز ورقم الهاتف في الحقل أدناه.
+              يرجى إدخال الرمز ورقم الهاتف في الحقل أدناه
             </p>
   
             <form (ngSubmit)="onSubmit()" #verificationForm="ngForm">
@@ -121,13 +127,23 @@
               </button>
             </form>
           </div>
-          <h4 class="text-center text-muted mt-4">
+          <h4>
             لم تستلم الرمز؟
-            <a (click)="resendCode(phoneNumber)" class="clickable text-decoration-none ms-2">
-                إعادة إرسال الرمز
+            <a 
+              (click)="resendCode(phoneNumber)" 
+              class="clickable text-decoration-none ms-2"
+              [ngClass]="{ 'disabled-link': isResendDisabled }"
+              [attr.disabled]="isResendDisabled ? true : null"
+            >
+              إعادة إرسال الرمز
             </a>
+            <span *ngIf="isResendDisabled">الرجاء الانتظار {{ resendTimer }} ثانية </span>
           </h4>
-        
+          <p>
+            يرجى إدخال رقم الهاتف في الحقل الاعلى لاعادة ارسال الرمز
+          </p>
+
+                  
         </div>
   
       </div>

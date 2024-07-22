@@ -1,68 +1,77 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { User } from '../models/User';
-import { UsersService } from '../services/users.service';
-import { DialogService } from 'primeng/dynamicdialog';
-import { ComptabiliteuserComponent } from '../componenets/comptabiliteuser/comptabiliteuser.component';
-import { EditAppUserByIdComponent } from './modals/edit-app-user-by-id/edit-app-user-by-id.component';
-import { MenuService } from '../services/MenuService';
-import { environment } from 'src/environments/environment';
-import { ConfirmationService, MessageService } from 'primeng/api';
-
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { User } from '../../models/User';
+import { UsersService } from '../../services/users.service';
+import { catchError } from 'rxjs';
 import { Table } from 'primeng/table';
+import { EditAppUserByIdComponent } from '../modals/edit-app-user-by-id/edit-app-user-by-id.component';
+import { ComptabiliteuserComponent } from '../../componenets/comptabiliteuser/comptabiliteuser.component';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { MenuService } from '../../services/MenuService';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  selector: 'app-all-students-by-classe',
+  templateUrl: './all-students-by-classe.component.html',
+  styleUrls: ['./all-students-by-classe.component.css']
 })
-export class UsersComponent implements OnInit{
-
- 
-  Students:User[];
-  searchTerm: string = '';
-  searchForm: FormGroup;
-  sortField: any
-  sortOrder: number = 1; // 1 for ascending, -1 for descending
+export class AllStudentsByClasseComponent implements AfterViewInit,OnInit {
+  
+  @Input() className: string;
+  
   @ViewChild('dt2') dt2: Table; 
 
-  baseImageUrl = `${environment.fassarlyBaseUrl}/images/userimage`;
+  studentList : User[]=[];
 
-  constructor
-  (
+  constructor(
     private userService:UsersService,
-    private dialogService:DialogService,
-    private menu:MenuService,
     private confirmationService:ConfirmationService,
-    private messageService: MessageService,
-    private fb:FormBuilder
-  ){}
+    private dialogService:DialogService,
+    private messageService:MessageService,
+    private menu:MenuService
 
-  ngOnInit(): void {
-    this.getStudents();
-    this.menu.newItemAdded$.subscribe(() => {
-      this.getStudents();
-
-    });
-
-    this.searchForm = this.fb.group({
-      searchTerm: ['']
-    });
-
+  ){
   }
+  
+  
 
-
-  getStudents() {
-    this.userService.getAllUsers().subscribe(
-      (users: User[]) => {
-        this.Students = users;
+  fetchStudentsByClass(className: string) {
+    this.userService.getAllStudentsByRole(className).subscribe(
+      (data: User[]) => {
+        this.studentList = data;
+        console.log(data)
       },
-      error => {
-        console.error('Error fetching students:', error);
+      (error) => {
+        catchError(error);
       }
     );
   }
 
+  ngAfterViewInit(): void {
+    this.fetchStudentsByClass(this.className);
+  }
+  ngOnInit(){
+    this.menu.newItemAdded$.subscribe(() => {
+      this.fetchStudentsByClass(this.className);
+    });
+  }
+
+  getClassNameInArabic(className: string): string {
+    switch (className) {
+      case '7eme':
+        return 'السنة السابعة';
+      case '8eme':
+        return 'السنة الثامنة';
+      case '9eme':
+        return 'السنة التاسعة';
+      default:
+        return 'تلاميذ السنة';
+    }
+  }
+
+  onInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.dt2.filterGlobal(input.value, 'contains');
+  }
 
   openModalComptabilite(idUser:number,nomPrenom:string,numtel:string): void {
     const ref = this.dialogService.open(ComptabiliteuserComponent, {
@@ -112,7 +121,7 @@ export class UsersComponent implements OnInit{
                 summary: 'تم الحذف',
                 detail: 'تم حذف المستخدم بنجاح.'
               });
-              this.getStudents();
+              this.fetchStudentsByClass(this.className);
             }
           },
           (error) => {
@@ -135,26 +144,6 @@ export class UsersComponent implements OnInit{
       }
     });
   }
-  
-
-
-  onSearch(): void {
-    this.userService.searchUsers(this.searchTerm).subscribe(
-      (results) => {
-        this.Students = results;
-      },
-      (error) => {
-        console.error('Error searching users:', error);
-      }
-    );
-  }
-  
-
-  onInput(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.dt2.filterGlobal(input.value, 'contains');
-  }
-
 
 
 }

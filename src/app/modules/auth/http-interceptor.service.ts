@@ -28,8 +28,8 @@ export class HttpInterceptorService implements HttpInterceptor {
       return next.handle(req); // Do not modify the request
     }
 
-    // Get the access token from localStorage
-    const token = localStorage.getItem('accesstoken');
+    // Get the access token from sessionStorage
+    const token = sessionStorage.getItem('accesstoken');
 
     // Clone the request and add the Authorization header with the token
     const modifiedReq = req.clone({

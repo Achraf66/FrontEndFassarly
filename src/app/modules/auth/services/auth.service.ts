@@ -5,19 +5,23 @@ import { RegisterRequest } from '../models/RegisterRequest';
 import { AuthResponseData } from '../models/AuthResponseData';
 import { AuthenticationRequest } from '../models/AuthenticationRequest';
 import { User } from '../../admin/adminmodules/users/models/User';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private loggedIn = false;
 
   private userId: string | null = null;
 
   private expToken: string | null = null;
 
-  
+  logoutEvent = new BehaviorSubject<void>(undefined);
+
 
   setexpToken(expToken: string|null) : void {
     this.expToken = expToken;
@@ -40,7 +44,7 @@ export class AuthService {
   
   private BASE_URL: string;
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient,private cookieService:CookieService,private router:Router) {
     this.BASE_URL = environment.fassarlyBaseUrl;
    }
 
@@ -69,17 +73,34 @@ export class AuthService {
   }
 
 
-  logout(numTel: string): Observable<AuthResponseData> {
-  const LOGOUT_URL = `${this.BASE_URL}/api/v1/auth/logout?numtel=${numTel}`;
-  return this.http.post<AuthResponseData>(LOGOUT_URL, null); 
-}
+  logout(numTel: string | null): Observable<AuthResponseData> {
+    this.loggedIn = false;
+
+    if (numTel === null) {
+      return new Observable<AuthResponseData>(); 
+    }
+
+    const LOGOUT_URL = `${this.BASE_URL}/api/v1/auth/logout?numtel=${numTel}`;
+
+    // Perform logout operations
+    this.cookieService.delete('accesstoken');
+    sessionStorage.removeItem('accesstoken');
+    this.setUserId('');
+
+    // Emit logout event
+    this.logoutEvent.next();
+
+    // Navigate to login page
+    this.router.navigate(['/auth/login']);
+
+    // Send HTTP POST request to logout endpoint
+    return this.http.post<AuthResponseData>(LOGOUT_URL, null);
+  }
 
 
 
   isAuthenticated(): boolean {
-
-    return localStorage.getItem('accesstoken') !== null;
-
+    return sessionStorage.getItem('accesstoken') !== null;
   }
 
 

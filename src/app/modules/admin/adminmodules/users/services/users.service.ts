@@ -63,29 +63,25 @@ export class UsersService {
         nomPrenom: string,
         numeroTel: string,
         photoFile: File | null,
-        roleId: number | null
+        roleId: number | null,
+        smsVerified:boolean,
+        accountActivated:boolean
       ): Observable<any> {
         const url = `${this.BASE_URL}/api/utilisateur/updateUserById/${userId}`;
-      
-        // Prepare form data
         const formData: FormData = new FormData();
         formData.append('nomPrenom', nomPrenom);
         formData.append('numeroTel', numeroTel);
-      
+        formData.append('smsVerified',smsVerified.toString())
+        formData.append('accountActivated',accountActivated.toString())
         if (password !== null) {
           formData.append('password', password);
         }
-      
         if (photoFile !== null) {
           formData.append('photoFile', photoFile, photoFile.name);
         }
-      
-        // Add roleId to form data if not null
         if (roleId !== null) {
           formData.append('roleId', roleId.toString());
         }
-      
-        // Make the request
         return this.http.put(url, formData);
       }
 
@@ -112,6 +108,8 @@ export class UsersService {
       }
     
       
-      
+      getAllStudentsByRole(role:string){
+        return this.http.get<User[]>(`${this.BASE_URL}/api/classe/students/by-class?roleName=${role}`);
+      }
       
 }

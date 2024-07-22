@@ -48,6 +48,8 @@ import { EditPrototypeExamByIdComponent } from './adminmodules/prototypeExam/com
 import { AddPrototypeExamComponent } from './adminmodules/prototypeExam/components/add-prototype-exam/add-prototype-exam.component';
 import {ProgressBarModule} from 'primeng/progressbar';
 import { CheckboxModule } from 'primeng/checkbox';
+import { AllUsers7emeComponent } from './adminmodules/users/users/all-users7eme/all-users7eme.component';
+import { AllStudentsByClasseComponent } from './adminmodules/users/users/all-students-by-classe/all-students-by-classe.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import { CheckboxModule } from 'primeng/checkbox';
     CreateEditOfferComponent,
     PrototypeExamByExamComponent,
     EditPrototypeExamByIdComponent,
-    AddPrototypeExamComponent
+    AddPrototypeExamComponent,
+    AllUsers7emeComponent,
+    AllStudentsByClasseComponent
   ],
   imports: [
     CommonModule,
@@ -103,7 +107,12 @@ import { CheckboxModule } from 'primeng/checkbox';
     CheckboxModule
     
   ],
-  providers: [DialogService,MessageService,ConfirmationService],
+  providers: 
+  [
+    DialogService,
+    MessageService,
+    ConfirmationService
+  ],
   exports: [AdminheaderComponent]
 
 })

@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate, OnInit {
      private messageService: MessageService) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('accesstoken');
+    const token = sessionStorage.getItem('accesstoken');
 
     if (token !== null) {
       const decodedToken: any = jwtDecode(token);
@@ -49,7 +49,7 @@ export class AuthGuard implements CanActivate, OnInit {
     if (this.authService.isAuthenticated()) {
       // Check if the user has the required roles
       const roles: string[] | null = next.data['roles'];
-      const token = localStorage.getItem('accesstoken');
+      const token = sessionStorage.getItem('accesstoken');
 
       if (state.url.includes('auth/login')  || (state.url.includes('auth/register'))) {
         this.messageService.add({

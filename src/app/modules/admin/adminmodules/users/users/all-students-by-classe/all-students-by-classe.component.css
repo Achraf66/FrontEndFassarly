@@ -1,0 +1,15 @@
+.centered-title {
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.full-width-table-container {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+p-table {
+    width: 125%;
+    max-width: 125%;
+}

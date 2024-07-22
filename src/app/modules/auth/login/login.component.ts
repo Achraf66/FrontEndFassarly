@@ -43,8 +43,8 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
 
-        const savedNumtel = this.cookieService.get('numtel');
-        const savedPassword = this.cookieService.get('password');
+        const savedNumtel = localStorage.getItem('numtel');
+        const savedPassword = localStorage.getItem('password');
     
         if (savedNumtel) {
           this.signupForm.patchValue({ numtel: savedNumtel });
@@ -66,14 +66,13 @@ export class LoginComponent implements OnInit {
       numtel: this.signupForm.value.numtel,
       password: this.signupForm.value.password,
     };
-    this.cookieService.set('numtel', FormData.numtel);
-    this.cookieService.set('password', FormData.password);  
+    localStorage.setItem('numtel', FormData.numtel);
+    localStorage.setItem('password', FormData.password);  
 
     this.authenticationService.login(FormData).subscribe(
       (data) => {
         if (data.successmessage === 'Sucess login') {
-          localStorage.setItem('accesstoken', data.access_token);
-          this.cookieService.set('accesstoken',data.access_token)
+          sessionStorage.setItem('accesstoken', data.access_token);
           Swal.fire({
             icon: 'success',
             title: 'نجاح',
@@ -105,8 +104,16 @@ export class LoginComponent implements OnInit {
             confirmButtonText: 'حسناً'
 
           });
+        } 
+        else if (data.errormessage === 'This User disabled by Admin') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'تم تعطيل الحساب',
+            text: 'تم تعطيل حسابك من قبل الإدارة. يرجى التواصل معنا لمزيد من المعلومات.',
+            confirmButtonText: 'حسناً'
+          });
         }
-        
+         
         else {
           Swal.fire({
             icon: 'warning',

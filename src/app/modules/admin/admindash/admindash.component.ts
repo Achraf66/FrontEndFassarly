@@ -10,6 +10,7 @@ import { Title } from '@angular/platform-browser';
 export class AdmindashComponent implements OnInit{
 
   selectedItem:any;
+  
   constructor(private menuService : MenuService,private title:Title){
     this.title.setTitle(" فسرلي | اللوحة الرئيسية");
 

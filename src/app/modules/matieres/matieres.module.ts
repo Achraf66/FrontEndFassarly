@@ -69,4 +69,6 @@ export function momentAdapterFactory() {
     providers: [DialogService,MessageService,ConfirmationService],
 
 })
-export class MatieresModule { }
+export class MatieresModule { 
+  
+}

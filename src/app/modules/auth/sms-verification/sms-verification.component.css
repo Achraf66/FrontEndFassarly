@@ -94,4 +94,10 @@ body{margin-top:20px;
         color: #0056b3; 
         text-decoration: none; 
     }
-    
+    .disabled-link {
+        pointer-events: none;
+        cursor: default;
+        color: gray; 
+        text-decoration: none; 
+      }
+      

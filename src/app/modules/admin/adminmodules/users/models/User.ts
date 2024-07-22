@@ -9,6 +9,7 @@ export class User{
         photo:string;
         smsVerified:boolean;
         dateCreation:string;
+        accountActivated:boolean;
         roles:Role[];
         comptabilites:Comptabilite[]
 

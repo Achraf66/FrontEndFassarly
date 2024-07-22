@@ -1,9 +1,12 @@
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>
 
-<p-table [value]="Students"  [rowHover]="true"
+<p-table #dt2
+[value]="Students"  [rowHover]="true" 
 [tableStyle]="{'min-width': '65em' }" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]" 
-[paginator]="true" >
+[paginator]="true" 
+[globalFilterFields]="['nomPrenom', 'numeroTel', 'dateCreation', 'accountActivated']"
+>
 
     <ng-template pTemplate="caption">
         <button style="background-color: transparent; border: 0cap;">
@@ -12,27 +15,16 @@
         <div class="text-center">
           <h2 style="color: green;">التلاميذ</h2>
           <div class="flex">
-            <button
-              (click)="getStudents()"
-              style="border-radius: 80%;"
-              pButton
-              label="إلغاء البحث"
-              class="p-button-outlined"
-              icon="pi pi-filter-slash"
-            ></button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       
             <span class="p-input-icon-left ml-auto">
-              <i></i>
-              <input [(ngModel)]="searchTerm" type="text" required />
-              <button
-              (click)="onSearch()"
-                [disabled]="!searchTerm"
-                style="border-radius: 80%;"
-              >
-                <i class="icofont-search"></i>
-              </button>
-            </span>
+              <input 
+              pInputText 
+              type="text" 
+              (input)="onInput($event)" 
+              placeholder="البحث" 
+           />
+          </span>
 
           </div>
         </div>
@@ -61,10 +53,17 @@
             </th>
              
              <th pSortableColumn="smsVerified">
-            <div class="sortable-header">الحساب مفعل
+            <div class="sortable-header">تفعيل الحساب عبر الهاتف
                 <p-sortIcon></p-sortIcon>
               </div>
             </th>
+
+            <th pSortableColumn="accountActivated">
+              <div class="sortable-header">تفعيل الحساب عبر المشرف 
+                  <p-sortIcon></p-sortIcon>
+                </div>
+              </th>
+  
 
             <th>
                 <div>نوعية الاشتراك
@@ -79,23 +78,30 @@
     </ng-template>
     <ng-template pTemplate="body" let-student>
         <tr>
-            <td>
-                <div style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden;">
-             <p-image   class="rounded-circle shadow-4-strong" *ngIf="student.photo !==null" [preview]="true"  [src]="student.photo" ></p-image>
-             <p-image   class="rounded-circle shadow-4-strong" *ngIf="student.photo ===null" [preview]="true" src="assets/images/author/author-16.jpg" ></p-image>
-    
-            </div>
+              <td>
+                <div style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden;">             
+                  <p-image   class="rounded-circle shadow-4-strong" *ngIf="student.photo !==null" [preview]="true"  [src]="student.photo" ></p-image>          
+                  <p-image   class="rounded-circle shadow-4-strong" *ngIf="student.photo ===null" [preview]="true" src="assets/images/author/author-16.jpg" ></p-image>
+                </div>
               </td>
               
-             <td>{{student.nomPrenom}}</td>
-            <td>{{student.numeroTel}}</td>
-            <td style="width: 15%;">{{student.dateCreation}}</td>
+              <td>{{student.nomPrenom}}</td>
+              
+              <td>{{student.numeroTel}}</td>
+              
+              <td style="width: 15%;">{{student.dateCreation}}</td>
 
               <td style="width: 15%;" *ngIf="student.smsVerified"><h5 style="color: green;">نعم</h5></td>
+              
               <td style="width: 15%;" *ngIf="!student.smsVerified">
                 <h5 style="color: rgb(255, 28, 7);">لا</h5>
               </td>
-            
+
+              <td style="width: 15%;" *ngIf="student.accountActivated"><h5 style="color: green;">نعم</h5></td>
+              
+              <td style="width: 15%;" *ngIf="!student.accountActivated">
+                <h5 style="color: rgb(255, 28, 7);">لا</h5>
+              </td>
 
             <td>
                 <span *ngFor="let role of student.roles; let last = last">
@@ -104,13 +110,12 @@
                 </span>
               </td>
              <td><a class="hover-pointer" (click)="openModalComptabilite(student.id,student.nomPrenom,student.numeroTel)" style="background-color: transparent; border: 0cap;"><i class="pi pi-calculator"></i></a></td>
-            <td >
+            
+             <td>
                 <p-button (onClick)="EditAppUserByIdComponent(student.id)"  severity="info" [text]="true"
                  label="تعديل بيانات المستخدم" icon="pi pi-user-edit"></p-button>
                 &nbsp;
                 <p-button  (onClick)="deleteUserById(student.id)" [text]="true" severity="danger"  label="حذف المستخدم" icon="pi pi-user-minus"></p-button>
-
-
             </td>      
         </tr>
     </ng-template>

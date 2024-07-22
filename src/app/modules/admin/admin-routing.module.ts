@@ -5,15 +5,13 @@ import { AdmindashComponent } from './admindash/admindash.component';
 const routes: Routes = [
   
 
-  {path:'admindashboard' , component:AdmindashComponent},
+  {
+    path:'admindashboard' , component:AdmindashComponent
+  },
   {
     path: 'matiere',
     loadChildren: () => import('./adminmodules/matieres/matieres.module').then(m => m.MatieresModule)
-  },
-
-
-
-
+  }
 ];
 
 @NgModule({

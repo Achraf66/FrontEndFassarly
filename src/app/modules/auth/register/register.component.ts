@@ -134,8 +134,9 @@ export class RegisterComponent implements OnInit{
           if (data.successmessage === 'Register Success') {
             this.loading = false;
             this.accountCreated=true;
-            this.cookieService.set('numtel', formData.numTel);
-            this.cookieService.set('password', formData.password);  
+            localStorage.setItem('numtel', formData.numTel);
+            localStorage.setItem('password', formData.password);  
+          
             this.signupForm.reset();
             Swal.fire({
               icon: 'success',

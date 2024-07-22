@@ -36,13 +36,12 @@ export class HeaderComponent  implements OnInit{
     private matiereService: MatiereService,
     private auth: AuthService,
     private router: Router,
-    private dialogService: DialogService,private authService:AuthService
+    private dialogService: DialogService,
+    private authService:AuthService
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
-
-    
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (event.url !== '/auth/login' && event.url !== '/auth/register') {
@@ -62,11 +61,9 @@ export class HeaderComponent  implements OnInit{
 logout() {
   this.auth.logout(this.numtel).subscribe(
     (data)=> {
-        console.log(data)
-        console.log(this.numtel)
       if (data.errormessage === 'User Already logged out') {
           this.auth.setUserId(null);
-          localStorage.clear()
+          sessionStorage.clear()
         
                 
           Swal.fire({
@@ -79,7 +76,7 @@ logout() {
       
       if (data.successmessage === 'User logged Successfully') {
         this.auth.setUserId(null);
-        localStorage.clear()
+        sessionStorage.clear()
 
         Swal.fire({
           icon: 'success',
@@ -91,7 +88,7 @@ logout() {
     
       if (data.successmessage === 'User not found') {
         this.auth.setUserId(null);
-        localStorage.clear()
+        sessionStorage.clear()
          Swal.fire({
           icon: 'error',
           title: 'خطأ',
@@ -104,7 +101,7 @@ logout() {
   
   )
   this.auth.setUserId('');
-  localStorage.setItem('accesstoken', ''); 
+  sessionStorage.setItem('accesstoken', ''); 
   this.router.navigate(['/auth/login']); 
 }
 

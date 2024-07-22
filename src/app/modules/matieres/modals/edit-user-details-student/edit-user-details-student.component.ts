@@ -118,7 +118,7 @@ export class EditUserDetailsStudentComponent {
   private submitForm(password: string | null, nomPrenom: string, numeroTel: string, roleId: number | null): void {
     if (this.uploadedImage) {
       this.userservice
-        .updateUser(this.idUser, password, nomPrenom, numeroTel, this.uploadedImage, roleId)
+        .updateUser(this.idUser, password, nomPrenom, numeroTel, this.uploadedImage, roleId,true,true)
         .subscribe(
           (data) => {
            this.closeModalAndNotify()
@@ -130,8 +130,8 @@ export class EditUserDetailsStudentComponent {
         );
     } else {
       this.userservice
-        .updateUser(this.idUser, password, nomPrenom, numeroTel, null, roleId)
-        .subscribe(
+      .updateUser(this.idUser, password, nomPrenom, numeroTel, this.uploadedImage, roleId,true,true)
+      .subscribe(
           (data) => {
             this.closeModalAndNotify()
           },

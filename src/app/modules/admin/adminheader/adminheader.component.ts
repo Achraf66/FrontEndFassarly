@@ -68,43 +68,63 @@ export class AdminheaderComponent  implements OnInit{
           items: [
               {
                   label: 'كل التلاميذ',
-                  icon: 'pi pi-fw pi-user-plus',
+                  icon: 'pi pi-fw pi-user',
                   command: (event) => {
                     this.menuService.setSelectedItem('allUsers');
                   }
-              } 
+              },
+              {
+                label: 'تلاميذ السنة السابعة',
+                icon: 'pi pi-fw pi-user',
+                command: (event) => {
+                  this.menuService.setSelectedItem('allUsers7eme');
+                }
+              },
+              {
+                label: 'تلاميذ السنة الثامنة',
+                icon: 'pi pi-fw pi-user',
+                command: (event) => {
+                  this.menuService.setSelectedItem('allUsers8eme');
+                }
+              },
+              {
+                label: 'تلاميذ السنة التاسعة',
+                icon: 'pi pi-fw pi-user',
+                command: (event) => {
+                  this.menuService.setSelectedItem('allUsers9eme');
+                }
+              },
+              {
+                label: 'تلاميذ السنة الاولى ثانوي',
+                icon: 'pi pi-fw pi-user',
+                command: (event) => {
+                  this.menuService.setSelectedItem('allUsers1ere');
+                }
+              },
+              {
+                label: 'المشرفين',
+                icon: 'pi pi-fw pi-user',
+                command: (event) => {
+                  this.menuService.setSelectedItem('admin');
+                }
+              }    
           ]
       }
       ,
       {
         label: 'الحصص المباشرة',
-        icon: 'pi pi-camera', // This is the camera icon, you can change it to any live icon you prefer
+        icon: 'pi pi-camera',
            command: (event) => {
               this.menuService.setSelectedItem('alllivesessions');
            }
       },
-      {
-
-          
+      {    
         label: 'العروض',
         icon: 'pi pi-dollar',
         command:(event)=>{
-
           this.menuService.setSelectedItem('offers');
           }
-    
-    },
-      // {
-
-          
-      //     label: 'الرسائل',
-      //     icon: 'pi pi-comments',
-      //     command:(event)=>{
-
-      //       this.menuService.setSelectedItem('messagesAll');
-      //       }
-      
-      // },
+      },
       {
 
           
@@ -142,7 +162,7 @@ logout() {
         console.log(this.numtel)
       if (data.errormessage === 'User Already logged out') {
           this.auth.setUserId(null);
-          localStorage.clear()
+          sessionStorage.clear()
         
                 
           Swal.fire({
@@ -155,7 +175,7 @@ logout() {
       
       if (data.successmessage === 'User logged Successfully') {
         this.auth.setUserId(null);
-        localStorage.clear()
+        sessionStorage.clear()
 
         Swal.fire({
           icon: 'success',
@@ -167,7 +187,7 @@ logout() {
     
       if (data.successmessage === 'User not found') {
         this.auth.setUserId(null);
-        localStorage.clear()
+        sessionStorage.clear()
          Swal.fire({
           icon: 'error',
           title: 'خطأ',
@@ -180,7 +200,7 @@ logout() {
   
   )
   this.auth.setUserId('');
-  localStorage.setItem('accesstoken', ''); 
+  sessionStorage.setItem('accesstoken', ''); 
   this.router.navigate(['/auth/login']); 
 }
 

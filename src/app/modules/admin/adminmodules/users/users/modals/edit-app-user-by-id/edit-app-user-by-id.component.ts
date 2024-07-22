@@ -33,30 +33,20 @@ export class EditAppUserByIdComponent implements OnInit {
   
   ) {
     this.idUser = this.config.data.idUser;
+    this.createStudentForm()
     this.fetchUserById(this.idUser);
-   this.fetchRoles();
+    this.fetchRoles();
   }
 
   ngOnInit(): void {
-    this.UserForm = this.fb.group({
-      nomPrenom: [this.user?.nomPrenom || '', Validators.required],
-      numeroTel: [this.user?.numeroTel || '', Validators.required],
-      roles: [null],
-      smsVerified:[this.user?.smsVerified],
-      password: [''],
-    });
   }
 
   fetchUserById(idUser: number) {
     this.userservice.fetchUserById(idUser).subscribe(
       (data) => {
         this.user = data;
-        // Update form controls when user data is available
-        this.UserForm.patchValue({
-          nomPrenom: this.user?.nomPrenom || '',
-          numeroTel: this.user?.numeroTel || '',
-          smsVerified: this.user?.smsVerified || '',
-        });
+        console.log(this.user)
+        this.createEditStudentForm()
       },
       (error) => {
         console.log(error);
@@ -80,28 +70,23 @@ export class EditAppUserByIdComponent implements OnInit {
       const password = this.UserForm.value.password || null;
       const nomPrenom = this.UserForm.value.nomPrenom;
       const numeroTel = this.UserForm.value.numeroTel;
-  
+      const smsVerified= this.UserForm.value.smsVerified;
+      const accountActivated= this.UserForm.value.accountActivated;
       let roleId: number | null = null;
-  
-      // Check if roles control is not null and has values
+      
       if (this.UserForm.value.roles) {
-        // Extract the selected role ID from the roles dropdown
         roleId = this.UserForm.value.roles.id;
       }
-  
-      // Confirm the action with a dialog
       this.confirmationService.confirm({
         header: 'تأكيد',
         message: 'هل أنت متأكد أنك تريد تقديم الاستمارة؟',
         acceptLabel:'نعم',
         rejectLabel:'لا',
         accept: () => {
-          // User confirmed, proceed with form submission
           this.messageService.add({ severity: 'success', summary: 'تم التأكيد', detail: 'تم تقديم الاستمارة بنجاح.' });
-          this.submitForm(password, nomPrenom, numeroTel, roleId);
+          this.submitForm(password, nomPrenom, numeroTel, roleId,smsVerified,accountActivated);
         },
         reject: () => {
-          // User rejected, do nothing or provide feedback
           this.messageService.add({ severity: 'info', summary: 'تم الرفض', detail: 'لقد رفضت العملية.' });
         },
       });
@@ -109,10 +94,11 @@ export class EditAppUserByIdComponent implements OnInit {
     }
   }
   
-  private submitForm(password: string | null, nomPrenom: string, numeroTel: string, roleId: number | null): void {
+  private submitForm(password: string | null, nomPrenom: string, numeroTel: string, roleId: number | null , smsVerified:boolean,accountActivated:boolean): void {
+    console.log(this.UserForm.value)
     if (this.uploadedImage) {
       this.userservice
-        .updateUser(this.idUser, password, nomPrenom, numeroTel, this.uploadedImage, roleId)
+        .updateUser(this.idUser, password, nomPrenom, numeroTel, this.uploadedImage, roleId,smsVerified,accountActivated)
         .subscribe(
           (data) => {
            this.closeModalAndNotify()
@@ -124,7 +110,7 @@ export class EditAppUserByIdComponent implements OnInit {
         );
     } else {
       this.userservice
-        .updateUser(this.idUser, password, nomPrenom, numeroTel, null, roleId)
+        .updateUser(this.idUser, password, nomPrenom, numeroTel, null, roleId,smsVerified,accountActivated)
         .subscribe(
           (data) => {
             this.closeModalAndNotify()
@@ -143,17 +129,39 @@ export class EditAppUserByIdComponent implements OnInit {
 
   fetchRoles(){
     this.roleservice.getAllroles().subscribe(
-
-      data=>this.roles = data
-  
+      (data)=>{
+        this.roles = data
+      },(error)=>{
+        console.log(error)
+      }
      )
   }
 
-  
   closeModalAndNotify() {
-
     this.menu.triggerNewItemAdded()
-    this.ref.close();
+    this.ref.close()
+  }
+
+  createStudentForm(){
+    this.UserForm = this.fb.group({
+      nomPrenom: ['', Validators.required],
+      numeroTel: ['', Validators.required],
+      roles: [null],
+      accountActivated:[false],
+      smsVerified:[false],
+      password: [''],
+    })
+  }
+
+  createEditStudentForm(){
+    this.UserForm = this.fb.group({
+      nomPrenom: [this.user?.nomPrenom],
+      numeroTel: [this.user?.numeroTel],
+      roles: [null],
+      accountActivated:[this.user.accountActivated],
+      smsVerified:[this.user.smsVerified],
+      password: [''],
+    });
 
   }
   

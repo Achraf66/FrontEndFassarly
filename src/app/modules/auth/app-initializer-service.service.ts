@@ -11,7 +11,7 @@ export class AppInitializerService {
 
   initializeApp(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      const token = localStorage.getItem('accesstoken');
+      const token = sessionStorage.getItem('accesstoken');
 
       if (token) {
         const decodedToken: any = jwtDecode(token);
