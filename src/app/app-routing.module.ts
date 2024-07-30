@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Page404Component } from './ExtraPages/page404/page404.component';
 import { AuthGuard } from './modules/auth/guard/auth.guard';
 
 const routes: Routes = [
@@ -22,7 +21,7 @@ const routes: Routes = [
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
   { 
-    path: '**', component: Page404Component 
+    path: '', redirectTo:'matieres/matieres',pathMatch:'full' 
   }
 
 ];

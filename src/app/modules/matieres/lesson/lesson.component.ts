@@ -1,52 +1,46 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Examen } from '../../admin/adminmodules/exams/Examen';
 import { LessonService } from '../../admin/adminmodules/lessons/services/lesson.service';
 import { Lesson } from '../../admin/adminmodules/lessons/Lesson';
 import { MatiereService } from '../services/matiere.service';
-import { Observable, catchError, mergeMap, of, switchMap } from 'rxjs';
-import { Matiere } from '../models/Matiere';
 import { ThemeService } from '../../admin/adminmodules/themes/services/theme.service';
-import { Theme } from '../../admin/adminmodules/themes/models/Theme';
 import { AuthService } from '../../auth/services/auth.service';
 import { User } from '../../admin/adminmodules/users/models/User';
+import { Examen } from '../../admin/adminmodules/exams/Examen';
+import { Matiere } from '../models/Matiere';
+import { Theme } from '../../admin/adminmodules/themes/models/Theme';
+import { Observable, of, catchError, switchMap, mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-lesson',
   templateUrl: './lesson.component.html',
   styleUrls: ['./lesson.component.css']
 })
-
-
-export class LessonComponent implements OnInit{
-  matiereId:any
-  themeId:any
-  lessonId:any
-  LessonList:Lesson[]
-  lesson:Lesson
-  Matiere:Matiere
-  Theme:Theme
-  ExamenList : Examen[]
+export class LessonComponent implements OnInit {
+  matiereId: any;
+  themeId: any;
+  lessonId: any;
+  LessonList: Lesson[];
+  lesson: Lesson;
+  Matiere: Matiere;
+  Theme: Theme;
+  ExamenList: Examen[];
   currentUser: User | undefined;
-  isAdmin : boolean = false;
-
+  isAdmin: boolean = false;
 
   constructor(
-    private title:Title,
-    private route:ActivatedRoute,
-    private lessonService:LessonService,
+    private title: Title,
+    private route: ActivatedRoute,
+    private lessonService: LessonService,
     private router: Router,
-    private MatiereService:MatiereService,
-    private themeService:ThemeService,
-    private authService:AuthService
-    ){
-
-    this.title.setTitle(" فسرلي | الدرس ")
+    private MatiereService: MatiereService,
+    private themeService: ThemeService,
+    private authService: AuthService
+  ) {
+    this.title.setTitle("فسرلي | الدرس");
 
     const userId = this.authService.getUserId();
-
-    
 
     this.fetchCurrentUser(userId).pipe(
       switchMap(data => {
@@ -54,52 +48,38 @@ export class LessonComponent implements OnInit{
         return this.authService.findUserBynumTel(userId);
       }),
       catchError(error => {
-        return of(null); 
+        return of(null);
       })
     ).subscribe(
       (data) => {
         if (data) {
-          this.currentUser = data
-          this.hasRolenolivesessions()
+          this.currentUser = data;
+          this.hasRolenolivesessions();
           this.checkAdminRole();
-
         } else {
+          // Handle user not found
         }
       },
       (error) => console.log('Error in findUserBynumTel:', error)
     );
-
-
-
   }
 
-
   ngOnInit(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
-  
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.matiereId = params.get('matiereid') || null;
       this.themeId = params.get('themeid') || null;
       this.lessonId = params.get('lessonid');
-  
-      // Fetch the lessons based on themeId
-      this.fetchLessonsByThemeId(this.themeId);
-  
-      // Check if there are lessons and navigate to the first lesson by default
-      if (this.LessonList && this.LessonList.length > 0) {
-        const firstLessonId = this.LessonList[0].id;
-        this.navigateToLesson(firstLessonId);
-      }
+      
+      this.loadLessonData();
     });
-  
-    this.fetchMatiereById();
-    this.fetchThemeById();  
-
-
   }
-  
+
+  loadLessonData(): void {
+    this.fetchLessonsByThemeId(this.themeId);
+    this.fetchLessonById(this.lessonId);
+    this.fetchMatiereById();
+    this.fetchThemeById();
+  }
 
   fetchLessonsByThemeId(themeId: number) {
     this.lessonService.getLessonsByThemeId(themeId).subscribe(
@@ -110,72 +90,64 @@ export class LessonComponent implements OnInit{
     );
   }
 
+  fetchLessonById(lessonId: number) {
+    this.lessonService.fetchLessonById(lessonId).subscribe(
+      (data) => {
+        this.lesson = data;
+      },
+      (error) => console.log(error)
+    );
+  }
+
   navigateToLesson(lessonId: number): void {
     this.router.navigate(['/matieres/lesson', this.matiereId, this.themeId, lessonId]);
   }
-  
+
   handleLessonClick(lessonId: number): void {
     this.router.navigate(['/matieres/lesson', this.matiereId, this.themeId, lessonId]);
   }
 
-
-  fetchLessonById(){
-
-    this.lessonService.fetchLessonById(this.lessonId).subscribe(
-      (data)=>{
-        this.lesson = data
-      },(error)=>console.log(error)
-    )
-  }
-
-  fetchMatiereById(){
+  fetchMatiereById() {
     this.MatiereService.getMatiereById(this.matiereId).subscribe(
-      (data)=>{
+      (data) => {
         this.Matiere = data;
-      },(error)=> catchError(error)
-    )
+      },
+      (error) => catchError(error)
+    );
   }
 
-  fetchThemeById(){
+  fetchThemeById() {
     this.themeService.getThemeById(this.themeId).subscribe(
-      (data)=>{
-        this.Theme = data
-      },(error)=>catchError(error)
-    )
+      (data) => {
+        this.Theme = data;
+      },
+      (error) => catchError(error)
+    );
   }
 
+  // Fetch the current user based on userId
+  private fetchCurrentUser(userId: string | null): Observable<any> {
+    return this.authService.findUserBynumTel(userId).pipe(
+      mergeMap((data) => {
+        this.currentUser = data;
+        return of(null);
+      }),
+      catchError((error) => {
+        this.currentUser = undefined; // Set to undefined in case of an error
+        return of(null);
+      })
+    );
+  }
 
+  // Check for silver Role
+  hasRolenolivesessions(): boolean {
+    const hasRole = this.currentUser?.roles?.some(role => role.name.includes('silver'));
+    return hasRole || false;
+  }
 
-
-    // Fetch the current user based on userId
-    private fetchCurrentUser(userId: string | null): Observable<any> {
-      return this.authService.findUserBynumTel(userId).pipe(
-        mergeMap((data) => {
-          this.currentUser = data;
-          return of(null);
-        }),
-        catchError((error) => {
-          this.currentUser = undefined; // Set to undefined in case of an error
-          return of(null);
-        })
-      );
+  checkAdminRole() {
+    if (this.currentUser?.roles.some((role) => role.name.includes('admin'))) {
+      this.isAdmin = true;
     }
-    
-    //Check for silver Role
-    hasRolenolivesessions(): boolean {    
-      const hasRole = this.currentUser?.roles?.some(role => role.name.includes('silver'));    
-      return hasRole || false;
-    }
-    
-    
-    checkAdminRole() {
-      if (this.currentUser?.roles.some((role) => role.name.includes('admin'))) {
-        this.isAdmin = true;
-      }
-    }
-    
-
-
-
-
+  }
 }

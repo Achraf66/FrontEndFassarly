@@ -35,10 +35,8 @@ export class ThemesComponent  implements AfterViewInit{
     private lessonService:LessonService,private authService:AuthService
     
     ){
-      this.router.routeReuseStrategy.shouldReuseRoute = function () {
-        return false;
-      }  
-    this.title.setTitle(" فسرلي | المحاور")
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.title.setTitle(" فسرلي | المحاور")
 
 
     const userId = this.authService.getUserId();

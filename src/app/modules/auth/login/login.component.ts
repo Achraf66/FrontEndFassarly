@@ -72,19 +72,16 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(FormData).subscribe(
       (data) => {
         if (data.successmessage === 'Sucess login') {
-          sessionStorage.setItem('accesstoken', data.access_token);
+          this.cookieService.set('accesstoken', data.access_token)
           Swal.fire({
             icon: 'success',
             title: 'نجاح',
             text: 'تم تسجيل الدخول بنجاح.',
             confirmButtonText: 'نعم'
           }).then((result) => {
-            if (result.isConfirmed || result.isDismissed) {                     
-              // Navigate to the matieres page without triggering a full page reload
-              this.router.navigate(['/matieres/matieres']).then(() => {
-                this.authenticationService.setUserId(this.signupForm.value.numtel)
-                window.location.reload();
-              });
+            if (result.isConfirmed || result.isDismissed) {
+              this.authenticationService.setUserId(this.signupForm.value.numtel); // Ensure this is called before navigate
+              this.router.navigate(['/matieres/matieres']);
             }
           });
         } else if (data.errormessage === 'User Already logged in on another device') {

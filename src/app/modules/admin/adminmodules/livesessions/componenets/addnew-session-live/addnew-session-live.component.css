@@ -1,0 +1,85 @@
+.form-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.single-form {
+    margin-bottom: 20px;
+}
+
+.p-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.p-inputtext-lg {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.p-inputgroup {
+    display: flex;
+    align-items: center;
+}
+
+.p-inputgroup-addon {
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.selected-link-box {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+.new-lien-zoom {
+    margin-top: 10px;
+}
+
+.new-lien-zoom input {
+    margin-bottom: 10px;
+    width: calc(100% - 22px); /* Adjust for button padding */
+}
+
+.btn-add,
+.btn-toggle {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-add:hover,
+.btn-toggle:hover {
+    background-color: #218838;
+}
+
+.submit-button {
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn-success {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}

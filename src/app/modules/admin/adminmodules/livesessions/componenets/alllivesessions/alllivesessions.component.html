@@ -32,7 +32,7 @@
     <ng-template pTemplate="body" let-matiere>
         <tr>
             <td>
-                    {{matiere.nomMatiere}}
+                    {{matiere?.nomMatiere}}
             </td>
             <td>
                     <p-image [preview]="true" height="100px" [src]="matiere.photo" alt="{{ matiere.nomMatiere }} Photo"></p-image>

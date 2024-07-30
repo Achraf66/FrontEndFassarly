@@ -24,6 +24,7 @@
             <tr>
                 <th>عنوان مقطع فيديو</th>
                 <th>الوصف</th>
+                <th>ترتيب مقطع فيديو</th>
                 <th>مرفقات مقطع فيديو</th>
                 <th>الاجراء</th>
             </tr>
@@ -35,6 +36,7 @@
       <td>{{ lesson.nomLesson }}</td>
       <td class="ellipsis" title="{{ lesson.description }}">{{ lesson.description }}</td>
       <td style="display: none;">{{ lesson.videoLien }}</td>
+      <td>{{lesson.order}}</td>
       <td>
         <div class="file-icons">
           <div *ngFor="let piecesJointe of lesson.piecesJointes" title="مرفقات الدرس">

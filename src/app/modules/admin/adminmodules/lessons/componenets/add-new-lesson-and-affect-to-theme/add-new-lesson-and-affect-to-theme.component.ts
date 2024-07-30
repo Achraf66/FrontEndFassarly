@@ -29,10 +29,7 @@ export class AddNewLessonAndAffectToThemeComponent implements OnInit{
 
     this.ThemeId = this.config.data.ThemeId
     this.nomTheme = this.config.data.nomTheme
-
-
     // this.fetchLessonById(this.LessonId)
-
   }
 
 
@@ -40,6 +37,7 @@ export class AddNewLessonAndAffectToThemeComponent implements OnInit{
     this.LessonForm = this.fb.group({
       nomLesson : ['',Validators.required],
       videoLien:[''],
+      order:[0],
       description:['']
     })
 
@@ -62,40 +60,22 @@ export class AddNewLessonAndAffectToThemeComponent implements OnInit{
     }
   }
 
-
-
-  // fetchLessonById(LessonId:number){
-  //   this.lessonService.fetchLessonById(LessonId).subscribe(
-  //     (data)=>{
-  //     this.Lesson = data
-  //   },(error)=>{
-  //     console.log(error)
-  //   })
-  // }
-
-
   OnSubmit(){
 
     this.lessonService.createLessonAndAffectToTheme(this.ThemeId,
       this.LessonForm.value.nomLesson,
       this.LessonForm.value.videoLien,
       this.LessonForm.value.description,
-      this.pieceJointes      
+      this.pieceJointes,
+      this.LessonForm.value.order     
       ).subscribe(
-
         (data:any)=>{
-        
             this.closeModalAndNotify()
             this.messageService.add({ severity: 'success', summary: 'نجاح', detail: 'تم إضافة المقطع فيديو بنجاح' });    
-          
-        
-
         },(error)=>
         
         {
-
           this.messageService.add({ severity: 'error', summary: ' لم يتم إضافة المقطع فيديو ', detail: ' لم يتم إضافة المقطع فيديو ' });    
-
         }
 
       )
@@ -104,7 +84,6 @@ export class AddNewLessonAndAffectToThemeComponent implements OnInit{
 
   closeModalAndNotify() {
     this.ref.close();
-
     this.menu.triggerNewItemAdded();
   }
 

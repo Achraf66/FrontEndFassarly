@@ -31,9 +31,6 @@ export class AuthService {
     return this.expToken;
   }
   
-
-
-
   setUserId(userId: string|null) : void {
     this.userId = userId;
   }
@@ -84,7 +81,6 @@ export class AuthService {
 
     // Perform logout operations
     this.cookieService.delete('accesstoken');
-    sessionStorage.removeItem('accesstoken');
     this.setUserId('');
 
     // Emit logout event
@@ -100,11 +96,17 @@ export class AuthService {
 
 
   isAuthenticated(): boolean {
-    return sessionStorage.getItem('accesstoken') !== null;
+    return this.cookieService.get('accesstoken') !== null;
   }
 
+  desactivateAllaccounts(){
+    return this.http.post<AuthResponseData>(`${this.BASE_URL}/api/classe/deactivate`,null);
+  }
 
-
+  
+  activateAllaccounts(){
+    return this.http.post<AuthResponseData>(`${this.BASE_URL}/api/classe/activate`,null);
+  }
 
 
 }

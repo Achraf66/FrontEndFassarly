@@ -152,8 +152,8 @@ public openNewAddNewThemeModal(): void {
 public OpenLessonsByThemes(idTheme:number,nomTheme:string): void {
   this.dialogService.open(LessonsByThemeComponent, {
    header: 'مقاطع فيديو الدرس : '+nomTheme,
-   width: '100%',
-   height: '125%',
+   width: 'auto',
+   height: 'auto',
    dismissableMask:false,
    data: {
     matiereId:this.matiereId,

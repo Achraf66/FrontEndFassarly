@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddmatiereComponent } from '../adminmodules/matieres/components/addmatiere/addmatiere.component';
 import { MenuService } from '../adminmodules/users/services/MenuService';
 import { AuthService } from '../../auth/services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-adminheader',
@@ -20,7 +21,9 @@ export class AdminheaderComponent  implements OnInit{
   constructor(private dialogService: DialogService,
     private menuService: MenuService,
     private auth:AuthService,
-    private router:Router
+    private router:Router,
+    private confirmationService: ConfirmationService,
+    private cookieService:CookieService
     
     ){
 
@@ -126,14 +129,29 @@ export class AdminheaderComponent  implements OnInit{
           }
       },
       {
-
-          
+         
+        label: 'تعطيل الحسابات',
+        icon: 'pi pi-fw pi-lock',
+        command: (event) => {
+          this.desactivateAllAccounts()
+       }
+      },
+      {
+         
+        label: 'إعادة تفعيل الحسابات',
+        icon: 'pi pi-fw pi-lock-open',
+        command: () => {
+          this.activateAllAccounts();
+       }
+      },
+      {
+         
         label: 'خروج',
         icon: 'pi pi-fw pi-power-off',
-        command: (event) => {
+        command: () => {
           this.logout();
        }
-    }
+      }
      
     ];
 
@@ -162,7 +180,7 @@ logout() {
         console.log(this.numtel)
       if (data.errormessage === 'User Already logged out') {
           this.auth.setUserId(null);
-          sessionStorage.clear()
+          this.cookieService.deleteAll();
         
                 
           Swal.fire({
@@ -175,7 +193,7 @@ logout() {
       
       if (data.successmessage === 'User logged Successfully') {
         this.auth.setUserId(null);
-        sessionStorage.clear()
+        this.cookieService.deleteAll();
 
         Swal.fire({
           icon: 'success',
@@ -187,8 +205,8 @@ logout() {
     
       if (data.successmessage === 'User not found') {
         this.auth.setUserId(null);
-        sessionStorage.clear()
-         Swal.fire({
+        this.cookieService.deleteAll();
+        Swal.fire({
           icon: 'error',
           title: 'خطأ',
           text: 'المستخدم غير موجود.'
@@ -200,14 +218,105 @@ logout() {
   
   )
   this.auth.setUserId('');
-  sessionStorage.setItem('accesstoken', ''); 
+  this.cookieService.deleteAll();
   this.router.navigate(['/auth/login']); 
 }
 
 
+desactivateAllAccounts() {
+  this.confirmationService.confirm({
+    message: 'هل أنت متأكد أنك تريد إلغاء تنشيط جميع الحسابات؟',
+    header: 'تأكيد',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => {
+      // User confirmed the action
+      this.auth.desactivateAllaccounts().subscribe(
+        (data) => {
+          if (data.successmessage === 'Users deactivated successfully') {
+            Swal.fire({
+              title: 'نجاح!',
+              text: 'تم إلغاء تنشيط المستخدمين بنجاح.',
+              icon: 'success',
+              confirmButtonText: 'حسنًا'
+            });
+          } else if (data.errormessage === 'error has occured') {
+            Swal.fire({
+              title: 'خطأ!',
+              text: 'حدث خطأ أثناء إلغاء تنشيط المستخدمين.',
+              icon: 'error',
+              confirmButtonText: 'حسنًا'
+            });
+          }
+        },
+        (error) => {
+          Swal.fire({
+            title: 'خطأ!',
+            text: 'حدث خطأ أثناء معالجة طلبك.',
+            icon: 'error',
+            confirmButtonText: 'حسنًا'
+          });
+        }
+      );
+    },
+    reject: () => {
+      // User rejected the action
+      Swal.fire({
+        title: 'ملغي',
+        text: 'تم إلغاء العملية.',
+        icon: 'info',
+        confirmButtonText: 'حسنًا'
+      });
+    }
+  });
+}
 
 
-
+activateAllAccounts() {
+  this.confirmationService.confirm({
+    message: 'هل أنت متأكد أنك تريد تنشيط جميع الحسابات؟',
+    header: 'تأكيد',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => {
+      // User confirmed the action
+      this.auth.activateAllaccounts().subscribe(
+        (data) => {
+          if (data.successmessage === 'Users activated successfully') {
+            Swal.fire({
+              title: 'نجاح!',
+              text: 'تم تنشيط المستخدمين بنجاح.',
+              icon: 'success',
+              confirmButtonText: 'حسنًا'
+            });
+          } else if (data.errormessage === 'error has occured') {
+            Swal.fire({
+              title: 'خطأ!',
+              text: 'حدث خطأ أثناء إلغاء تنشيط المستخدمين.',
+              icon: 'error',
+              confirmButtonText: 'حسنًا'
+            });
+          }
+        },
+        (error) => {
+          Swal.fire({
+            title: 'خطأ!',
+            text: 'حدث خطأ أثناء معالجة طلبك.',
+            icon: 'error',
+            confirmButtonText: 'حسنًا'
+          });
+        }
+      );
+    },
+    reject: () => {
+      // User rejected the action
+      Swal.fire({
+        title: 'ملغي',
+        text: 'تم إلغاء العملية.',
+        icon: 'info',
+        confirmButtonText: 'حسنًا'
+      });
+    }
+  });
+}
 
 
 

@@ -2,18 +2,17 @@
 <div class="row">
 <div class="col-lg-2">
 </div>
-<div class="col-lg-8">
-<app-users *ngIf="selectedItem === 'allUsers'"></app-users>
-<app-getallmatieres *ngIf="selectedItem === 'allMatiere'"></app-getallmatieres>
-<app-allthemes *ngIf="selectedItem === 'allThemes'" ></app-allthemes>
-<app-get-all-messages *ngIf="selectedItem === 'messagesAll'" ></app-get-all-messages>
-<app-alllivesessions *ngIf="selectedItem ==='alllivesessions' " ></app-alllivesessions>
-<app-offers *ngIf="selectedItem ==='offers' " ></app-offers>
-<app-all-students-by-classe *ngIf="selectedItem === 'allUsers7eme'" [className]="'7eme'"></app-all-students-by-classe>
-<app-all-students-by-classe *ngIf="selectedItem === 'allUsers8eme'" [className]="'8eme'"></app-all-students-by-classe>
-<app-all-students-by-classe *ngIf="selectedItem === 'allUsers9eme'" [className]="'9eme'"></app-all-students-by-classe>
-<app-all-students-by-classe *ngIf="selectedItem === 'allUsers1ere'" [className]="'1ere'"></app-all-students-by-classe>
-<app-all-students-by-classe *ngIf="selectedItem === 'admin'" [className]="'admin'"></app-all-students-by-classe>
-
-</div>
+    <div class="col-lg-8">
+        <app-users *ngIf="selectedItem === 'allUsers'"></app-users>
+        <app-getallmatieres *ngIf="selectedItem === 'allMatiere'"></app-getallmatieres>
+        <app-allthemes *ngIf="selectedItem === 'allThemes'" ></app-allthemes>
+        <app-get-all-messages *ngIf="selectedItem === 'messagesAll'" ></app-get-all-messages>
+        <app-alllivesessions *ngIf="selectedItem ==='alllivesessions' " ></app-alllivesessions>
+        <app-offers *ngIf="selectedItem ==='offers' " ></app-offers>
+        <app-all-students-by-classe *ngIf="selectedItem === 'allUsers7eme'" [className]="'7eme'"></app-all-students-by-classe>
+        <app-all-students-by-classe *ngIf="selectedItem === 'allUsers8eme'" [className]="'8eme'"></app-all-students-by-classe>
+        <app-all-students-by-classe *ngIf="selectedItem === 'allUsers9eme'" [className]="'9eme'"></app-all-students-by-classe>
+        <app-all-students-by-classe *ngIf="selectedItem === 'allUsers1ere'" [className]="'1ere'"></app-all-students-by-classe>
+        <app-all-students-by-classe *ngIf="selectedItem === 'admin'" [className]="'admin'"></app-all-students-by-classe>
+    </div>
 </div>

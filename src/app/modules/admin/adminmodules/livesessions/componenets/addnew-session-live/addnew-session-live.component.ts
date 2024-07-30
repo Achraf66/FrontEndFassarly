@@ -14,18 +14,22 @@ import { MenuService } from '../../../users/services/MenuService';
 })
 export class AddnewSessionLiveComponent implements OnInit {
   matiereid;
-  homeWorkFile:any
-  SessionForm: FormGroup
+  homeWorkFile: any;
+  SessionForm: FormGroup;
+  listLienZoomExisting: any[] = [];
+  selectedLienZoom: string | null = null;
+  newLienZoom: string = '';
+  showNewLienZoomInput: boolean = false;
 
-  constructor(private liveSession:LivesessionService,
-    private fb:FormBuilder,private config:DynamicDialogConfig,private datepipe:DatePipe,
-    private messageService:MessageService,
-    private menu:MenuService,private ref:DynamicDialogRef
-    
-    ){
-
+  constructor(
+    private liveSession: LivesessionService,
+    private fb: FormBuilder, private config: DynamicDialogConfig,
+    private datepipe: DatePipe,
+    private messageService: MessageService,
+    private menu: MenuService, private ref: DynamicDialogRef
+  ) {
     this.matiereid = this.config.data.matiereid;
-
+    this.getLienZoomByMatiere(this.matiereid);
   }
 
   ngOnInit(): void {
@@ -38,7 +42,8 @@ export class AddnewSessionLiveComponent implements OnInit {
       titre: ['', Validators.required],
       lienZoom: ['', Validators.required],
       heureFinCombined: [''],
-      heureDebutCombined: ['']
+      heureDebutCombined: [''],
+      newLienZoom: ['']
     });
 
     if (this.SessionForm) {
@@ -60,12 +65,11 @@ export class AddnewSessionLiveComponent implements OnInit {
     }
   }
 
-  
   combineHeureFin() {
     if (this.SessionForm) {
       const hours = this.SessionForm.get('heureFinHours')?.value;
       const minutes = this.SessionForm.get('heureFinMinutes')?.value;
-  
+
       if (hours !== null && minutes !== null) {
         const combinedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
         this.SessionForm.patchValue({ heureFinCombined: combinedTime });
@@ -77,72 +81,70 @@ export class AddnewSessionLiveComponent implements OnInit {
     if (this.SessionForm) {
       const hours = this.SessionForm.get('heureDebutHours')?.value;
       const minutes = this.SessionForm.get('heureDebutMinutes')?.value;
-  
+
       if (hours !== null && minutes !== null) {
         const combinedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
         this.SessionForm.patchValue({ heureDebutCombined: combinedTime });
       }
     }
   }
-  
 
   OnSubmit() {
     // Create an instance of the SeanceEnLigne class
     const seanceEnLigne: SeanceEnLigne = new SeanceEnLigne();
-  
+
     // Get the date from the form control
     const dateFromForm = this.SessionForm.value.date;
-  
+
     // Add 60 minutes to the date
     const dateWithAddedMinutes = new Date(dateFromForm);
     dateWithAddedMinutes.setMinutes(dateWithAddedMinutes.getMinutes() + 60);
-  
+
     // Use DatePipe to format the date and adjust for timezone
     const formattedDate = this.datepipe.transform(dateWithAddedMinutes, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
-  
+
     // Assign adjusted date and other values to the SeanceEnLigne object
     seanceEnLigne.date = formattedDate;
     seanceEnLigne.heureDebut = this.SessionForm.value.heureDebutCombined;
     seanceEnLigne.heureFin = this.SessionForm.value.heureFinCombined;
     seanceEnLigne.titre = this.SessionForm.value.titre;
     seanceEnLigne.lienZoom = this.SessionForm.value.lienZoom;
-  
+
     // Call the service method with the created SeanceEnLigne object
-    this.liveSession.createSeanceEnLigneAndAffectToMatiere(this.matiereid, seanceEnLigne,this.homeWorkFile).subscribe(
-      (data:any) => {
-        if(data.message === 'SeanceEnLigne créée avec succès'){
+    this.liveSession.createSeanceEnLigneAndAffectToMatiere(this.matiereid, seanceEnLigne, this.homeWorkFile).subscribe(
+      (data: any) => {
+        if (data.message === 'SeanceEnLigne créée avec succès') {
           this.messageService.add({
             severity: 'success',
             summary: ' تم إضافة الحصة بنجاح ',
             detail: 'تم إضافة الحصة بنجاح ',
             life: 3000
-        });
+          });
           this.closeModalAndNotify();
-        }
-        else{
+        } else {
           this.messageService.add({
             severity: 'error',
             summary: ' خطاء ',
             detail: 'خطاء ',
             life: 3000
-        });
+          });
         }
-      },(error)=>{
+      }, (error) => {
         this.messageService.add({
           severity: 'error',
           summary: ' خطاء ',
           detail: 'خطاء ',
           life: 3000
-      });
+        });
       }
     );
   }
-   
+
   closeModalAndNotify() {
     this.ref.close()
     this.menu.triggerNewItemAdded();
   }
-  
+
   onFileSelectedhomeWorkFile(event: any) {
     const file: File = event.target.files[0];
     const reader = new FileReader();
@@ -152,6 +154,35 @@ export class AddnewSessionLiveComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
+  getLienZoomByMatiere(idMatiere: number): void {
+    this.liveSession.getSessionLiveByMatiereId(idMatiere).subscribe(
+      (data) => {
+        this.listLienZoomExisting = data
+      },
+      (error) => {
+        console.error('Error fetching session data:', error);
+      }
+    );
+  }
 
+  displaySelectedLink(event: any) {
+    this.selectedLienZoom = event.value; // Update the selected lienZoom
+  }
+
+  toggleNewLienZoomInput() {
+    this.showNewLienZoomInput = !this.showNewLienZoomInput;
+  }
+
+  addNewLienZoom() {
+    const newLienZoomValue = this.SessionForm.get('newLienZoom')?.value;
+    if (newLienZoomValue.trim() !== '') {
+        const newLienZoomOption = { titre: newLienZoomValue, lienZoom: newLienZoomValue };
+        this.listLienZoomExisting.push(newLienZoomOption);
+        this.selectedLienZoom = newLienZoomValue;
+        this.SessionForm.patchValue({ lienZoom: newLienZoomValue });
+        this.SessionForm.patchValue({ newLienZoom: '' });
+        this.showNewLienZoomInput = false;
+    }
 }
 
+}

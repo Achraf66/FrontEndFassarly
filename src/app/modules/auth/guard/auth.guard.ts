@@ -8,6 +8,7 @@ import { MatiereService } from '../../matieres/services/matiere.service';
 import { Matiere } from '../../matieres/models/Matiere';
 import { MessageService } from 'primeng/api';
 import Swal from 'sweetalert2';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +21,12 @@ export class AuthGuard implements CanActivate, OnInit {
   constructor(private authService: AuthService,
      private router: Router,
      private matiereService:MatiereService,
-     private messageService: MessageService) {}
+     private messageService: MessageService,
+     private cookieService:CookieService
+    ) {}
 
   ngOnInit(): void {
-    const token = sessionStorage.getItem('accesstoken');
+    const token = this.cookieService.get('accesstoken');
 
     if (token !== null) {
       const decodedToken: any = jwtDecode(token);
@@ -49,7 +52,8 @@ export class AuthGuard implements CanActivate, OnInit {
     if (this.authService.isAuthenticated()) {
       // Check if the user has the required roles
       const roles: string[] | null = next.data['roles'];
-      const token = sessionStorage.getItem('accesstoken');
+      
+      const token = this.cookieService.get('accesstoken');
 
       if (state.url.includes('auth/login')  || (state.url.includes('auth/register'))) {
         this.messageService.add({

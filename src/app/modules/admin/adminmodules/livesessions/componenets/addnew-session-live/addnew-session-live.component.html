@@ -1,30 +1,52 @@
 <div class="form-wrapper">
-    <form  [formGroup]="SessionForm" (ngSubmit)="OnSubmit()" >
-        <!-- Single Form Start -->
-        
-        <div class="single-form">
-            <div class="p-field">
-                <label for="titleField">عنوان الحصة</label>
-                <input pInputText type="text" id="titleField" class="p-inputtext-lg" placeholder="عنوان الحصة" formControlName="titre" />
-            </div>
-        </div>
-        
-        <div class="single-form">
-            <div class="p-field">
-                <label for="linkField">رابط الحصة</label>
-                <textarea pInputTextarea id="linkField" class="p-inputtext-lg" placeholder="رابط الحصة" formControlName="lienZoom"></textarea>
-            </div>
-        </div>
+  <form [formGroup]="SessionForm" (ngSubmit)="OnSubmit()">
+      <!-- Single Form Start -->
+      
+      <div class="single-form">
+          <div class="p-field">
+              <label for="titleField">عنوان الحصة</label>
+              <input pInputText type="text" id="titleField" class="p-inputtext-lg" placeholder="عنوان الحصة" formControlName="titre" />
+          </div>
+      </div>
+      
+      <div class="single-form">
+          <div class="p-field">
+              <label for="linkField">رابط الحصة</label>
+              <p-dropdown 
+                  id="linkField" 
+                  [options]="listLienZoomExisting" 
+                  optionLabel="titre"
+                  optionValue="lienZoom"
+                  placeholder="اختر رابط الحصة" 
+                  formControlName="lienZoom"
+                  (onChange)="displaySelectedLink($event)">
+              </p-dropdown>
+          </div>
+      
+          <div class="selected-link-box" *ngIf="selectedLienZoom">
+              <p>رابط الحصة المختار</p>
+              <p>{{ selectedLienZoom }}</p>
+          </div>
 
-        <div class="single-form">
-            <label for="demo">الفرض المنزلي</label>
-            <input (change)="onFileSelectedhomeWorkFile($event)" [multiple]="false" accept="application/pdf" type="file">
-        </div>
+          <div *ngIf="showNewLienZoomInput" class="new-lien-zoom">
+              <label for="newLienZoom">أضف رابط جديد للحصة</label>
+              <input pInputText id="newLienZoom" formControlName="newLienZoom" placeholder="رابط جديد للحصة" />
+              <button type="button" class="btn-add" (click)="addNewLienZoom()">إضافة الرابط</button>
+          </div>
+          <button type="button" class="btn-toggle" (click)="toggleNewLienZoomInput()">
+              {{ showNewLienZoomInput ? 'إخفاء' : 'أضف رابط جديد للحصة' }}
+          </button>
+      </div>
+      
+      <div class="single-form">
+          <label for="demo">الفرض المنزلي</label>
+          <input (change)="onFileSelectedhomeWorkFile($event)" [multiple]="false" accept="application/pdf" type="file">
+      </div>
 
-        <div class="single-form">
-            <div class="p-field">
-                <label for="heureFin">توقيت بداية الحصة مباشرة</label>
-                <div class="p-inputgroup">
+      <div class="single-form">
+          <div class="p-field">
+              <label for="heureDebut">توقيت بداية الحصة مباشرة</label>
+              <div class="p-inputgroup">
                   <p-inputNumber formControlName="heureDebutHours" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical"
                                  inputId="vertical" decrementButtonClass="p-button-secondary"
                                  incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
@@ -34,21 +56,19 @@
                                  inputId="vertical" decrementButtonClass="p-button-secondary"
                                  incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
                   </p-inputNumber>
-                </div>
               </div>
-              
-              <div class="p-field">
-                <label for="heureDebutCombined">توقيت بداية الحصة مباشرة</label>
-                <input type="text" pInputText formControlName="heureDebutCombined" readonly>
-              </div>
-        </div>
+          </div>
+            
+          <div class="p-field">
+              <label for="heureDebutCombined">توقيت بداية الحصة مباشرة</label>
+              <input type="text" pInputText formControlName="heureDebutCombined" readonly>
+          </div>
+      </div>
 
-
-
-        <div class="single-form">
-            <div class="p-field">
-                <label for="heureFin">توقيت نهاية الحصة مباشرة</label>
-                <div class="p-inputgroup">
+      <div class="single-form">
+          <div class="p-field">
+              <label for="heureFin">توقيت نهاية الحصة مباشرة</label>
+              <div class="p-inputgroup">
                   <p-inputNumber formControlName="heureFinHours" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical"
                                  inputId="vertical" decrementButtonClass="p-button-secondary"
                                  incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
@@ -58,25 +78,24 @@
                                  inputId="vertical" decrementButtonClass="p-button-secondary"
                                  incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
                   </p-inputNumber>
-                </div>
               </div>
-              
-              <div class="p-field">
-                <label for="heureFinCombined">توقيت نهاية الحصة مباشرة</label>
-                <input type="text" pInputText formControlName="heureFinCombined" readonly>
-              </div>
-              
-        </div>
+          </div>
+            
+          <div class="p-field">
+              <label for="heureFinCombined">توقيت نهاية الحصة مباشرة</label>
+              <input type="text" pInputText formControlName="heureFinCombined" readonly>
+          </div>
+      </div>
 
-        <div class="single-form">
-            <label for="calendar">تاريخ الحصة المباشرة</label>
-            <div class="p-field">
-                <p-calendar id="calendar"  name="datezoom"formControlName="date"></p-calendar>
-            </div>
-        </div>
-   
-        <div class="single-form" style="padding: 20px; border-radius: 5px; text-align: center;">
-            <button [disabled]="SessionForm.invalid" class="btn btn-success btn-hover-dark w-100" type="submit">إضافة</button>
-        </div>
-    </form>
+      <div class="single-form">
+          <label for="calendar">تاريخ الحصة المباشرة</label>
+          <div class="p-field">
+              <p-calendar id="calendar" name="datezoom" formControlName="date"></p-calendar>
+          </div>
+      </div>
+ 
+      <div class="single-form submit-button">
+          <button [disabled]="SessionForm.invalid" class="btn btn-success btn-hover-dark w-100" type="submit">إضافة</button>
+      </div>
+  </form>
 </div>

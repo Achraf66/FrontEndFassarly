@@ -63,24 +63,24 @@ export class SmsVerificationComponent implements OnInit {
             text: 'المستخدم غير موجود لرقم الهاتف المحدد.',
             confirmButtonText: 'حسناً'
           });
-        } else if (data.successmessage === 'Verification successful. SMS is now verified.') {
+        }else if (data.successmessage === 'Verification successful. SMS is now verified.') {
           Swal.fire({
             icon: 'success',
             title: 'نجاح',
             text: 'تم التحقق من الحساب بنجاح.',
             confirmButtonText: 'حسناً'
+          })
+          .then((result) => {
+            if (result.isConfirmed || result.isDismissed) {
+              this.cookieService.set('accesstoken', data.access_token);
+              this.authenticationService.setUserId(this.phoneUser); 
+              this.router.navigate(['/matieres/matieres']);
+            }
           });
-          this.disabledConfirm = true;
-          sessionStorage.setItem('accesstoken', data.access_token);
-          this.router.navigate(['/matieres/matieres']).then(() => {
-            this.authenticationService.setUserId(this.phoneUser);
-            window.location.reload();
-          });
-
-          setTimeout(() => {
-            this.router.navigate(['/auth/login']);
-          }, 3000);
-        } else if (data.errormessage === 'An error occurred during code verification.') {
+          this.loading = false;
+        } 
+        
+        else if (data.errormessage === 'An error occurred during code verification.') {
           Swal.fire({
             icon: 'error',
             title: 'خطأ',
@@ -132,15 +132,15 @@ export class SmsVerificationComponent implements OnInit {
             title: 'نجاح',
             text: 'تم التحقق من الحساب بنجاح.',
             confirmButtonText: 'حسناً'
+          })
+          .then((result) => {
+            if (result.isConfirmed || result.isDismissed) {
+              this.cookieService.set('accesstoken', data.access_token);
+              this.authenticationService.setUserId(this.phoneNumber); 
+              this.router.navigate(['/matieres/matieres']);
+            }
           });
           this.loading = false;
-          sessionStorage.setItem('accesstoken', data.access_token);
-          setTimeout(() => {
-            this.router.navigate(['/matieres/matieres']).then(() => {
-              this.authenticationService.setUserId(this.phoneUser);
-              window.location.reload();
-            });
-          }, 3000);
         } else if (data.errormessage === 'An error occurred during code verification.') {
           Swal.fire({
             icon: 'error',

@@ -95,7 +95,6 @@ export class EditAppUserByIdComponent implements OnInit {
   }
   
   private submitForm(password: string | null, nomPrenom: string, numeroTel: string, roleId: number | null , smsVerified:boolean,accountActivated:boolean): void {
-    console.log(this.UserForm.value)
     if (this.uploadedImage) {
       this.userservice
         .updateUser(this.idUser, password, nomPrenom, numeroTel, this.uploadedImage, roleId,smsVerified,accountActivated)

@@ -22,9 +22,7 @@ export class EditLessonComponent implements OnInit {
   constructor(
     public config: DynamicDialogConfig,
     private lessonService: LessonService,
-    private dialogService: DialogService,
     private menu: MenuService,
-    private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private ref:DynamicDialogRef,
     private fb: FormBuilder
@@ -41,6 +39,7 @@ export class EditLessonComponent implements OnInit {
     this.EditLessonForm = this.fb.group({
       nomLesson: [this.lesson?.nomLesson, Validators.required],
       videoLien: [this.lesson?.videoLien],
+      order: [this.lesson?.order],
       description: [this.lesson?.description],
     });
   }
@@ -80,6 +79,7 @@ export class EditLessonComponent implements OnInit {
         nomLesson: [this.lesson.nomLesson, Validators.required],
         videoLien: [this.lesson.videoLien],
         description: [this.lesson.description],
+        order:[this.lesson.order]
       });
     }
   }
@@ -88,12 +88,12 @@ export class EditLessonComponent implements OnInit {
 this.lessonService.updateLesson
   (
   this.LessonId,this.EditLessonForm.value.nomLesson
-  ,this.EditLessonForm.value.videoLien ,this.EditLessonForm.value.description,this.pieceJointes
+  ,this.EditLessonForm.value.videoLien ,this.EditLessonForm.value.description,this.pieceJointes,
+  this.EditLessonForm.value.order
   ).subscribe(
     ()=>{
 
       this.messageService.add({ severity: 'success', summary: 'نجاح', detail: 'تم تغير بيانات الدرس بنجاح' });    
-
       this.closeModalAndNotify()
     },(error)=>{
       this.messageService.add({ severity: 'error', summary: ' لم يتم تغير بيانات الدرس بنجاح ', detail: ' لم يتم تغير بيانات الدرس بنجاح ' });    

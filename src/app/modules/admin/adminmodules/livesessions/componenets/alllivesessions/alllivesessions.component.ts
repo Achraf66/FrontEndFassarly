@@ -108,8 +108,8 @@ export class AlllivesessionsComponent {
   public OpenSessionLiveByMatiere(matiereid:number): void {
     this.dialogService.open(SessionliveByMatiereComponent, {
      header: 'الحصص المباشرة للمادة',
-     width: '90%',
-     height: '100%',
+     width: 'auto',
+     height: 'auto',
      dismissableMask:true,
      data: {
        matiereid:matiereid,

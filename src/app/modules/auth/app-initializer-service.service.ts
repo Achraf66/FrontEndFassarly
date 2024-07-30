@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { jwtDecode } from 'jwt-decode';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppInitializerService {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,private cookieService:CookieService) { }
 
   initializeApp(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      const token = sessionStorage.getItem('accesstoken');
+      const token = this.cookieService.get('accesstoken');
 
       if (token) {
         const decodedToken: any = jwtDecode(token);

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
 import { Lesson } from '../../Lesson';
 import { LessonService } from '../../services/lesson.service';
 import { AddNewLessonAndAffectToThemeComponent } from '../add-new-lesson-and-affect-to-theme/add-new-lesson-and-affect-to-theme.component';
 import { MenuService } from '../../../users/services/MenuService';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { EditLessonComponent } from '../edit-lesson/edit-lesson.component';
 
 @Component({
@@ -77,8 +76,8 @@ export class LessonsByThemeComponent implements OnInit{
   public OpenEditLesson(LessonId:number): void {
     this.dialogService.open(EditLessonComponent,{
       header: 'تغير بيانات مقطع فيديو',
-      width: '40%',
-      height: '80%',
+      width: 'auto',
+      height: 'auto',
       dismissableMask: true,
       data: {
         ThemeId: this.idTheme,

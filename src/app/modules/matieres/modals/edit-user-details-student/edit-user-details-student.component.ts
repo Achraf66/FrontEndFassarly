@@ -20,7 +20,7 @@ export class EditUserDetailsStudentComponent {
   uploadedImage: File;
   visible: boolean = true;
   imagePreview: string | ArrayBuffer;
-  roles:any;
+  roles: any;
   baseImageUrl = `${environment.fassarlyBaseUrl}/images/userimage`;
 
   constructor(
@@ -28,37 +28,30 @@ export class EditUserDetailsStudentComponent {
     public config: DynamicDialogConfig,
     public ref: DynamicDialogRef,
     private fb: FormBuilder,
-    private roleservice:RoleService,
+    private roleservice: RoleService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private menu:MenuService
-  
+    private menu: MenuService
   ) {
     this.idUser = this.config.data.idUser;
     this.fetchUserById(this.idUser);
-   this.fetchRoles();
-   
   }
 
   ngOnInit(): void {
     this.UserForm = this.fb.group({
       nomPrenom: [this.user?.nomPrenom || '', Validators.required],
       numeroTel: [this.user?.numeroTel || '', Validators.required],
-      roles: [null],
-      password: ['',[Validators.minLength(8)]],
+      password: ['', [Validators.minLength(8)]],
       confirmPassword: ['', [Validators.minLength(8)]],
-
-    },
-    {
+    }, {
       validator: this.passwordMatchValidator
-  });
+    });
   }
 
   fetchUserById(idUser: number) {
     this.userservice.fetchUserById(idUser).subscribe(
       (data) => {
         this.user = data;
-        // Update form controls when user data is available
         this.UserForm.patchValue({
           nomPrenom: this.user?.nomPrenom || '',
           numeroTel: this.user?.numeroTel || '',
@@ -87,53 +80,45 @@ export class EditUserDetailsStudentComponent {
       const nomPrenom = this.UserForm.value.nomPrenom;
       const numeroTel = this.UserForm.value.numeroTel;
   
-      let roleId: number | null = null;
-  
-      // Check if roles control is not null and has values
-      if (this.UserForm.value.roles) {
-        // Extract the selected role ID from the roles dropdown
-        roleId = this.UserForm.value.roles.id;
-      }
-  
       // Confirm the action with a dialog
       this.confirmationService.confirm({
         header: 'تأكيد',
         message: 'هل أنت متأكد أنك تريد تقديم الاستمارة؟',
-        acceptLabel:'نعم',
-        rejectLabel:'لا',
+        acceptLabel: 'نعم',
+        rejectLabel: 'لا',
         accept: () => {
           // User confirmed, proceed with form submission
           this.messageService.add({ severity: 'success', summary: 'تم التأكيد', detail: 'تم تقديم الاستمارة بنجاح.' });
-          this.submitForm(password, nomPrenom, numeroTel, roleId);
+          this.submitForm(password, nomPrenom, numeroTel);
         },
         reject: () => {
           // User rejected, do nothing or provide feedback
           this.messageService.add({ severity: 'info', summary: 'تم الرفض', detail: 'لقد رفضت العملية.' });
         },
       });
-      
     }
   }
-  
-  private submitForm(password: string | null, nomPrenom: string, numeroTel: string, roleId: number | null): void {
+
+  private submitForm(password: string | null, nomPrenom: string, numeroTel: string): void {
+    const accountActivated = this.user?.accountActivated;
+    const smsActivated = this.user?.smsVerified;
+    const roleId = this.user?.roles?.[0]?.id; // Assuming a user has only one role
+
     if (this.uploadedImage) {
-      this.userservice
-        .updateUser(this.idUser, password, nomPrenom, numeroTel, this.uploadedImage, roleId,true,true)
+      this.userservice.updateUser(this.idUser, password, nomPrenom, numeroTel, this.uploadedImage, roleId, accountActivated, smsActivated)
         .subscribe(
           (data) => {
-           this.closeModalAndNotify()
-          
+            this.closeModalAndNotify();
           },
           (error) => {
             console.error(error);
           }
         );
     } else {
-      this.userservice
-      .updateUser(this.idUser, password, nomPrenom, numeroTel, this.uploadedImage, roleId,true,true)
-      .subscribe(
+      this.userservice.updateUser(this.idUser, password, nomPrenom, numeroTel, null, roleId, accountActivated, smsActivated)
+        .subscribe(
           (data) => {
-            this.closeModalAndNotify()
+            this.closeModalAndNotify();
           },
           (error) => {
             console.error(error);
@@ -141,31 +126,15 @@ export class EditUserDetailsStudentComponent {
         );
     }
   }
-  
-  
+
   passwordMatchValidator(group: FormGroup) {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
-
     return password === confirmPassword ? null : { mismatch: true };
-}
-  
-
-
-  fetchRoles(){
-    this.roleservice.getAllroles().subscribe(
-
-      data=>this.roles = data
-  
-     )
   }
 
-  
   closeModalAndNotify() {
-
-    this.menu.triggerNewItemAdded()
+    this.menu.triggerNewItemAdded();
     this.ref.close();
-
   }
-
 }

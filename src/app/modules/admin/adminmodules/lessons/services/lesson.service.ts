@@ -28,14 +28,16 @@ export class LessonService {
     nomLesson: string,
     videoLien: string,
     description: string,
-    piecesJointes: File[]
+    piecesJointes: File[],
+    order:number
   ) {
     const URL = `${this.BASEURL}/api/lesson/createLessonAndAffectToTheme/${idTheme}`;
     const Formdata: FormData = new FormData();
     Formdata.append('nomLesson', nomLesson);
     Formdata.append('videoLien', videoLien);
     Formdata.append('description', description);
-  
+    Formdata.append('order',order.toString())
+
     if (piecesJointes) {
       for (let i = 0; i < piecesJointes.length; i++) {
         Formdata.append('piecesJointes', piecesJointes[i]);
@@ -73,13 +75,14 @@ export class LessonService {
 
 
 
-  updateLesson(lessonId:number,nomLesson:string,videoLien:string,description:string,piecesJointes:File[])
+  updateLesson(lessonId:number,nomLesson:string,videoLien:string,description:string,piecesJointes:File[],order:number)
   {
     const URL = `${this.BASEURL}/api/lesson/editLesson/${lessonId}`
     const Formdata : FormData = new FormData();
     Formdata.append('nomLesson',nomLesson)
     Formdata.append('videoLien',videoLien)
     Formdata.append('description',description)
+    Formdata.append('order',order.toString())
     if(piecesJointes){
       for (let i = 0; i < piecesJointes.length; i++) {
         Formdata.append('piecesJointes', piecesJointes[i]);

@@ -1,19 +1,19 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpInterceptorService implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private cookieService: CookieService, private router: Router) {}
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    // Exclude specific URLs from interception
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const excludedUrls = [
       '/api/v1/auth/login',
       '/api/v1/auth/register',
@@ -23,24 +23,33 @@ export class HttpInterceptorService implements HttpInterceptor {
       '/api/v1/auth/reSendCodeVerification'
     ];
 
-    // Check if the request URL is in the excluded list
     if (excludedUrls.some(url => req.url.includes(url))) {
-      return next.handle(req); // Do not modify the request
+      return next.handle(req);
     }
 
-    // Get the access token from sessionStorage
-    const token = sessionStorage.getItem('accesstoken');
+    const token = this.cookieService.get('accesstoken');
 
-    // Clone the request and add the Authorization header with the token
     const modifiedReq = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    // Pass the modified request to the next handler
-    return next.handle(modifiedReq);
+    return next.handle(modifiedReq).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'لقد تم تسجيل خروجك',
+            text: 'قام مستخدم آخر بتسجيل الدخول إلى حسابك. لقد تم تسجيل خروجك',
+          })
+          .then(() => {
+            this.authService.logout(this.authService.getUserId()); 
+            this.router.navigate(['/auth/login']); 
+          });
+        }
+        return throwError(error);
+      })
+    );
   }
-
-  
 }

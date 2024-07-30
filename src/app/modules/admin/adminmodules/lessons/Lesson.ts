@@ -3,5 +3,6 @@ export class Lesson{
     nomLesson:string; 
     videoLien:string;
     description:string; 
+    order:number;
     piecesJointes:string[];
 }

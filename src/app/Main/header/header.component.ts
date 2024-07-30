@@ -1,24 +1,25 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { User } from 'src/app/modules/admin/adminmodules/users/models/User';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { EditUserDetailsStudentComponent } from 'src/app/modules/matieres/modals/edit-user-details-student/edit-user-details-student.component';
 import { Matiere } from 'src/app/modules/matieres/models/Matiere';
 import { MatiereService } from 'src/app/modules/matieres/services/matiere.service';
-import Swal from 'sweetalert2';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent  implements OnInit{
-  User:User
-  matieres:Matiere[]
-  numtel:any
-  isAdmin :boolean = false
-  isAuthenticated:any
+export class HeaderComponent implements OnInit, AfterViewInit {
+  User: User | null;
+  matieres: Matiere[];
+  numtel: any;
+  isAdmin: boolean = false;
+  isAuthenticated: any;
   isMobileMenuOpen = false;
 
   toggleMobileMenu() {
@@ -29,131 +30,129 @@ export class HeaderComponent  implements OnInit{
     this.isMobileMenuOpen = false;
   }
 
-  ngOnInit(): void {
-
-  }
   constructor(
     private matiereService: MatiereService,
     private auth: AuthService,
     private router: Router,
     private dialogService: DialogService,
-    private authService:AuthService
+    private authService: AuthService,
+    private cookieService: CookieService
   ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
+    // this.router.routeReuseStrategy.shouldReuseRoute = function () {
+    //   return false;
+    // };
+  }
+
+  ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        if (event.url !== '/auth/login' && event.url !== '/auth/register') {
-          this.numtel = this.authService.getUserId(); 
-          if (this.numtel) {
-            this.fetchUserByNumtel(this.numtel);
-            this.fetchMatierebyUser(this.numtel);
-            this.isAuthenticated = this.authService.isAuthenticated()
-          }
-        }
+        this.checkAuthAndFetchData();
       }
     });
   }
-  
 
-
-logout() {
-  this.auth.logout(this.numtel).subscribe(
-    (data)=> {
-      if (data.errormessage === 'User Already logged out') {
-          this.auth.setUserId(null);
-          sessionStorage.clear()
-        
-                
-          Swal.fire({
-            icon: 'info',
-            title: 'تنبيه',
-            text: 'المستخدم قد قام بتسجيل الخروج بالفعل.'
-          });
-        
-      }
-      
-      if (data.successmessage === 'User logged Successfully') {
-        this.auth.setUserId(null);
-        sessionStorage.clear()
-
-        Swal.fire({
-          icon: 'success',
-          title: 'نجاح',
-          text: 'تم تسجيل الخروج بنجاح.'
-        });
-        
-      }
-    
-      if (data.successmessage === 'User not found') {
-        this.auth.setUserId(null);
-        sessionStorage.clear()
-         Swal.fire({
-          icon: 'error',
-          title: 'خطأ',
-          text: 'المستخدم غير موجود.'
-        });
-      }
-    },
-
-    (error) => console.log(error)
-  
-  )
-  this.auth.setUserId('');
-  sessionStorage.setItem('accesstoken', ''); 
-  this.router.navigate(['/auth/login']); 
-}
-
-EditAppUserByIdComponent(): void {
-this.dialogService.open(EditUserDetailsStudentComponent, {
-    header: 'البيانات الشخصية',
-    width: 'auto',
-    height: 'auto',
-    dismissableMask:true,
-    data: {
-      idUser: this.User.id
-          },
-  });
-}
-
-
-fetchUserByNumtel(numtel: string) {
-  this.auth.findUserBynumTel(numtel).subscribe(
-    (data) => {
-      this.User = data;
-      this.checkAdminRole();
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
-}
-redirectToFacebook(): void {
-  window.open('https://www.facebook.com/fassarly', '_blank');
-}
-
-fetchMatierebyUser(numtel: string) {
-  this.matiereService.findMatiereByUser(numtel).subscribe(
-    (data) => {
-      this.matieres = data;
-      this.checkAdminRole();
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
-}
-
-checkAdminRole() {
-  if (this.User?.roles.some((role) => role.name.includes('admin'))) {
-    this.isAdmin = true;
+  ngAfterViewInit(): void {
+    this.checkAuthAndFetchData();
   }
-}
 
-// @HostListener('window:resize', ['$event'])
-// onResize(event: any) {
-//   this.isMobileMenuOpen = window.innerWidth <= 1000; 
-// }
+  checkAuthAndFetchData(): void {
+    this.numtel = this.authService.getUserId();
+    this.isAuthenticated = this.authService.isAuthenticated();
 
+    if (this.numtel && this.isAuthenticated) {
+      this.fetchUserByNumtel(this.numtel);
+      if((this.User?.accountActivated === false) && (!this.isAdmin)){
+        this.matieres = []
+      }else{
+        this.fetchMatierebyUser(this.numtel);
+      }
+    } else {
+      this.User = null;
+      this.matieres = [];
+      this.isAdmin = false;
+    }
+  }
+
+  logout() {
+    this.auth.logout(this.numtel).subscribe(
+      (data) => {
+        this.handleLogoutResponse(data);
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  handleLogoutResponse(data: any) {
+    this.auth.setUserId(null);
+    this.cookieService.deleteAll();
+    let message = 'تم تسجيل الخروج بنجاح.';
+    let icon = 'success';
+
+    if (data.errormessage === 'User Already logged out') {
+      message = 'المستخدم قد قام بتسجيل الخروج بالفعل.';
+      icon = 'info';
+    } else if (data.successmessage === 'User not found') {
+      message = 'المستخدم غير موجود.';
+      icon = 'error';
+    }
+
+    let iconType: SweetAlertIcon = icon as SweetAlertIcon;
+
+    Swal.fire({
+      icon: iconType,
+      title: icon === 'success' ? 'نجاح' : 'خطأ',
+      text: message,
+    }).then(() => {
+      this.router.navigate(['/auth/login']);
+    });
+    
+  }
+
+  EditAppUserByIdComponent(): void {
+    this.dialogService.open(EditUserDetailsStudentComponent, {
+      header: 'البيانات الشخصية',
+      width: 'auto',
+      height: 'auto',
+      dismissableMask: true,
+      data: {
+        idUser: this.User?.id
+      },
+    });
+  }
+
+  fetchUserByNumtel(numtel: string) {
+    this.auth.findUserBynumTel(numtel).subscribe(
+      (data) => {
+        this.User = data;
+        this.checkAdminRole();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  fetchMatierebyUser(numtel: string) {
+    this.matiereService.findMatiereByUser(numtel).subscribe(
+      (data) => {
+        this.matieres = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  checkAdminRole() {
+    if (this.User?.roles.some((role) => role.name.includes('admin'))) {
+      this.isAdmin = true;
+    }
+  }
+
+
+
+
+
+
+  
 }
