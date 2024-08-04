@@ -67,7 +67,7 @@
                 <p-button (onClick)="OpenEditessionLive(liveSession.id)" [text]="true" severity="primary"
                 label="تعديل" icon="pi pi-pencil"></p-button>
               &nbsp;
-              <p-button (onClick)="deleteSeanceEnLigneById(liveSession.id)"  [text]="true"  severity="danger"
+              <p-button *ngIf="!helpAdmin" (onClick)="deleteSeanceEnLigneById(liveSession.id)"  [text]="true"  severity="danger"
                 label="حذف الحصة" icon="pi pi-trash"></p-button>
       
             </td>

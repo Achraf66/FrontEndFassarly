@@ -19,6 +19,7 @@ export class ThemesByMatiereComponent implements OnInit{
   themes: Theme[] = []
   title:string  ;
   searchTerm:string=''
+  helpAdmin:boolean;
 
   showConfirmationDialogTheme:Boolean = false;
 
@@ -36,7 +37,7 @@ export class ThemesByMatiereComponent implements OnInit{
 
     this.matiereId = this.config.data.matiereid
     this.matierenom = this.config.data.matierenom
-
+    this.helpAdmin = this.config.data.helpAdmin
     this.fetchThemes(this.matiereId);
     this.title = this.matierenom
     
@@ -158,7 +159,8 @@ public OpenLessonsByThemes(idTheme:number,nomTheme:string): void {
    data: {
     matiereId:this.matiereId,
     idTheme:idTheme,
-    nomTheme:nomTheme
+    nomTheme:nomTheme,
+    helpAdmin:this.helpAdmin
    }
  });
 

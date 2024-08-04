@@ -19,7 +19,7 @@ export class ExamenMatiereComponent implements OnInit{
   searchTerm:string = ''
   ExamenList :Examen[]=[]
   showConfirmationDialogExamen :boolean = false
-
+  helpAdmin:boolean;
 
   constructor(  
       private menu:MenuService,
@@ -35,6 +35,7 @@ export class ExamenMatiereComponent implements OnInit{
   ngOnInit(): void {
 
     this.matiereId = this.config.data.matiereid
+    this.helpAdmin = this.config.data.helpAdmin
     this.GetExamensMatiere(this.matiereId);
 
     this.menu.newItemAdded$.subscribe(() => {
@@ -148,7 +149,8 @@ public OpenPrototypeExamByExamId(examenId:number,ExamenNom:string): void {
    data: {
      matiereid:this.matiereId,
      examenId:examenId,
-     ExamenNom:ExamenNom
+     ExamenNom:ExamenNom,
+     helpAdmin:this.helpAdmin
    },
  });
 

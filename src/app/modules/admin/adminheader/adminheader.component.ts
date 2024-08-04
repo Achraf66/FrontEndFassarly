@@ -7,6 +7,7 @@ import { AuthService } from '../../auth/services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { User } from '../adminmodules/users/models/User';
 
 @Component({
   selector: 'app-adminheader',
@@ -14,22 +15,21 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./adminheader.component.css']
 })
 export class AdminheaderComponent  implements OnInit{
+
   items: MenuItem[] | undefined;
   visibleshowmatiere: boolean = false;
   selectedItem: any;
   numtel:any
-  constructor(private dialogService: DialogService,
+  currentUser:User;
+
+  constructor(
+    private dialogService: DialogService,
     private menuService: MenuService,
     private auth:AuthService,
     private router:Router,
     private confirmationService: ConfirmationService,
     private cookieService:CookieService
-    
-    ){
-
-    
-
-  }
+    ){}
   redirectToMatierePage(): void {
     this.router.navigate(['/matieres/matieres']);
   }
@@ -38,127 +38,9 @@ export class AdminheaderComponent  implements OnInit{
   ngOnInit() {
 
     this.numtel = this.auth.getUserId(); 
-
-    this.items = [
-      
-        {
-        label: 'المواد',
-        icon: 'pi pi-book',
-        items:[
-
-        {
-            label: 'إضافة مادة جديدة',
-            icon: 'pi pi-plus',
-            command:(event)=>{
-
-              this.menuService.setSelectedItem('allMatiere');  
-              this.openModalAddMatiere()
-            }
-        },
-        {
-          label: 'كل المواد',
-          icon: 'pi pi-list',
-          command: (event) => {
-            this.menuService.setSelectedItem('allMatiere');
-          }
-        },
-
-        ]
-        },
-        {
-          label: 'التلاميذ',
-          icon: 'pi pi-fw pi-user',
-          items: [
-              {
-                  label: 'كل التلاميذ',
-                  icon: 'pi pi-fw pi-user',
-                  command: (event) => {
-                    this.menuService.setSelectedItem('allUsers');
-                  }
-              },
-              {
-                label: 'تلاميذ السنة السابعة',
-                icon: 'pi pi-fw pi-user',
-                command: (event) => {
-                  this.menuService.setSelectedItem('allUsers7eme');
-                }
-              },
-              {
-                label: 'تلاميذ السنة الثامنة',
-                icon: 'pi pi-fw pi-user',
-                command: (event) => {
-                  this.menuService.setSelectedItem('allUsers8eme');
-                }
-              },
-              {
-                label: 'تلاميذ السنة التاسعة',
-                icon: 'pi pi-fw pi-user',
-                command: (event) => {
-                  this.menuService.setSelectedItem('allUsers9eme');
-                }
-              },
-              {
-                label: 'تلاميذ السنة الاولى ثانوي',
-                icon: 'pi pi-fw pi-user',
-                command: (event) => {
-                  this.menuService.setSelectedItem('allUsers1ere');
-                }
-              },
-              {
-                label: 'المشرفين',
-                icon: 'pi pi-fw pi-user',
-                command: (event) => {
-                  this.menuService.setSelectedItem('admin');
-                }
-              }    
-          ]
-      }
-      ,
-      {
-        label: 'الحصص المباشرة',
-        icon: 'pi pi-camera',
-           command: (event) => {
-              this.menuService.setSelectedItem('alllivesessions');
-           }
-      },
-      {    
-        label: 'العروض',
-        icon: 'pi pi-dollar',
-        command:(event)=>{
-          this.menuService.setSelectedItem('offers');
-          }
-      },
-      {
-         
-        label: 'تعطيل الحسابات',
-        icon: 'pi pi-fw pi-lock',
-        command: (event) => {
-          this.desactivateAllAccounts()
-       }
-      },
-      {
-         
-        label: 'إعادة تفعيل الحسابات',
-        icon: 'pi pi-fw pi-lock-open',
-        command: () => {
-          this.activateAllAccounts();
-       }
-      },
-      {
-         
-        label: 'خروج',
-        icon: 'pi pi-fw pi-power-off',
-        command: () => {
-          this.logout();
-       }
-      }
-     
-    ];
-
- 
-    
-    
-}
+    this.fetchCurrentUser(this.numtel)
+  
+  }
 
 
 /************************Add Matiere Component Modal*************/
@@ -319,6 +201,153 @@ activateAllAccounts() {
 }
 
 
+fetchCurrentUser(numtel:String){
+  this.auth.findUserBynumTel(this.numtel).subscribe(
+    (data)=>{
+      this.currentUser = data
+      this.initItemMenu();
 
+      if(this.currentUser?.roles.some((role) => role.name.includes('helpadmin'))){
+        this.menuService.setSelectedItem('allMatiere');
+      }
+      
+    },(error)=>{
+      console.log(error)
+    }
+  )
+}
+
+
+
+
+initItemMenu(){
+  this.items = [
+    {
+    label: 'المواد',
+    icon: 'pi pi-book',
+    items:[
+
+    {
+        label: 'إضافة مادة جديدة',
+        icon: 'pi pi-plus',
+        command:(event)=>{
+          this.menuService.setSelectedItem('allMatiere');  
+          this.openModalAddMatiere()
+        },
+    },
+    {
+      label: 'كل المواد',
+      icon: 'pi pi-list',
+      command: (event) => {
+        this.menuService.setSelectedItem('allMatiere');
+      }
+    },
+
+    ]
+    },
+    {
+      label: 'التلاميذ',
+      icon: 'pi pi-fw pi-user',
+      items: [
+          {
+              label: 'كل التلاميذ',
+              icon: 'pi pi-fw pi-user',
+              command: (event) => {
+                this.menuService.setSelectedItem('allUsers');
+              }
+          },
+          {
+            label: 'تلاميذ السنة السابعة',
+            icon: 'pi pi-fw pi-user',
+            command: (event) => {
+              this.menuService.setSelectedItem('allUsers7eme');
+            }
+          },
+          {
+            label: 'تلاميذ السنة الثامنة',
+            icon: 'pi pi-fw pi-user',
+            command: (event) => {
+              this.menuService.setSelectedItem('allUsers8eme');
+            }
+          },
+          {
+            label: 'تلاميذ السنة التاسعة',
+            icon: 'pi pi-fw pi-user',
+            command: (event) => {
+              this.menuService.setSelectedItem('allUsers9eme');
+            }
+          },
+          {
+            label: 'تلاميذ السنة الاولى ثانوي',
+            icon: 'pi pi-fw pi-user',
+            command: (event) => {
+              this.menuService.setSelectedItem('allUsers1ere');
+            }
+          },
+          {
+            label: 'المشرفين',
+            icon: 'pi pi-fw pi-user',
+            command: (event) => {
+              this.menuService.setSelectedItem('admin');
+            }
+          },
+          // {
+          //   label: 'مساعد مشرف',
+          //   icon: 'pi pi-fw pi-user',
+          //   command: (event) => {
+          //     this.menuService.setSelectedItem('helpadmin');
+          //   }
+          // }    
+    
+      ],
+      visible: !this.currentUser?.roles.some((role) => role.name.includes('helpadmin'))
+
+  }
+  ,
+  {
+    label: 'الحصص المباشرة',
+    icon: 'pi pi-camera',
+       command: (event) => {
+          this.menuService.setSelectedItem('alllivesessions');
+       }
+  },
+  {    
+    label: 'العروض',
+    icon: 'pi pi-dollar',
+    command:(event)=>{
+      this.menuService.setSelectedItem('offers');
+      },
+      visible: !this.currentUser?.roles.some((role) => role.name.includes('helpadmin'))
+  },
+  {
+     
+    label: 'تعطيل الحسابات',
+    icon: 'pi pi-fw pi-lock',
+    command: (event) => {
+      this.desactivateAllAccounts()
+   },
+   visible: !this.currentUser?.roles.some((role) => role.name.includes('helpadmin'))
+  },
+  {
+     
+    label: 'إعادة تفعيل الحسابات',
+    icon: 'pi pi-fw pi-lock-open',
+    command: () => {
+      this.activateAllAccounts();
+   },
+   visible: !this.currentUser?.roles.some((role) => role.name.includes('helpadmin'))
+  },
+  {
+     
+    label: 'خروج',
+    icon: 'pi pi-fw pi-power-off',
+    command: () => {
+      this.logout();
+   }
+  }
+ 
+];
+
+}
 
 }

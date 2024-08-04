@@ -19,6 +19,7 @@ export class SessionliveByMatiereComponent {
   SeanceEnligneConfirm = true;
   matiereid
   seanceEnLignes:SeanceEnLigne[] =[]
+  helpAdmin:boolean;
 
   constructor(
     public ref: DynamicDialogRef,
@@ -35,6 +36,8 @@ export class SessionliveByMatiereComponent {
 
     
     this.matiereid = this.config.data.matiereid;
+    this.helpAdmin = this.config.data.helpAdmin;
+
     this.fetchSessionLiveByMatiere();
 
     this.menu.newItemAdded$.subscribe(() => {

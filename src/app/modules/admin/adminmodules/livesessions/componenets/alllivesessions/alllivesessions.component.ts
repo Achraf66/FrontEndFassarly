@@ -7,6 +7,8 @@ import { MatiereService } from '../../../matieres/services/matiere.service';
 import { Matiere } from '../../../matieres/Models/Matiere';
 import Swal from 'sweetalert2';
 import { SessionliveByMatiereComponent } from '../sessionlive-by-matiere/sessionlive-by-matiere.component';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { User } from '../../../users/models/User';
 
 @Component({
   selector: 'app-alllivesessions',
@@ -18,17 +20,20 @@ export class AlllivesessionsComponent {
   searchTerm: string;
   matieres: Matiere[] = [];
   matiereUpdatedSubscription: Subscription;
+  helpAdmin = false;
+  currentUser:User;
 
   constructor(private matiereservice:MatiereService ,
      private dialogService:DialogService,
      private cdr: ChangeDetectorRef,
-     private router:Router
-     
+     private router:Router,
+     private auth:AuthService
      ){
 
   }
   ngOnInit(): void {
     this.loadMatieres();
+    this.fetchCurrentUser(this.auth.getUserId());
     this.matiereUpdatedSubscription = this.matiereservice.matiereUpdated$.subscribe(() => {
       this.loadMatieres();
     });
@@ -113,13 +118,25 @@ export class AlllivesessionsComponent {
      dismissableMask:true,
      data: {
        matiereid:matiereid,
+       helpAdmin:this.helpAdmin
      },
    });
 
 
 }
 
-
+fetchCurrentUser(numtel:String | null){
+  this.auth.findUserBynumTel(numtel).subscribe(
+    (data)=>{
+      this.currentUser = data
+      if(this.currentUser?.roles.some((role) => role.name.includes('helpadmin'))){
+        this.helpAdmin=true
+      }
+    },(error)=>{
+      console.log(error)
+    }
+  )
+}
 
 }
 

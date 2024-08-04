@@ -65,6 +65,10 @@ export class AllStudentsByClasseComponent implements AfterViewInit,OnInit {
         return 'السنة التاسعة';
         case '1ere':
           return 'سنة اولى ثانوي';  
+        case 'admin':
+          return 'مشرف';  
+        case 'helpadmin':
+          return 'مساعد مشرف';  
       default:
         return 'تلاميذ السنة';
     }

@@ -52,7 +52,7 @@
                 </a>
             </td>
 
-            <td>
+            <td *ngIf="!helpAdmin">
                 <a (click)="deletePrototypeExamsById($event,prototypeExam.id)">
                     <i class="pi pi-trash" style="color:red"></i> 
                 </a>

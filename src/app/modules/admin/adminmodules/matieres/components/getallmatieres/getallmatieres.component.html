@@ -39,7 +39,7 @@
                 <a class="hover-pointer" (click)="openExamenByMatiere(matiere.id)">
                     <i class="pi pi-copy"></i> فروض المادة
                 </a>    
-            <td>
+            <td *ngIf="!helpAdmin">
                 <a class="hover-pointer" (click)="deleteMatiere(matiere.id)">
                     <i class="pi pi-trash" style="color:red"></i> 
                 </a>

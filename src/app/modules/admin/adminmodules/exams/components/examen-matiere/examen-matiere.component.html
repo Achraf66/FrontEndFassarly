@@ -52,7 +52,7 @@
                 <td>
                     <p-button (onClick)="OpenEditExamenMatiereComponent(examen.id,examen.nomExamen)"  label="تعديل" icon="pi pi-pencil" [style]="{ 'font-size': '12px' }"></p-button>
                 </td>
-                <td>
+                <td *ngIf="!helpAdmin">
                     <p-button (onClick)="deleteExam($event,examen.id)" label="حذف الفرض" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'font-size': '12px', 'margin-left': '.5em', 'margin-top': '.10em' }"></p-button>
                 </td>
             </tr>

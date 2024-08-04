@@ -51,7 +51,7 @@
         <p-button (onClick)="OpenEditLesson(lesson.id)"
           [style]="{'background-color': 'green', 'font-size': '12px'}" label="تعديل" icon="pi pi-pencil"></p-button>
         &nbsp;
-        <p-button (onClick)="deleteLessonById(lesson.id)" [style]="{'background-color': 'red', 'font-size': '12px'}"
+        <p-button *ngIf="!helpAdmin" (onClick)="deleteLessonById(lesson.id)" [style]="{'background-color': 'red', 'font-size': '12px'}"
           label="حذف مقطع فيديو" icon="pi pi-trash"></p-button>
       </td>
     </tr>

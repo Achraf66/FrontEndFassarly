@@ -19,6 +19,8 @@ export class PrototypeExamByExamComponent {
   ExamenNom:any
   PrototypeExamList : PrototypeExam[]=[]
   showConfirmationDialogPrototypeExam:boolean = false;
+  helpAdmin:boolean;
+
 constructor(private prototypeExamService: PrototypeExamService,
   public config: DynamicDialogConfig,
   private dialogService:DialogService,private menu:MenuService,private messageService:MessageService
@@ -27,7 +29,7 @@ constructor(private prototypeExamService: PrototypeExamService,
     this.matiereId = this.config.data.matiereid
     this.examenId = this.config.data.examenId
     this.ExamenNom = this.config.data.ExamenNom
-
+    this.helpAdmin = this.config.data.helpAdmin
 
 
   }

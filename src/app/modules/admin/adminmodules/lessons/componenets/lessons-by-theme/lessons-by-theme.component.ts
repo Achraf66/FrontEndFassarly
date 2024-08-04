@@ -18,6 +18,7 @@ export class LessonsByThemeComponent implements OnInit{
   idTheme:any
   nomTheme:any
   LessonList:Lesson[]=[]
+  helpAdmin:boolean;
 
   downloadProgress = 0;
 
@@ -39,6 +40,7 @@ export class LessonsByThemeComponent implements OnInit{
 
   this.idTheme = this.config.data.idTheme
   this.nomTheme = this.config.data.nomTheme
+  this.helpAdmin = this.config.data.helpAdmin
   this.fetchLessonsByidTheme(this.idTheme);
   
   }

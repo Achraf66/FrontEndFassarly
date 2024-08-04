@@ -9,6 +9,8 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ThemesByMatiereComponent } from '../../../themes/components/themes-by-matiere/themes-by-matiere.component';
 import { ExamenMatiereComponent } from '../../../exams/components/examen-matiere/examen-matiere.component';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { User } from '../../../users/models/User';
 
 @Component({
   selector: 'app-getallmatieres',
@@ -22,17 +24,20 @@ export class GetallmatieresComponent implements OnInit, OnDestroy{
   searchTerm: string;
   matieres: Matiere[] = [];
   matiereUpdatedSubscription: Subscription;
-
+  currentUser:User;
+  helpAdmin = false;
   constructor(private matiereservice:MatiereService ,
      private dialogService:DialogService,
      private cdr: ChangeDetectorRef,
-     private router:Router
+     private router:Router,
+     private auth:AuthService
      
      ){
 
   }
   ngOnInit(): void {
     this.loadMatieres();
+    this.fetchCurrentUser(this.auth.getUserId());
     this.matiereUpdatedSubscription = this.matiereservice.matiereUpdated$.subscribe(() => {
       this.loadMatieres();
     });
@@ -155,7 +160,8 @@ export class GetallmatieresComponent implements OnInit, OnDestroy{
       dismissableMask:true,
       data: {
         matiereid:matiereid,
-        matierenom:matierenom
+        matierenom:matierenom,
+        helpAdmin:this.helpAdmin
       },
     });
 
@@ -171,9 +177,22 @@ public openExamenByMatiere(matiereid:number): void {
    dismissableMask:true,
    data: {
      matiereid:matiereid,
+     helpAdmin:this.helpAdmin
    },
  });
 
 }
 
+fetchCurrentUser(numtel:String | null){
+  this.auth.findUserBynumTel(numtel).subscribe(
+    (data)=>{
+      this.currentUser = data
+      if(this.currentUser?.roles.some((role) => role.name.includes('helpadmin'))){
+        this.helpAdmin=true
+      }
+    },(error)=>{
+      console.log(error)
+    }
+  )
+}
 }

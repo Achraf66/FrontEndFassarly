@@ -53,17 +53,20 @@ export class RegisterComponent implements OnInit{
   }
 
   ngOnInit(): void {
-
+    
     this.roleservice.getAllroles().subscribe(
-      (data:any) => {
+      (data: any) => {
         if (data) {
-          this.roles = data.filter((role: any) => role.name !== 'admin');
-        } 
-      },  
+          this.roles = data.filter(
+            (role: any) => role.name !== 'admin' && role.name !== 'helpadmin'
+          );
+        }
+      },
       error => {
-        console.log(error)
+        console.log(error);
       }
     );
+    
     
     
 

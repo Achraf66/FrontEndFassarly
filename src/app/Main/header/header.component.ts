@@ -144,9 +144,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   checkAdminRole() {
-    if (this.User?.roles.some((role) => role.name.includes('admin'))) {
+    if(this.User?.roles.some((role) => role.name.includes('admin'))) {
       this.isAdmin = true;
     }
+    if(this.User?.roles.some((role) => role.name.includes('helpadmin'))) {
+      this.isAdmin = true;
+    }
+
   }
 
 

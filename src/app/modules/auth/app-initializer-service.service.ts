@@ -8,7 +8,11 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AppInitializerService {
 
-  constructor(private authService: AuthService,private cookieService:CookieService) { }
+  constructor
+  (
+    private authService: AuthService,
+    private cookieService:CookieService
+  ) {}
 
   initializeApp(): Promise<void> {
     return new Promise<void>((resolve, reject) => {

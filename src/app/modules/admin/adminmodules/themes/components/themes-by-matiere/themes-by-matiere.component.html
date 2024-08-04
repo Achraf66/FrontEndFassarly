@@ -72,7 +72,7 @@
                     </a>
                 </td>
 
-            <td>
+            <td *ngIf="!helpAdmin">
                     <a  (click)="deletetheme($event,theme.id)">
                         <i class="pi pi-trash" style="color:red"></i> 
                     </a>
